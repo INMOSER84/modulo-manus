@@ -74,3 +74,15 @@
     </data>
 </odoo>
 
+
+        <!-- Tarea programada para enviar alertas de stock -->
+        <record id="ir_cron_send_stock_alerts" model="ir.cron">
+            <field name="name">Enviar Alertas de Stock</field>
+            <field name="model_id" ref="model_service_equipment"/>
+            <field name="state">code</field>
+            <field name="code">model._send_stock_alerts()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall">False</field>
+        </record>

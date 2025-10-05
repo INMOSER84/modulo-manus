@@ -292,3 +292,67 @@ class ServiceOrderRefactionLine(models.Model):
         
         return super(ServiceOrderRefactionLine, self).unlink()
 
+
+    @api.onchange('product_id')
+    def _onchange_product_id(self):
+        if self.product_id:
+            self.description = self.product_id.name
+            self.price = self.product_id.list_price
+            # Verificar stock disponible
+            if self.product_id.custom_stock <= 0:
+                return {
+                    'warning': {
+                        'title': _('Stock Agotado'),
+                        'message': _('No hay stock disponible para este producto')
+                    }
+                }
+    
+    @api.onchange('quantity')
+    def _onchange_quantity(self):
+        if self.product_id and self.quantity > self.product_id.custom_stock:
+            return {
+                'warning': {
+                    'title': _('Stock Insuficiente'),
+                    'message': _('Solo hay %d unidades disponibles de %s') % (
+                        self.product_id.custom_stock, self.product_id.name)
+                }
+            }
+    
+    @api.model
+    def create(self, vals):
+        line = super(ServiceOrderRefactionLine, self).create(vals)
+        if line.product_id:
+            line.product_id.custom_stock -= line.quantity
+            line.product_id.last_inventory_date = fields.Date.today()
+            line.product_id._update_stock_history(
+                line.product_id.custom_stock + line.quantity, 
+                line.product_id.custom_stock, 
+                'SERVICE'
+            )
+        return line
+    
+    def write(self, vals):
+        res = super(ServiceOrderRefactionLine, self).write(vals)
+        for line in self:
+            if 'quantity' in vals and line.product_id:
+                # Restaurar el stock anterior
+                line.product_id.custom_stock += line.quantity - vals['quantity']
+                line.product_id.last_inventory_date = fields.Date.today()
+                line.product_id._update_stock_history(
+                    line.product_id.custom_stock + vals['quantity'], 
+                    line.product_id.custom_stock, 
+                    'SERVICE'
+                )
+        return res
+    
+    def unlink(self):
+        for line in self:
+            if line.product_id:
+                line.product_id.custom_stock += line.quantity
+                line.product_id.last_inventory_date = fields.Date.today()
+                line.product_id._update_stock_history(
+                    line.product_id.custom_stock - line.quantity, 
+                    line.product_id.custom_stock, 
+                    'CANCEL'
+                )
+        return super(ServiceOrderRefactionLine, self).unlink()

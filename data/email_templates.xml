@@ -293,3 +293,22 @@
     </data>
 </odoo>
 
+
+        <!-- Plantilla para alertas de stock -->
+        <record id="stock_alert_email_template" model="mail.template">
+            <field name="name">Alerta de Stock Bajo</field>
+            <field name="model_id" ref="model_service_equipment"/>
+            <field name="subject">Alerta de Stock: ${object.name}</field>
+            <field name="body_html">
+                <![CDATA[
+                <p>El producto <strong>${object.name}</strong> tiene stock bajo:</p>
+                <ul>
+                    <li>Stock actual: ${object.custom_stock}</li>
+                    <li>Umbral mínimo: ${object.stock_alert_threshold}</li>
+                </ul>
+                <p>Por favor, realice las acciones necesarias.</p>
+                ]]>
+            </field>
+            <field name="auto_delete" eval="True"/>
+            <field name="user_id" ref="base.user_root"/>
+        </record>

@@ -153,3 +153,14 @@
     </data>
 </odoo>
 
+
+        <!-- Regla para historial de stock -->
+        <record id="stock_history_rule" model="ir.rule">
+            <field name="name">Acceso a historial de stock propio</field>
+            <field name="model_id" ref="model_stock_history"/>
+            <field name="domain_force">[('product_id.company_id', 'in', company_ids)]</field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>

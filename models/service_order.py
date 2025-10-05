@@ -669,3 +669,78 @@ Reported Fault: {self.reported_fault}
             )
         }
 
+
+    # Campos para gestión de inventario y ventas
+    custom_sale_type = fields.Selection([
+        ('retail', 'Retail'),
+        ('wholesale', 'Wholesale'),
+        ('service', 'Servicio'),
+        ('warranty', 'Garantía')
+    ], string="Tipo de Venta", default='service')
+    
+    priority = fields.Selection([
+        ('0', 'Normal'),
+        ('1', 'Alta'),
+        ('2', 'Urgente')
+    ], string="Prioridad", default='0')
+    
+    is_sale_order = fields.Boolean(string="Es Orden de Venta", default=False)
+    
+    @api.model
+    def create(self, vals):
+        order = super(ServiceOrder, self).create(vals)
+        if vals.get('is_sale_order', False):
+            self._create_sale_order(order)
+        return order
+    
+    def write(self, vals):
+        res = super(ServiceOrder, self).write(vals)
+        if 'is_sale_order' in vals and vals.get('is_sale_order'):
+            for order in self:
+                if not order.sale_order_id:
+                    self._create_sale_order(order)
+        return res
+    
+    def _create_sale_order(self, service_order):
+        """Crea una orden de venta asociada a la orden de servicio"""
+        sale_order = self.env['sale.order'].create({
+            'partner_id': service_order.client_id.id,
+            'origin': service_order.name,
+            'custom_sale_type': service_order.custom_sale_type,
+            'priority': service_order.priority,
+            'order_line': [(0, 0, {
+                'product_id': service_order.service_type_id.product_id.id if service_order.service_type_id.product_id else False,
+                'product_uom_qty': 1,
+                'price_unit': service_order.service_type_id.price if service_order.service_type_id else 0,
+                'name': service_order.description or service_order.service_type_id.name,
+            })],
+        })
+        service_order.sale_order_id = sale_order.id
+        return sale_order
+    
+    def action_confirm_service(self):
+        """Confirma la orden de servicio y valida stock si es necesario"""
+        res = super(ServiceOrder, self).action_confirm_service()
+        if self.is_sale_order:
+            self._validate_stock()
+        return res
+    
+    def _validate_stock(self):
+        """Valida que haya stock suficiente para los productos necesarios"""
+        for line in self.parts_used:
+            if line.product_id.custom_stock < line.quantity:
+                raise ValidationError(_(
+                    "Stock insuficiente para %s. Disponible: %d, Solicitado: %d"
+                ) % (line.product_id.name, line.product_id.custom_stock, line.quantity))
+    
+    def action_cancel_service(self):
+        """Cancela la orden de servicio y restaura el stock si es necesario"""
+        res = super(ServiceOrder, self).action_cancel_service()
+        if self.is_sale_order:
+            self._restore_stock()
+        return res
+    
+    def _restore_stock(self):
+        """Restaura el stock de los productos utilizados"""
+        for line in self.parts_used:
+            line.product_id.custom_stock += line.quantity

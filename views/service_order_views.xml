@@ -385,3 +385,26 @@
     </data>
 </odoo>
 
+
+        <!-- Campos de venta en el formulario de orden de servicio -->
+        <field name="client_id" position="after">
+            <field name="custom_sale_type"/>
+            <field name="priority"/>
+            <field name="is_sale_order"/>
+        </field>
+        
+        <!-- Pestaña de historial de stock -->
+        <notebook position="inside">
+            <page string="Historial de Stock">
+                <field name="stock_history_ids">
+                    <tree>
+                        <field name="date"/>
+                        <field name="operation"/>
+                        <field name="previous_stock"/>
+                        <field name="new_stock"/>
+                        <field name="difference"/>
+                        <field name="user_id"/>
+                    </tree>
+                </field>
+            </page>
+        </notebook>

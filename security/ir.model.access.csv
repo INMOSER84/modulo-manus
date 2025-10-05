@@ -16,3 +16,5 @@ access_refaction_line_technician,inmoser.service.order.refaction.line.technician
 access_refaction_line_supervisor,inmoser.service.order.refaction.line.supervisor,model_inmoser_service_order_refaction_line,group_inmoser_supervisor,1,1,1,1
 access_refaction_line_manager,inmoser.service.order.refaction.line.manager,model_inmoser_service_order_refaction_line,group_inmoser_manager,1,1,1,1
 
+access_stock_history_user,stock.history.user,model_stock_history,base.group_user,1,0,0,0
+access_stock_history_manager,stock.history.manager,model_stock_history,stock.group_stock_manager,1,1,1,1
