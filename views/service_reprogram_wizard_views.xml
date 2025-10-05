@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Vista de formulario del wizard de reagendamiento -->
+        <record id="view_service_reprogram_wizard_form" model="ir.ui.view">
+            <field name="name">inmoser.service.reprogram.wizard.form</field>
+            <field name="model">inmoser.service.reprogram.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Reschedule Service Order">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <span>Reschedule Service Order</span>
+                            </h1>
+                        </div>
+                        
+                        <group>
+                            <group name="current_info" string="Current Information">
+                                <field name="service_order_id" readonly="1"/>
+                                <field name="current_date" readonly="1"/>
+                            </group>
+                            <group name="new_info" string="New Schedule">
+                                <field name="new_date" required="1"/>
+                                <field name="keep_current_technician"/>
+                                <field name="new_technician_id" 
+                                       attrs="{'invisible': [('keep_current_technician', '=', True)],
+                                               'required': [('keep_current_technician', '=', False)]}"/>
+                            </group>
+                        </group>
+                        
+                        <group string="Available Technicians" 
+                               attrs="{'invisible': [('keep_current_technician', '=', True)]}">
+                            <field name="available_technicians" nolabel="1" readonly="1">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="job_id"/>
+                                    <field name="x_inmoser_technician_level"/>
+                                    <field name="x_inmoser_available_hours"/>
+                                </tree>
+                            </field>
+                        </group>
+                        
+                        <group string="Rescheduling Details">
+                            <field name="reason" nolabel="1" placeholder="Please provide a reason for rescheduling..."/>
+                        </group>
+                        
+                        <group string="Notifications">
+                            <field name="notify_customer"/>
+                            <field name="notify_technician"/>
+                        </group>
+                        
+                    </sheet>
+                    <footer>
+                        <button name="action_reschedule" type="object" 
+                                string="Reschedule" class="oe_highlight"/>
+                        <button name="action_cancel" type="object" 
+                                string="Cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Acción del wizard -->
+        <record id="action_service_reprogram_wizard" model="ir.actions.act_window">
+            <field name="name">Reschedule Service Order</field>
+            <field name="res_model">inmoser.service.reprogram.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_service_reprogram_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+        
+    </data>
+</odoo>
+

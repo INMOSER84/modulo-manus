@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Cron Job: Verificar órdenes vencidas -->
+        <record id="cron_check_overdue_orders" model="ir.cron">
+            <field name="name">Inmoser: Check Overdue Service Orders</field>
+            <field name="model_id" ref="model_inmoser_service_order"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_check_overdue_orders()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True"/>
+            <field name="doall" eval="False"/>
+        </record>
+        
+        <!-- Cron Job: Enviar recordatorios diarios -->
+        <record id="cron_send_daily_reminders" model="ir.cron">
+            <field name="name">Inmoser: Send Daily Service Reminders</field>
+            <field name="model_id" ref="model_inmoser_service_order"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_send_daily_reminders()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).replace(hour=8, minute=0, second=0)"/>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True"/>
+            <field name="doall" eval="False"/>
+        </record>
+        
+        <!-- Cron Job: Actualizar estadísticas de tipos de servicio -->
+        <record id="cron_update_service_type_stats" model="ir.cron">
+            <field name="name">Inmoser: Update Service Type Statistics</field>
+            <field name="model_id" ref="model_inmoser_service_type"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_update_statistics()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).replace(hour=2, minute=0, second=0)"/>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True"/>
+            <field name="doall" eval="False"/>
+        </record>
+        
+        <!-- Cron Job: Actualizar estado de garantías -->
+        <record id="cron_update_warranty_status" model="ir.cron">
+            <field name="name">Inmoser: Update Equipment Warranty Status</field>
+            <field name="model_id" ref="model_inmoser_service_equipment"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_update_warranty_status()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).replace(hour=3, minute=0, second=0)"/>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True"/>
+            <field name="doall" eval="False"/>
+        </record>
+        
+        <!-- Cron Job: Limpiar datos temporales -->
+        <record id="cron_cleanup_temp_data" model="ir.cron">
+            <field name="name">Inmoser: Cleanup Temporary Data</field>
+            <field name="model_id" ref="model_inmoser_service_reprogram_wizard"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_cleanup_old_wizards()</field>
+            <field name="interval_number">7</field>
+            <field name="interval_type">days</field>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=7)).replace(hour=1, minute=0, second=0)"/>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True"/>
+            <field name="doall" eval="False"/>
+        </record>
+        
+    </data>
+</odoo>
+

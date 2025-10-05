@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Vista de formulario del wizard de completar servicio -->
+        <record id="view_service_complete_wizard_form" model="ir.ui.view">
+            <field name="name">inmoser.service.complete.wizard.form</field>
+            <field name="model">inmoser.service.complete.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Complete Service">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <span>Complete Service Order</span>
+                            </h1>
+                        </div>
+                        
+                        <group>
+                            <field name="service_order_id" readonly="1"/>
+                            <field name="completion_time"/>
+                        </group>
+                        
+                        <notebook>
+                            
+                            <!-- Página: Diagnóstico y Trabajo -->
+                            <page string="Diagnosis &amp; Work" name="diagnosis_work">
+                                <group>
+                                    <field name="diagnosis" nolabel="1" 
+                                           placeholder="Describe the technical diagnosis of the equipment issue..."/>
+                                </group>
+                                
+                                <group string="Work Performed">
+                                    <field name="work_performed" nolabel="1" 
+                                           placeholder="Describe in detail the work performed to fix the issue..."/>
+                                </group>
+                                
+                                <group string="Additional Information">
+                                    <field name="technician_notes" 
+                                           placeholder="Any additional notes or observations..."/>
+                                    <field name="customer_satisfaction"/>
+                                </group>
+                            </page>
+                            
+                            <!-- Página: Refacciones -->
+                            <page string="Parts &amp; Refactions" name="refactions">
+                                <group>
+                                    <field name="requires_parts"/>
+                                </group>
+                                
+                                <field name="refaction_line_ids" 
+                                       attrs="{'invisible': [('requires_parts', '=', False)]}">
+                                    <tree editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="description"/>
+                                        <field name="quantity"/>
+                                        <field name="unit_price"/>
+                                        <field name="total_price" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            
+                            <!-- Página: Evidencias Fotográficas -->
+                            <page string="Photo Evidence" name="photos">
+                                <group string="Before Service">
+                                    <field name="photo_before" widget="image" 
+                                           options="{'size': [300, 200]}"/>
+                                </group>
+                                
+                                <group string="After Service">
+                                    <field name="photo_after" widget="image" 
+                                           options="{'size': [300, 200]}"/>
+                                </group>
+                            </page>
+                            
+                            <!-- Página: Firma del Cliente -->
+                            <page string="Customer Signature" name="signature">
+                                <group>
+                                    <field name="customer_signature" widget="signature" 
+                                           string="Customer Signature"
+                                           help="Customer signature confirming service completion"/>
+                                </group>
+                                
+                                <div class="alert alert-info" role="alert">
+                                    <strong>Note:</strong> The customer signature confirms that the service 
+                                    has been completed to their satisfaction and they approve the work performed.
+                                </div>
+                            </page>
+                            
+                        </notebook>
+                        
+                    </sheet>
+                    <footer>
+                        <button name="action_complete_service" type="object" 
+                                string="Complete Service" class="oe_highlight"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Acción del wizard -->
+        <record id="action_service_complete_wizard" model="ir.actions.act_window">
+            <field name="name">Complete Service Order</field>
+            <field name="res_model">inmoser.service.complete.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_service_complete_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+        
+        <!-- Vista de calendario personalizada para técnicos -->
+        <record id="view_service_order_calendar_technician" model="ir.ui.view">
+            <field name="name">inmoser.service.order.calendar.technician</field>
+            <field name="model">inmoser.service.order</field>
+            <field name="arch" type="xml">
+                <calendar string="Technician Calendar" 
+                          date_start="scheduled_date" 
+                          date_stop="scheduled_date"
+                          color="state"
+                          quick_add="False"
+                          event_open_popup="True"
+                          js_class="technician_calendar">
+                    
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="equipment_id"/>
+                    <field name="service_type_id"/>
+                    <field name="assigned_technician_id"/>
+                    <field name="state"/>
+                    <field name="priority"/>
+                    <field name="reported_fault"/>
+                    
+                    <!-- Filtros por defecto -->
+                    <filter name="my_services" string="My Services" 
+                            domain="[('assigned_technician_id.user_id', '=', uid)]"/>
+                    <filter name="today" string="Today" 
+                            domain="[('scheduled_date', '&gt;=', context_today().strftime('%Y-%m-%d 00:00:00')),
+                                     ('scheduled_date', '&lt;=', context_today().strftime('%Y-%m-%d 23:59:59'))]"/>
+                    <filter name="this_week" string="This Week" 
+                            domain="[('scheduled_date', '&gt;=', (context_today() - datetime.timedelta(days=context_today().weekday())).strftime('%Y-%m-%d 00:00:00')),
+                                     ('scheduled_date', '&lt;=', (context_today() + datetime.timedelta(days=6-context_today().weekday())).strftime('%Y-%m-%d 23:59:59'))]"/>
+                    
+                    <!-- Agrupaciones -->
+                    <filter name="group_by_state" string="State" context="{'group_by': 'state'}"/>
+                    <filter name="group_by_technician" string="Technician" context="{'group_by': 'assigned_technician_id'}"/>
+                    <filter name="group_by_service_type" string="Service Type" context="{'group_by': 'service_type_id'}"/>
+                    
+                </calendar>
+            </field>
+        </record>
+        
+        <!-- Acción de calendario para técnicos -->
+        <record id="action_service_order_calendar_technician" model="ir.actions.act_window">
+            <field name="name">My Service Calendar</field>
+            <field name="res_model">inmoser.service.order</field>
+            <field name="view_mode">calendar,tree,form</field>
+            <field name="view_id" ref="view_service_order_calendar_technician"/>
+            <field name="domain">[('assigned_technician_id.user_id', '=', uid)]</field>
+            <field name="context">{
+                'search_default_my_services': 1,
+                'search_default_today': 1,
+                'default_assigned_technician_id': context.get('default_technician_id', False)
+            }</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No services scheduled for you today!
+                </p>
+                <p>
+                    This calendar shows all service orders assigned to you.
+                    Click on any service to view details, start work, or complete the service.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menú para técnicos -->
+        <menuitem id="menu_technician_calendar"
+                  name="My Calendar"
+                  parent="menu_inmoser_service_orders"
+                  action="action_service_order_calendar_technician"
+                  groups="inmoser_service_order.group_inmoser_technician"
+                  sequence="5"/>
+        
+    </data>
+</odoo>
+

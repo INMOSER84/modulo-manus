@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Secuencia para clientes de servicio -->
+        <record id="seq_inmoser_client" model="ir.sequence">
+            <field name="name">Inmoser Client Sequence</field>
+            <field name="code">inmoser.client.sequence</field>
+            <field name="prefix">CLI</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="implementation">standard</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <!-- Secuencia para equipos -->
+        <record id="seq_inmoser_equipment" model="ir.sequence">
+            <field name="name">Inmoser Equipment Sequence</field>
+            <field name="code">inmoser.equipment.sequence</field>
+            <field name="prefix">E</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="implementation">standard</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <!-- Secuencia para órdenes de servicio -->
+        <record id="seq_inmoser_service_order" model="ir.sequence">
+            <field name="name">Inmoser Service Order Sequence</field>
+            <field name="code">inmoser.service.order.sequence</field>
+            <field name="prefix">OS</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="implementation">standard</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+    </data>
+</odoo>
+

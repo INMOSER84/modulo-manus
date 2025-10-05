@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Clientes de demostración -->
+        <record id="demo_customer_1" model="res.partner">
+            <field name="name">Empresa Tecnológica ABC</field>
+            <field name="is_company">True</field>
+            <field name="phone">+52 55 1234 5678</field>
+            <field name="mobile">+52 55 9876 5432</field>
+            <field name="email">contacto@empresaabc.com</field>
+            <field name="street">Av. Reforma 123</field>
+            <field name="city">Ciudad de México</field>
+            <field name="zip">06600</field>
+            <field name="x_inmoser_customer_code">CLI00001</field>
+        </record>
+        
+        <record id="demo_customer_2" model="res.partner">
+            <field name="name">Oficinas Corporativas XYZ</field>
+            <field name="is_company">True</field>
+            <field name="phone">+52 33 2468 1357</field>
+            <field name="email">servicios@xyz.com</field>
+            <field name="street">Blvd. Puerta de Hierro 456</field>
+            <field name="city">Guadalajara</field>
+            <field name="zip">45116</field>
+            <field name="x_inmoser_customer_code">CLI00002</field>
+        </record>
+        
+        <record id="demo_customer_3" model="res.partner">
+            <field name="name">Centro Médico Salud Total</field>
+            <field name="is_company">True</field>
+            <field name="phone">+52 81 3691 2580</field>
+            <field name="email">it@saludtotal.com</field>
+            <field name="street">Av. Constitución 789</field>
+            <field name="city">Monterrey</field>
+            <field name="zip">64000</field>
+            <field name="x_inmoser_customer_code">CLI00003</field>
+        </record>
+        
+        <!-- Técnicos de demostración -->
+        <record id="demo_technician_user_1" model="res.users">
+            <field name="name">Carlos Rodríguez</field>
+            <field name="login">carlos.rodriguez</field>
+            <field name="email">carlos.rodriguez@inmoser.com</field>
+            <field name="groups_id" eval="[(6, 0, [ref('inmoser_service_order.group_inmoser_technician')])]"/>
+        </record>
+        
+        <record id="demo_technician_1" model="hr.employee">
+            <field name="name">Carlos Rodríguez</field>
+            <field name="user_id" ref="demo_technician_user_1"/>
+            <field name="x_inmoser_is_technician">True</field>
+            <field name="x_inmoser_employee_code">TECH001</field>
+            <field name="x_inmoser_specialization">electronics</field>
+            <field name="phone">+52 55 1111 2222</field>
+            <field name="work_email">carlos.rodriguez@inmoser.com</field>
+        </record>
+        
+        <record id="demo_technician_user_2" model="res.users">
+            <field name="name">Ana García</field>
+            <field name="login">ana.garcia</field>
+            <field name="email">ana.garcia@inmoser.com</field>
+            <field name="groups_id" eval="[(6, 0, [ref('inmoser_service_order.group_inmoser_technician')])]"/>
+        </record>
+        
+        <record id="demo_technician_2" model="hr.employee">
+            <field name="name">Ana García</field>
+            <field name="user_id" ref="demo_technician_user_2"/>
+            <field name="x_inmoser_is_technician">True</field>
+            <field name="x_inmoser_employee_code">TECH002</field>
+            <field name="x_inmoser_specialization">networking</field>
+            <field name="phone">+52 33 3333 4444</field>
+            <field name="work_email">ana.garcia@inmoser.com</field>
+        </record>
+        
+        <!-- Equipos de demostración -->
+        <record id="demo_equipment_1" model="inmoser.service.equipment">
+            <field name="name">Servidor Principal ABC</field>
+            <field name="partner_id" ref="demo_customer_1"/>
+            <field name="equipment_type">server</field>
+            <field name="brand">Dell</field>
+            <field name="model">PowerEdge R740</field>
+            <field name="serial_number">ABC-SRV-001</field>
+            <field name="location">Sala de Servidores - Piso 3</field>
+            <field name="installation_date">2023-01-15</field>
+            <field name="warranty_expiry_date">2026-01-15</field>
+        </record>
+        
+        <record id="demo_equipment_2" model="inmoser.service.equipment">
+            <field name="name">Impresora Oficina Principal</field>
+            <field name="partner_id" ref="demo_customer_1"/>
+            <field name="equipment_type">printer</field>
+            <field name="brand">HP</field>
+            <field name="model">LaserJet Pro M404n</field>
+            <field name="serial_number">ABC-PRT-002</field>
+            <field name="location">Recepción - Planta Baja</field>
+            <field name="installation_date">2023-03-10</field>
+            <field name="warranty_expiry_date">2025-03-10</field>
+        </record>
+        
+        <record id="demo_equipment_3" model="inmoser.service.equipment">
+            <field name="name">Switch de Red Principal</field>
+            <field name="partner_id" ref="demo_customer_2"/>
+            <field name="equipment_type">networking</field>
+            <field name="brand">Cisco</field>
+            <field name="model">Catalyst 2960-X</field>
+            <field name="serial_number">XYZ-NET-001</field>
+            <field name="location">Cuarto de Telecomunicaciones</field>
+            <field name="installation_date">2023-02-20</field>
+            <field name="warranty_expiry_date">2026-02-20</field>
+        </record>
+        
+        <record id="demo_equipment_4" model="inmoser.service.equipment">
+            <field name="name">Computadora Consultorio 1</field>
+            <field name="partner_id" ref="demo_customer_3"/>
+            <field name="equipment_type">computer</field>
+            <field name="brand">Lenovo</field>
+            <field name="model">ThinkCentre M720q</field>
+            <field name="serial_number">MED-PC-001</field>
+            <field name="location">Consultorio 1</field>
+            <field name="installation_date">2023-04-05</field>
+            <field name="warranty_expiry_date">2026-04-05</field>
+        </record>
+        
+        <!-- Productos para refacciones -->
+        <record id="demo_product_1" model="product.product">
+            <field name="name">Memoria RAM DDR4 16GB</field>
+            <field name="type">product</field>
+            <field name="list_price">150.00</field>
+            <field name="standard_price">100.00</field>
+            <field name="is_service_part">True</field>
+            <field name="service_category">electronic</field>
+            <field name="min_stock_service">5</field>
+        </record>
+        
+        <record id="demo_product_2" model="product.product">
+            <field name="name">Disco Duro SSD 500GB</field>
+            <field name="type">product</field>
+            <field name="list_price">200.00</field>
+            <field name="standard_price">150.00</field>
+            <field name="is_service_part">True</field>
+            <field name="service_category">electronic</field>
+            <field name="min_stock_service">3</field>
+        </record>
+        
+        <record id="demo_product_3" model="product.product">
+            <field name="name">Cable de Red Cat6 - 3m</field>
+            <field name="type">product</field>
+            <field name="list_price">25.00</field>
+            <field name="standard_price">15.00</field>
+            <field name="is_service_part">True</field>
+            <field name="service_category">consumable</field>
+            <field name="min_stock_service">20</field>
+        </record>
+        
+        <record id="demo_product_4" model="product.product">
+            <field name="name">Tóner HP LaserJet Negro</field>
+            <field name="type">product</field>
+            <field name="list_price">80.00</field>
+            <field name="standard_price">60.00</field>
+            <field name="is_service_part">True</field>
+            <field name="service_category">consumable</field>
+            <field name="min_stock_service">10</field>
+        </record>
+        
+        <!-- Órdenes de servicio de demostración -->
+        <record id="demo_service_order_1" model="inmoser.service.order">
+            <field name="partner_id" ref="demo_customer_1"/>
+            <field name="equipment_id" ref="demo_equipment_1"/>
+            <field name="service_type_id" ref="service_type_maintenance"/>
+            <field name="reported_fault">El servidor se reinicia constantemente y presenta errores de memoria. Los usuarios reportan lentitud en las aplicaciones.</field>
+            <field name="priority">high</field>
+            <field name="assigned_technician_id" ref="demo_technician_1"/>
+            <field name="scheduled_date">2024-01-15 09:00:00</field>
+            <field name="state">done</field>
+            <field name="start_date">2024-01-15 09:15:00</field>
+            <field name="end_date">2024-01-15 12:30:00</field>
+            <field name="diagnosis">Memoria RAM defectuosa detectada en slot 2. Módulo presenta errores de paridad que causan inestabilidad del sistema.</field>
+            <field name="work_performed">Reemplazo de módulo de memoria RAM defectuoso. Ejecución de pruebas de estrés y verificación de estabilidad del sistema. Actualización de firmware del servidor.</field>
+            <field name="customer_satisfaction">5</field>
+        </record>
+        
+        <record id="demo_service_order_2" model="inmoser.service.order">
+            <field name="partner_id" ref="demo_customer_1"/>
+            <field name="equipment_id" ref="demo_equipment_2"/>
+            <field name="service_type_id" ref="service_type_repair"/>
+            <field name="reported_fault">La impresora no imprime y muestra mensaje de error de tóner, aunque el tóner fue cambiado recientemente.</field>
+            <field name="priority">normal</field>
+            <field name="assigned_technician_id" ref="demo_technician_2"/>
+            <field name="scheduled_date">2024-01-16 14:00:00</field>
+            <field name="state">done</field>
+            <field name="start_date">2024-01-16 14:10:00</field>
+            <field name="end_date">2024-01-16 15:45:00</field>
+            <field name="diagnosis">Sensor de tóner defectuoso. El cartucho de tóner instalado no es original y no es reconocido correctamente por la impresora.</field>
+            <field name="work_performed">Reemplazo de cartucho de tóner por uno original. Limpieza de sensores internos y calibración de la impresora. Pruebas de impresión satisfactorias.</field>
+            <field name="customer_satisfaction">4</field>
+        </record>
+        
+        <record id="demo_service_order_3" model="inmoser.service.order">
+            <field name="partner_id" ref="demo_customer_2"/>
+            <field name="equipment_id" ref="demo_equipment_3"/>
+            <field name="service_type_id" ref="service_type_installation"/>
+            <field name="reported_fault">Necesidad de configurar VLANs adicionales para separar el tráfico de red por departamentos.</field>
+            <field name="priority">normal</field>
+            <field name="assigned_technician_id" ref="demo_technician_2"/>
+            <field name="scheduled_date">2024-01-17 10:00:00</field>
+            <field name="state">in_progress</field>
+            <field name="start_date">2024-01-17 10:05:00</field>
+            <field name="diagnosis">Configuración actual permite solo una VLAN. Se requiere segmentación de red para mejorar seguridad y rendimiento.</field>
+        </record>
+        
+        <record id="demo_service_order_4" model="inmoser.service.order">
+            <field name="partner_id" ref="demo_customer_3"/>
+            <field name="equipment_id" ref="demo_equipment_4"/>
+            <field name="service_type_id" ref="service_type_maintenance"/>
+            <field name="reported_fault">La computadora del consultorio se congela frecuentemente durante el uso del software médico.</field>
+            <field name="priority">urgent</field>
+            <field name="assigned_technician_id" ref="demo_technician_1"/>
+            <field name="scheduled_date">2024-01-18 08:00:00</field>
+            <field name="state">assigned</field>
+        </record>
+        
+        <!-- Líneas de refacciones para órdenes completadas -->
+        <record id="demo_refaction_line_1" model="inmoser.service.order.refaction.line">
+            <field name="service_order_id" ref="demo_service_order_1"/>
+            <field name="product_id" ref="demo_product_1"/>
+            <field name="description">Memoria RAM DDR4 16GB para reemplazo de módulo defectuoso</field>
+            <field name="quantity">1</field>
+            <field name="unit_price">150.00</field>
+        </record>
+        
+        <record id="demo_refaction_line_2" model="inmoser.service.order.refaction.line">
+            <field name="service_order_id" ref="demo_service_order_2"/>
+            <field name="product_id" ref="demo_product_4"/>
+            <field name="description">Tóner original HP LaserJet Negro</field>
+            <field name="quantity">1</field>
+            <field name="unit_price">80.00</field>
+        </record>
+        
+        <!-- Timesheets de demostración -->
+        <record id="demo_timesheet_1" model="inmoser.service.timesheet">
+            <field name="employee_id" ref="demo_technician_1"/>
+            <field name="service_order_id" ref="demo_service_order_1"/>
+            <field name="date">2024-01-15</field>
+            <field name="start_time">2024-01-15 09:15:00</field>
+            <field name="end_time">2024-01-15 12:30:00</field>
+            <field name="description">Diagnóstico y reemplazo de memoria RAM defectuosa en servidor principal</field>
+            <field name="activity_type">repair</field>
+        </record>
+        
+        <record id="demo_timesheet_2" model="inmoser.service.timesheet">
+            <field name="employee_id" ref="demo_technician_2"/>
+            <field name="service_order_id" ref="demo_service_order_2"/>
+            <field name="date">2024-01-16</field>
+            <field name="start_time">2024-01-16 14:10:00</field>
+            <field name="end_time">2024-01-16 15:45:00</field>
+            <field name="description">Reparación de impresora y reemplazo de tóner</field>
+            <field name="activity_type">repair</field>
+        </record>
+        
+        <!-- Inventario virtual de técnicos -->
+        <record id="demo_inventory_1" model="inmoser.technician.inventory">
+            <field name="technician_id" ref="demo_technician_1"/>
+            <field name="product_id" ref="demo_product_1"/>
+            <field name="allocated_quantity">5</field>
+            <field name="available_quantity">4</field>
+            <field name="min_quantity">2</field>
+            <field name="last_replenishment">2024-01-10</field>
+        </record>
+        
+        <record id="demo_inventory_2" model="inmoser.technician.inventory">
+            <field name="technician_id" ref="demo_technician_1"/>
+            <field name="product_id" ref="demo_product_2"/>
+            <field name="allocated_quantity">3</field>
+            <field name="available_quantity">3</field>
+            <field name="min_quantity">1</field>
+            <field name="last_replenishment">2024-01-10</field>
+        </record>
+        
+        <record id="demo_inventory_3" model="inmoser.technician.inventory">
+            <field name="technician_id" ref="demo_technician_2"/>
+            <field name="product_id" ref="demo_product_3"/>
+            <field name="allocated_quantity">25</field>
+            <field name="available_quantity">20</field>
+            <field name="min_quantity">10</field>
+            <field name="last_replenishment">2024-01-08</field>
+        </record>
+        
+        <record id="demo_inventory_4" model="inmoser.technician.inventory">
+            <field name="technician_id" ref="demo_technician_2"/>
+            <field name="product_id" ref="demo_product_4"/>
+            <field name="allocated_quantity">8</field>
+            <field name="available_quantity">7</field>
+            <field name="min_quantity">3</field>
+            <field name="last_replenishment">2024-01-12</field>
+        </record>
+        
+        <!-- Horarios de técnicos -->
+        <record id="demo_schedule_1_monday" model="inmoser.technician.schedule">
+            <field name="technician_id" ref="demo_technician_1"/>
+            <field name="day_of_week">0</field>
+            <field name="start_time">8.0</field>
+            <field name="end_time">17.0</field>
+            <field name="max_services">5</field>
+        </record>
+        
+        <record id="demo_schedule_1_tuesday" model="inmoser.technician.schedule">
+            <field name="technician_id" ref="demo_technician_1"/>
+            <field name="day_of_week">1</field>
+            <field name="start_time">8.0</field>
+            <field name="end_time">17.0</field>
+            <field name="max_services">5</field>
+        </record>
+        
+        <record id="demo_schedule_2_monday" model="inmoser.technician.schedule">
+            <field name="technician_id" ref="demo_technician_2"/>
+            <field name="day_of_week">0</field>
+            <field name="start_time">9.0</field>
+            <field name="end_time">18.0</field>
+            <field name="max_services">4</field>
+        </record>
+        
+        <record id="demo_schedule_2_wednesday" model="inmoser.technician.schedule">
+            <field name="technician_id" ref="demo_technician_2"/>
+            <field name="day_of_week">2</field>
+            <field name="start_time">9.0</field>
+            <field name="end_time">18.0</field>
+            <field name="max_services">4</field>
+        </record>
+        
+    </data>
+</odoo>
+

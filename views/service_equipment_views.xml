@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Vista de formulario para equipos -->
+        <record id="view_service_equipment_form" model="ir.ui.view">
+            <field name="name">inmoser.service.equipment.form</field>
+            <field name="model">inmoser.service.equipment</field>
+            <field name="arch" type="xml">
+                <form string="Service Equipment">
+                    <header>
+                        <button name="action_generate_qr_code" type="object" 
+                                string="Generate QR Code" class="oe_highlight"/>
+                        <button name="action_set_active" type="object" 
+                                string="Set Active" 
+                                attrs="{'invisible': [('state', '=', 'active')]}"/>
+                        <button name="action_set_maintenance" type="object" 
+                                string="Set Maintenance" 
+                                attrs="{'invisible': [('state', '=', 'maintenance')]}"/>
+                        <button name="action_set_retired" type="object" 
+                                string="Retire Equipment" 
+                                attrs="{'invisible': [('state', '=', 'retired')]}"/>
+                        <field name="state" widget="statusbar" 
+                               statusbar_visible="draft,active,maintenance,retired"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_service_orders" type="object" 
+                                    class="oe_stat_button" icon="fa-wrench">
+                                <field name="service_order_count" widget="statbutton" string="Service Orders"/>
+                            </button>
+                            <button name="action_create_service_order" type="object" 
+                                    class="oe_stat_button" icon="fa-plus">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">New Service</span>
+                                </div>
+                            </button>
+                        </div>
+                        
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        
+                        <group>
+                            <group name="basic_info" string="Basic Information">
+                                <field name="partner_id" options="{'no_create': True}"/>
+                                <field name="equipment_type"/>
+                                <field name="brand"/>
+                                <field name="model"/>
+                                <field name="active" invisible="1"/>
+                            </group>
+                            <group name="technical_info" string="Technical Information">
+                                <field name="serial_number"/>
+                                <field name="location"/>
+                                <field name="purchase_date"/>
+                                <field name="warranty_expiry"/>
+                                <field name="warranty_status" readonly="1" 
+                                       widget="badge" 
+                                       decoration-success="warranty_status=='valid'"
+                                       decoration-warning="warranty_status=='unknown'"
+                                       decoration-danger="warranty_status=='expired'"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="QR Code" name="qr_code">
+                                <group>
+                                    <group string="QR Code Information">
+                                        <field name="qr_code_text" readonly="1"/>
+                                        <field name="qr_code" widget="image" 
+                                               options="{'size': [200, 200]}"/>
+                                    </group>
+                                    <group string="Instructions">
+                                        <div>
+                                            <p>This QR code allows customers to:</p>
+                                            <ul>
+                                                <li>View service history for this equipment</li>
+                                                <li>Track current service order status</li>
+                                                <li>Request new service orders</li>
+                                            </ul>
+                                            <p>Print and attach this QR code to the equipment for easy access.</p>
+                                        </div>
+                                    </group>
+                                </group>
+                            </page>
+                            
+                            <page string="Service History" name="service_history">
+                                <field name="service_order_ids" readonly="1">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="service_type_id"/>
+                                        <field name="assigned_technician_id"/>
+                                        <field name="scheduled_date"/>
+                                        <field name="state" widget="badge"/>
+                                        <field name="total_amount"/>
+                                    </tree>
+                                </field>
+                                <group>
+                                    <group string="Service Statistics">
+                                        <field name="service_order_count" readonly="1"/>
+                                        <field name="last_service_date" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                            
+                            <page string="Notes" name="notes">
+                                <field name="notes" placeholder="Additional notes about this equipment..."/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Vista de árbol para equipos -->
+        <record id="view_service_equipment_tree" model="ir.ui.view">
+            <field name="name">inmoser.service.equipment.tree</field>
+            <field name="model">inmoser.service.equipment</field>
+            <field name="arch" type="xml">
+                <tree string="Service Equipment" decoration-muted="state=='retired'"
+                      decoration-warning="state=='maintenance'" decoration-success="state=='active'">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="equipment_type"/>
+                    <field name="brand"/>
+                    <field name="model"/>
+                    <field name="serial_number"/>
+                    <field name="location"/>
+                    <field name="warranty_status" widget="badge" 
+                           decoration-success="warranty_status=='valid'"
+                           decoration-warning="warranty_status=='unknown'"
+                           decoration-danger="warranty_status=='expired'"/>
+                    <field name="state" widget="badge" 
+                           decoration-info="state=='draft'"
+                           decoration-success="state=='active'"
+                           decoration-warning="state=='maintenance'"
+                           decoration-muted="state=='retired'"/>
+                    <field name="service_order_count"/>
+                    <field name="last_service_date"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Vista kanban para equipos -->
+        <record id="view_service_equipment_kanban" model="ir.ui.view">
+            <field name="name">inmoser.service.equipment.kanban</field>
+            <field name="model">inmoser.service.equipment</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="equipment_type"/>
+                    <field name="brand"/>
+                    <field name="model"/>
+                    <field name="state"/>
+                    <field name="warranty_status"/>
+                    <field name="service_order_count"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_card oe_kanban_global_click">
+                                <div class="o_kanban_image">
+                                    <i class="fa fa-desktop fa-2x" t-if="record.equipment_type.raw_value == 'Laptop'"/>
+                                    <i class="fa fa-print fa-2x" t-if="record.equipment_type.raw_value == 'Impresora'"/>
+                                    <i class="fa fa-server fa-2x" t-if="record.equipment_type.raw_value == 'Servidor'"/>
+                                    <i class="fa fa-cogs fa-2x" t-else=""/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                    <div class="o_kanban_record_subtitle">
+                                        <field name="partner_id"/>
+                                    </div>
+                                    <div class="o_kanban_record_body">
+                                        <field name="equipment_type"/> - <field name="brand"/>
+                                        <t t-if="record.model.raw_value">
+                                            <field name="model"/>
+                                        </t>
+                                        <br/>
+                                        <span class="badge badge-pill" 
+                                              t-attf-class="badge-#{record.warranty_status.raw_value == 'valid' ? 'success' : 
+                                                                    record.warranty_status.raw_value == 'expired' ? 'danger' : 'warning'}">
+                                            <field name="warranty_status"/>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="oe_kanban_footer">
+                                    <div class="oe_kanban_footer_left">
+                                        <span t-if="record.service_order_count.raw_value > 0">
+                                            <i class="fa fa-wrench"/> <field name="service_order_count"/> services
+                                        </span>
+                                    </div>
+                                    <div class="oe_kanban_footer_right">
+                                        <field name="state" widget="label_selection" 
+                                               options="{'classes': {'active': 'success', 'maintenance': 'warning', 'retired': 'default'}}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        
+        <!-- Vista de búsqueda para equipos -->
+        <record id="view_service_equipment_search" model="ir.ui.view">
+            <field name="name">inmoser.service.equipment.search</field>
+            <field name="model">inmoser.service.equipment</field>
+            <field name="arch" type="xml">
+                <search string="Service Equipment">
+                    <field name="name" string="Equipment Code"/>
+                    <field name="partner_id" string="Customer"/>
+                    <field name="equipment_type" string="Equipment Type"/>
+                    <field name="brand" string="Brand"/>
+                    <field name="model" string="Model"/>
+                    <field name="serial_number" string="Serial Number"/>
+                    <field name="location" string="Location"/>
+                    
+                    <filter string="Active" name="active" 
+                            domain="[('state', '=', 'active')]"/>
+                    <filter string="In Maintenance" name="maintenance" 
+                            domain="[('state', '=', 'maintenance')]"/>
+                    <filter string="Retired" name="retired" 
+                            domain="[('state', '=', 'retired')]"/>
+                    <filter string="Under Warranty" name="under_warranty" 
+                            domain="[('warranty_status', '=', 'valid')]"/>
+                    <filter string="Warranty Expired" name="warranty_expired" 
+                            domain="[('warranty_status', '=', 'expired')]"/>
+                    
+                    <group expand="0" string="Group By">
+                        <filter string="Customer" name="group_customer" 
+                                context="{'group_by': 'partner_id'}"/>
+                        <filter string="Equipment Type" name="group_equipment_type" 
+                                context="{'group_by': 'equipment_type'}"/>
+                        <filter string="Brand" name="group_brand" 
+                                context="{'group_by': 'brand'}"/>
+                        <filter string="State" name="group_state" 
+                                context="{'group_by': 'state'}"/>
+                        <filter string="Warranty Status" name="group_warranty" 
+                                context="{'group_by': 'warranty_status'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Acción principal para equipos -->
+        <record id="action_service_equipment" model="ir.actions.act_window">
+            <field name="name">Service Equipment</field>
+            <field name="res_model">inmoser.service.equipment</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="search_view_id" ref="view_service_equipment_search"/>
+            <field name="context">{'search_default_active': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Register your first equipment!
+                </p>
+                <p>
+                    Equipment records help you track customer assets and their service history.
+                    Each equipment gets a unique QR code for easy identification and customer access.
+                </p>
+            </field>
+        </record>
+        
+    </data>
+</odoo>
+

@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Template: Asignación de técnico -->
+        <record id="email_template_service_assigned" model="mail.template">
+            <field name="name">Service Order - Technician Assignment</field>
+            <field name="model_id" ref="model_inmoser_service_order"/>
+            <field name="subject">Service Order ${object.name} - Technician Assigned</field>
+            <field name="email_from">${(object.company_id.email or user.email)|safe}</field>
+            <field name="email_to">${object.partner_id.email}</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px; font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #EDEDED;">
+    <table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #EDEDED; font-family:'Lucida Grande',Ubuntu,Arial,Verdana,sans-serif; color: rgb(34, 34, 34); width: 100%; margin: 0px auto;">
+        <tbody>
+            <tr>
+                <td align="center">
+                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: white; color: rgb(34, 34, 34); border-collapse:separate;">
+                        <tbody>
+                            <tr>
+                                <td align="center" style="min-height: 590px;">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-height: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                        <tr>
+                                            <td valign="top" style="font-size: 13px;">
+                                                <div>
+                                                    <h3>Estimado/a ${object.partner_id.name},</h3>
+                                                    <p>Le informamos que su orden de servicio <strong>${object.name}</strong> ha sido asignada a nuestro técnico.</p>
+                                                    
+                                                    <h4>Detalles del Servicio:</h4>
+                                                    <ul>
+                                                        <li><strong>Orden de Servicio:</strong> ${object.name}</li>
+                                                        <li><strong>Equipo:</strong> ${object.equipment_id.name}</li>
+                                                        <li><strong>Tipo de Servicio:</strong> ${object.service_type_id.name}</li>
+                                                        <li><strong>Técnico Asignado:</strong> ${object.assigned_technician_id.name}</li>
+                                                        <li><strong>Fecha Programada:</strong> ${format_datetime(object.scheduled_date, tz=user.tz, dt_format='medium')}</li>
+                                                        <li><strong>Falla Reportada:</strong> ${object.reported_fault}</li>
+                                                    </ul>
+                                                    
+                                                    <p>Nuestro técnico se pondrá en contacto con usted antes de la visita programada.</p>
+                                                    
+                                                    <p>Si necesita reagendar o tiene alguna consulta, no dude en contactarnos.</p>
+                                                    
+                                                    <p>Gracias por confiar en nuestros servicios.</p>
+                                                    
+                                                    <p>Saludos cordiales,<br/>
+                                                    <strong>Equipo de Inmoser</strong></p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+            </field>
+        </record>
+        
+        <!-- Template: Solicitud de aprobación -->
+        <record id="email_template_approval_request" model="mail.template">
+            <field name="name">Service Order - Approval Request</field>
+            <field name="model_id" ref="model_inmoser_service_order"/>
+            <field name="subject">Aprobación Requerida - Orden de Servicio ${object.name}</field>
+            <field name="email_from">${(object.company_id.email or user.email)|safe}</field>
+            <field name="email_to">${object.partner_id.email}</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px; font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #EDEDED;">
+    <table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #EDEDED; font-family:'Lucida Grande',Ubuntu,Arial,Verdana,sans-serif; color: rgb(34, 34, 34); width: 100%; margin: 0px auto;">
+        <tbody>
+            <tr>
+                <td align="center">
+                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: white; color: rgb(34, 34, 34); border-collapse:separate;">
+                        <tbody>
+                            <tr>
+                                <td align="center" style="min-height: 590px;">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-height: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                        <tr>
+                                            <td valign="top" style="font-size: 13px;">
+                                                <div>
+                                                    <h3>Estimado/a ${object.partner_id.name},</h3>
+                                                    <p>Nuestro técnico ha completado el diagnóstico de su equipo y requiere su aprobación para proceder con el servicio.</p>
+                                                    
+                                                    <h4>Diagnóstico:</h4>
+                                                    <p style="background-color: #f8f9fa; padding: 10px; border-left: 4px solid #007bff;">
+                                                        ${object.diagnosis}
+                                                    </p>
+                                                    
+                                                    <h4>Trabajo a Realizar:</h4>
+                                                    <p style="background-color: #f8f9fa; padding: 10px; border-left: 4px solid #28a745;">
+                                                        ${object.work_performed or 'Pendiente de aprobación'}
+                                                    </p>
+                                                    
+                                                    % if object.refaction_line_ids:
+                                                    <h4>Refacciones Requeridas:</h4>
+                                                    <table border="1" style="border-collapse: collapse; width: 100%; margin: 10px 0;">
+                                                        <thead>
+                                                            <tr style="background-color: #f8f9fa;">
+                                                                <th style="padding: 8px; text-align: left;">Producto</th>
+                                                                <th style="padding: 8px; text-align: center;">Cantidad</th>
+                                                                <th style="padding: 8px; text-align: right;">Precio Unit.</th>
+                                                                <th style="padding: 8px; text-align: right;">Total</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            % for line in object.refaction_line_ids:
+                                                            <tr>
+                                                                <td style="padding: 8px;">${line.product_id.name}</td>
+                                                                <td style="padding: 8px; text-align: center;">${line.quantity}</td>
+                                                                <td style="padding: 8px; text-align: right;">${line.unit_price}</td>
+                                                                <td style="padding: 8px; text-align: right;">${line.total_price}</td>
+                                                            </tr>
+                                                            % endfor
+                                                        </tbody>
+                                                    </table>
+                                                    % endif
+                                                    
+                                                    <h4 style="color: #dc3545;">Costo Total: ${object.total_amount} ${object.currency_id.symbol}</h4>
+                                                    
+                                                    <p><strong>Para aprobar o rechazar este servicio, por favor responda a este correo o contacte a nuestro call center.</strong></p>
+                                                    
+                                                    <p>Gracias por su atención.</p>
+                                                    
+                                                    <p>Saludos cordiales,<br/>
+                                                    <strong>Equipo de Inmoser</strong></p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+            </field>
+        </record>
+        
+        <!-- Template: Servicio completado -->
+        <record id="email_template_service_completed" model="mail.template">
+            <field name="name">Service Order - Service Completed</field>
+            <field name="model_id" ref="model_inmoser_service_order"/>
+            <field name="subject">Servicio Completado - Orden ${object.name}</field>
+            <field name="email_from">${(object.company_id.email or user.email)|safe}</field>
+            <field name="email_to">${object.partner_id.email}</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px; font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #EDEDED;">
+    <table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #EDEDED; font-family:'Lucida Grande',Ubuntu,Arial,Verdana,sans-serif; color: rgb(34, 34, 34); width: 100%; margin: 0px auto;">
+        <tbody>
+            <tr>
+                <td align="center">
+                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: white; color: rgb(34, 34, 34); border-collapse:separate;">
+                        <tbody>
+                            <tr>
+                                <td align="center" style="min-height: 590px;">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-height: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                        <tr>
+                                            <td valign="top" style="font-size: 13px;">
+                                                <div>
+                                                    <h3>Estimado/a ${object.partner_id.name},</h3>
+                                                    <p>Nos complace informarle que el servicio de su equipo ha sido completado exitosamente.</p>
+                                                    
+                                                    <h4>Resumen del Servicio:</h4>
+                                                    <ul>
+                                                        <li><strong>Orden de Servicio:</strong> ${object.name}</li>
+                                                        <li><strong>Equipo:</strong> ${object.equipment_id.name}</li>
+                                                        <li><strong>Técnico:</strong> ${object.assigned_technician_id.name}</li>
+                                                        <li><strong>Fecha de Inicio:</strong> ${format_datetime(object.start_date, tz=user.tz, dt_format='medium')}</li>
+                                                        <li><strong>Fecha de Finalización:</strong> ${format_datetime(object.end_date, tz=user.tz, dt_format='medium')}</li>
+                                                        <li><strong>Duración:</strong> ${object.duration} horas</li>
+                                                    </ul>
+                                                    
+                                                    <h4>Trabajo Realizado:</h4>
+                                                    <p style="background-color: #d4edda; padding: 10px; border-left: 4px solid #28a745;">
+                                                        ${object.work_performed}
+                                                    </p>
+                                                    
+                                                    % if object.refaction_line_ids:
+                                                    <h4>Refacciones Utilizadas:</h4>
+                                                    <table border="1" style="border-collapse: collapse; width: 100%; margin: 10px 0;">
+                                                        <thead>
+                                                            <tr style="background-color: #f8f9fa;">
+                                                                <th style="padding: 8px; text-align: left;">Producto</th>
+                                                                <th style="padding: 8px; text-align: center;">Cantidad</th>
+                                                                <th style="padding: 8px; text-align: right;">Precio</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            % for line in object.refaction_line_ids:
+                                                            <tr>
+                                                                <td style="padding: 8px;">${line.product_id.name}</td>
+                                                                <td style="padding: 8px; text-align: center;">${line.quantity}</td>
+                                                                <td style="padding: 8px; text-align: right;">${line.total_price}</td>
+                                                            </tr>
+                                                            % endfor
+                                                        </tbody>
+                                                    </table>
+                                                    % endif
+                                                    
+                                                    <h4 style="color: #28a745;">Costo Total: ${object.total_amount} ${object.currency_id.symbol}</h4>
+                                                    
+                                                    <p>Su equipo está ahora en perfecto estado de funcionamiento. Si tiene alguna consulta sobre el servicio realizado, no dude en contactarnos.</p>
+                                                    
+                                                    <p>Gracias por confiar en nuestros servicios.</p>
+                                                    
+                                                    <p>Saludos cordiales,<br/>
+                                                    <strong>Equipo de Inmoser</strong></p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+            </field>
+        </record>
+        
+        <!-- Template: Servicio reagendado -->
+        <record id="email_template_service_rescheduled" model="mail.template">
+            <field name="name">Service Order - Service Rescheduled</field>
+            <field name="model_id" ref="model_inmoser_service_order"/>
+            <field name="subject">Servicio Reagendado - Orden ${object.name}</field>
+            <field name="email_from">${(object.company_id.email or user.email)|safe}</field>
+            <field name="email_to">${object.partner_id.email}</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px; font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #EDEDED;">
+    <table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #EDEDED; font-family:'Lucida Grande',Ubuntu,Arial,Verdana,sans-serif; color: rgb(34, 34, 34); width: 100%; margin: 0px auto;">
+        <tbody>
+            <tr>
+                <td align="center">
+                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: white; color: rgb(34, 34, 34); border-collapse:separate;">
+                        <tbody>
+                            <tr>
+                                <td align="center" style="min-height: 590px;">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-height: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                        <tr>
+                                            <td valign="top" style="font-size: 13px;">
+                                                <div>
+                                                    <h3>Estimado/a ${object.partner_id.name},</h3>
+                                                    <p>Le informamos que su orden de servicio <strong>${object.name}</strong> ha sido reagendada.</p>
+                                                    
+                                                    <h4>Nuevos Detalles del Servicio:</h4>
+                                                    <ul>
+                                                        <li><strong>Nueva Fecha:</strong> ${format_datetime(object.scheduled_date, tz=user.tz, dt_format='medium')}</li>
+                                                        <li><strong>Técnico Asignado:</strong> ${object.assigned_technician_id.name}</li>
+                                                        <li><strong>Equipo:</strong> ${object.equipment_id.name}</li>
+                                                        <li><strong>Tipo de Servicio:</strong> ${object.service_type_id.name}</li>
+                                                    </ul>
+                                                    
+                                                    % if ctx.get('reason'):
+                                                    <h4>Motivo del Reagendamiento:</h4>
+                                                    <p style="background-color: #fff3cd; padding: 10px; border-left: 4px solid #ffc107;">
+                                                        ${ctx.get('reason')}
+                                                    </p>
+                                                    % endif
+                                                    
+                                                    <p>Lamentamos cualquier inconveniente que esto pueda causar. Nuestro técnico se pondrá en contacto con usted antes de la nueva fecha programada.</p>
+                                                    
+                                                    <p>Si necesita hacer algún cambio adicional, no dude en contactarnos.</p>
+                                                    
+                                                    <p>Gracias por su comprensión.</p>
+                                                    
+                                                    <p>Saludos cordiales,<br/>
+                                                    <strong>Equipo de Inmoser</strong></p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+            </field>
+        </record>
+        
+    </data>
+</odoo>
+

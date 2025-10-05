@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Menú principal Inmoser -->
+        <menuitem id="menu_inmoser_root" 
+                  name="Inmoser" 
+                  sequence="10" 
+                  web_icon="inmoser_service_order,static/description/icon.png"/>
+        
+        <!-- Submenú: Service Orders -->
+        <menuitem id="menu_inmoser_service_orders" 
+                  name="Service Orders" 
+                  parent="menu_inmoser_root" 
+                  sequence="10"/>
+        
+        <menuitem id="menu_service_orders_all" 
+                  name="All Service Orders" 
+                  parent="menu_inmoser_service_orders" 
+                  action="action_service_order" 
+                  sequence="10"/>
+        
+        <menuitem id="menu_service_orders_calendar" 
+                  name="Service Calendar" 
+                  parent="menu_inmoser_service_orders" 
+                  action="action_service_order_calendar" 
+                  sequence="20"/>
+        
+        <menuitem id="menu_service_orders_my_calendar" 
+                  name="My Calendar" 
+                  parent="menu_inmoser_service_orders" 
+                  action="action_technician_calendar" 
+                  sequence="30"
+                  groups="group_inmoser_technician"/>
+        
+        <!-- Submenú: Customers & Equipment -->
+        <menuitem id="menu_inmoser_customers" 
+                  name="Customers &amp; Equipment" 
+                  parent="menu_inmoser_root" 
+                  sequence="20"/>
+        
+        <menuitem id="menu_service_clients" 
+                  name="Service Clients" 
+                  parent="menu_inmoser_customers" 
+                  action="action_service_clients" 
+                  sequence="10"/>
+        
+        <menuitem id="menu_service_equipment" 
+                  name="Equipment" 
+                  parent="menu_inmoser_customers" 
+                  action="action_service_equipment" 
+                  sequence="20"/>
+        
+        <!-- Submenú: Human Resources -->
+        <menuitem id="menu_inmoser_hr" 
+                  name="Human Resources" 
+                  parent="menu_inmoser_root" 
+                  sequence="30"/>
+        
+        <menuitem id="menu_technicians" 
+                  name="Technicians" 
+                  parent="menu_inmoser_hr" 
+                  action="action_technicians" 
+                  sequence="10"/>
+        
+        <!-- Submenú: Configuration -->
+        <menuitem id="menu_inmoser_config" 
+                  name="Configuration" 
+                  parent="menu_inmoser_root" 
+                  sequence="90"
+                  groups="group_inmoser_manager"/>
+        
+        <menuitem id="menu_service_types" 
+                  name="Service Types" 
+                  parent="menu_inmoser_config" 
+                  action="action_service_type" 
+                  sequence="10"/>
+        
+        <!-- Submenú: Reports -->
+        <menuitem id="menu_inmoser_reports" 
+                  name="Reports" 
+                  parent="menu_inmoser_root" 
+                  sequence="80"
+                  groups="group_inmoser_supervisor"/>
+        
+        <!-- Dashboard Actions -->
+        
+        <!-- Dashboard para Call Center -->
+        <record id="action_dashboard_callcenter" model="ir.actions.act_window">
+            <field name="name">Call Center Dashboard</field>
+            <field name="res_model">inmoser.service.order</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="context">{
+                'search_default_draft': 1,
+                'search_default_assigned': 1,
+                'search_default_today': 1
+            }</field>
+            <field name="domain">[]</field>
+        </record>
+        
+        <!-- Dashboard para Supervisores -->
+        <record id="action_dashboard_supervisor" model="ir.actions.act_window">
+            <field name="name">Supervisor Dashboard</field>
+            <field name="res_model">inmoser.service.order</field>
+            <field name="view_mode">kanban,calendar,tree,form</field>
+            <field name="context">{
+                'search_default_this_week': 1,
+                'group_by': ['assigned_technician_id']
+            }</field>
+            <field name="domain">[]</field>
+        </record>
+        
+        <!-- Dashboard para Técnicos -->
+        <record id="action_dashboard_technician" model="ir.actions.act_window">
+            <field name="name">My Service Orders</field>
+            <field name="res_model">inmoser.service.order</field>
+            <field name="view_mode">calendar,kanban,tree,form</field>
+            <field name="context">{
+                'search_default_my_orders': 1,
+                'search_default_today': 1
+            }</field>
+            <field name="domain">[('assigned_technician_id.user_id', '=', uid)]</field>
+        </record>
+        
+        <!-- Menús de Dashboard por rol -->
+        <menuitem id="menu_dashboard_callcenter" 
+                  name="Call Center Dashboard" 
+                  parent="menu_inmoser_root" 
+                  action="action_dashboard_callcenter" 
+                  sequence="5"
+                  groups="group_inmoser_user"/>
+        
+        <menuitem id="menu_dashboard_supervisor" 
+                  name="Supervisor Dashboard" 
+                  parent="menu_inmoser_root" 
+                  action="action_dashboard_supervisor" 
+                  sequence="5"
+                  groups="group_inmoser_supervisor"/>
+        
+        <menuitem id="menu_dashboard_technician" 
+                  name="My Dashboard" 
+                  parent="menu_inmoser_root" 
+                  action="action_dashboard_technician" 
+                  sequence="5"
+                  groups="group_inmoser_technician"/>
+        
+        <!-- Acciones rápidas en el menú principal -->
+        
+        <!-- Acción rápida: Nueva orden de servicio -->
+        <record id="action_quick_new_service_order" model="ir.actions.act_window">
+            <field name="name">New Service Order</field>
+            <field name="res_model">inmoser.service.order</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_service_order_form"/>
+            <field name="target">current</field>
+        </record>
+        
+        <menuitem id="menu_quick_new_service_order" 
+                  name="+ New Service Order" 
+                  parent="menu_inmoser_service_orders" 
+                  action="action_quick_new_service_order" 
+                  sequence="5"/>
+        
+        <!-- Acción rápida: Nuevo cliente -->
+        <record id="action_quick_new_client" model="ir.actions.act_window">
+            <field name="name">New Service Client</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">form</field>
+            <field name="context">{'default_x_inmoser_is_service_client': True}</field>
+            <field name="target">current</field>
+        </record>
+        
+        <menuitem id="menu_quick_new_client" 
+                  name="+ New Client" 
+                  parent="menu_inmoser_customers" 
+                  action="action_quick_new_client" 
+                  sequence="5"/>
+        
+        <!-- Acción rápida: Nuevo equipo -->
+        <record id="action_quick_new_equipment" model="ir.actions.act_window">
+            <field name="name">New Equipment</field>
+            <field name="res_model">inmoser.service.equipment</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_service_equipment_form"/>
+            <field name="target">current</field>
+        </record>
+        
+        <menuitem id="menu_quick_new_equipment" 
+                  name="+ New Equipment" 
+                  parent="menu_inmoser_customers" 
+                  action="action_quick_new_equipment" 
+                  sequence="15"/>
+        
+    </data>
+</odoo>
+

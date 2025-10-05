@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Categoría de aplicación -->
+        <record id="module_category_inmoser" model="ir.module.category">
+            <field name="name">Inmoser Service Management</field>
+            <field name="description">Manage service orders, equipment, and technicians</field>
+            <field name="sequence">20</field>
+        </record>
+        
+        <!-- Grupo: Usuario básico (Call Center) -->
+        <record id="group_inmoser_user" model="res.groups">
+            <field name="name">Inmoser User</field>
+            <field name="category_id" ref="module_category_inmoser"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">Basic user rights for Inmoser service management. Can create and manage service orders, customers, and equipment.</field>
+        </record>
+        
+        <!-- Grupo: Técnico -->
+        <record id="group_inmoser_technician" model="res.groups">
+            <field name="name">Inmoser Technician</field>
+            <field name="category_id" ref="module_category_inmoser"/>
+            <field name="implied_ids" eval="[(4, ref('group_inmoser_user'))]"/>
+            <field name="comment">Technician rights. Can view and update assigned service orders, add diagnosis and work performed.</field>
+        </record>
+        
+        <!-- Grupo: Supervisor -->
+        <record id="group_inmoser_supervisor" model="res.groups">
+            <field name="name">Inmoser Supervisor</field>
+            <field name="category_id" ref="module_category_inmoser"/>
+            <field name="implied_ids" eval="[(4, ref('group_inmoser_technician'))]"/>
+            <field name="comment">Supervisor rights. Can manage all service orders, reassign technicians, and access reports.</field>
+        </record>
+        
+        <!-- Grupo: Manager -->
+        <record id="group_inmoser_manager" model="res.groups">
+            <field name="name">Inmoser Manager</field>
+            <field name="category_id" ref="module_category_inmoser"/>
+            <field name="implied_ids" eval="[(4, ref('group_inmoser_supervisor'))]"/>
+            <field name="comment">Full access to Inmoser service management. Can configure settings and manage all data.</field>
+        </record>
+        
+        <!-- Reglas de acceso por registro -->
+        
+        <!-- Regla: Técnicos solo ven sus órdenes asignadas -->
+        <record id="rule_service_order_technician" model="ir.rule">
+            <field name="name">Service Order: Technician Access</field>
+            <field name="model_id" ref="model_inmoser_service_order"/>
+            <field name="domain_force">[('assigned_technician_id.user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_inmoser_technician'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+        
+        <!-- Regla: Supervisores y managers ven todas las órdenes -->
+        <record id="rule_service_order_supervisor" model="ir.rule">
+            <field name="name">Service Order: Supervisor/Manager Access</field>
+            <field name="model_id" ref="model_inmoser_service_order"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_inmoser_supervisor'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+        
+        <!-- Regla: Usuarios básicos ven todas las órdenes pero con restricciones -->
+        <record id="rule_service_order_user" model="ir.rule">
+            <field name="name">Service Order: User Access</field>
+            <field name="model_id" ref="model_inmoser_service_order"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_inmoser_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+        
+        <!-- Regla: Técnicos solo ven líneas de refacciones de sus órdenes -->
+        <record id="rule_refaction_line_technician" model="ir.rule">
+            <field name="name">Refaction Line: Technician Access</field>
+            <field name="model_id" ref="model_inmoser_service_order_refaction_line"/>
+            <field name="domain_force">[('order_id.assigned_technician_id.user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_inmoser_technician'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+        
+        <!-- Regla: Supervisores y managers ven todas las líneas de refacciones -->
+        <record id="rule_refaction_line_supervisor" model="ir.rule">
+            <field name="name">Refaction Line: Supervisor/Manager Access</field>
+            <field name="model_id" ref="model_inmoser_service_order_refaction_line"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_inmoser_supervisor'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+        
+        <!-- Regla: Acceso a equipos - todos los usuarios pueden ver todos los equipos -->
+        <record id="rule_equipment_all" model="ir.rule">
+            <field name="name">Equipment: All Users Access</field>
+            <field name="model_id" ref="model_inmoser_service_equipment"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_inmoser_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+        
+        <!-- Regla: Solo managers pueden eliminar equipos -->
+        <record id="rule_equipment_manager_delete" model="ir.rule">
+            <field name="name">Equipment: Manager Delete Access</field>
+            <field name="model_id" ref="model_inmoser_service_equipment"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_inmoser_manager'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+        
+        <!-- Regla: Acceso a tipos de servicio - todos pueden ver, solo managers pueden modificar -->
+        <record id="rule_service_type_read" model="ir.rule">
+            <field name="name">Service Type: Read Access</field>
+            <field name="model_id" ref="model_inmoser_service_type"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_inmoser_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+        
+        <record id="rule_service_type_manager" model="ir.rule">
+            <field name="name">Service Type: Manager Access</field>
+            <field name="model_id" ref="model_inmoser_service_type"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_inmoser_manager'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+        
+    </data>
+</odoo>
+

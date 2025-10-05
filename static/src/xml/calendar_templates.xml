@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    
+    <!-- Template: Diálogo de servicio para técnicos -->
+    <t t-name="inmoser_service_order.TechnicianServiceDialog">
+        <div class="technician-service-dialog">
+            
+            <!-- Header con información básica -->
+            <div class="row mb-3">
+                <div class="col-md-8">
+                    <h4 class="mb-1">
+                        <i class="fa fa-wrench mr-2"/>
+                        <t t-esc="order.name"/>
+                    </h4>
+                    <p class="text-muted mb-0">
+                        <i class="fa fa-user mr-1"/>
+                        <t t-esc="order.partner_id[1]"/>
+                    </p>
+                </div>
+                <div class="col-md-4 text-right">
+                    <span t-attf-class="badge badge-lg badge-#{order.state === 'assigned' ? 'info' : order.state === 'in_progress' ? 'primary' : order.state === 'done' ? 'success' : 'secondary'}">
+                        <t t-esc="order.state.replace('_', ' ').toUpperCase()"/>
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Información del equipo -->
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i class="fa fa-desktop mr-2"/>
+                        Equipment Information
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Equipment:</strong> <t t-esc="order.equipment_id[1]"/></p>
+                            <p><strong>Service Type:</strong> <t t-esc="order.service_type_id[1]"/></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Scheduled:</strong> 
+                                <t t-esc="moment(order.scheduled_date).format('YYYY-MM-DD HH:mm')"/>
+                            </p>
+                            <t t-if="order.total_amount">
+                                <p><strong>Amount:</strong> 
+                                    <t t-esc="order.currency_id[1]"/> <t t-esc="order.total_amount"/>
+                                </p>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Falla reportada -->
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i class="fa fa-exclamation-triangle mr-2"/>
+                        Reported Issue
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <p class="mb-0"><t t-esc="order.reported_fault"/></p>
+                </div>
+            </div>
+            
+            <!-- Diagnóstico (si existe) -->
+            <t t-if="order.diagnosis">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h6 class="mb-0">
+                            <i class="fa fa-stethoscope mr-2"/>
+                            Diagnosis
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-0"><t t-esc="order.diagnosis"/></p>
+                    </div>
+                </div>
+            </t>
+            
+            <!-- Trabajo realizado (si existe) -->
+            <t t-if="order.work_performed">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h6 class="mb-0">
+                            <i class="fa fa-check-circle mr-2"/>
+                            Work Performed
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-0"><t t-esc="order.work_performed"/></p>
+                    </div>
+                </div>
+            </t>
+            
+            <!-- Acciones rápidas -->
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i class="fa fa-bolt mr-2"/>
+                        Quick Actions
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-2">
+                            <button class="btn btn-info btn-block btn-navigate">
+                                <i class="fa fa-map-marker mr-1"/>
+                                Navigate
+                            </button>
+                        </div>
+                        <div class="col-md-4 mb-2">
+                            <button class="btn btn-warning btn-block" onclick="window.open('tel:' + this.dataset.phone)" t-att-data-phone="order.partner_id[1]">
+                                <i class="fa fa-phone mr-1"/>
+                                Call Customer
+                            </button>
+                        </div>
+                        <div class="col-md-4 mb-2">
+                            <button class="btn btn-secondary btn-block" onclick="this.closest('.modal').querySelector('.btn-close').click()">
+                                <i class="fa fa-camera mr-1"/>
+                                Take Photo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </t>
+    
+    <!-- Template: Vista de calendario para técnicos -->
+    <t t-name="inmoser_service_order.TechnicianCalendarView">
+        <div class="technician-calendar-view">
+            
+            <!-- Toolbar personalizado -->
+            <div class="calendar-toolbar mb-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="mb-0">
+                            <i class="fa fa-calendar mr-2"/>
+                            My Service Schedule
+                        </h4>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-outline-primary btn-today">
+                                Today
+                            </button>
+                            <button type="button" class="btn btn-outline-primary btn-week">
+                                Week
+                            </button>
+                            <button type="button" class="btn btn-outline-primary btn-month">
+                                Month
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Estadísticas rápidas -->
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body text-center">
+                            <h5 class="card-title mb-0" id="today-services">0</h5>
+                            <small>Today's Services</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-warning text-white">
+                        <div class="card-body text-center">
+                            <h5 class="card-title mb-0" id="pending-services">0</h5>
+                            <small>Pending Services</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-success text-white">
+                        <div class="card-body text-center">
+                            <h5 class="card-title mb-0" id="completed-today">0</h5>
+                            <small>Completed Today</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-info text-white">
+                        <div class="card-body text-center">
+                            <h5 class="card-title mb-0" id="week-total">0</h5>
+                            <small>This Week</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Leyenda de colores -->
+            <div class="calendar-legend mb-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <small class="text-muted">Status Legend:</small>
+                        <span class="badge badge-secondary ml-2">Draft</span>
+                        <span class="badge badge-info ml-1">Assigned</span>
+                        <span class="badge badge-primary ml-1">In Progress</span>
+                        <span class="badge badge-warning ml-1">Pending Approval</span>
+                        <span class="badge badge-success ml-1">Completed</span>
+                        <span class="badge badge-danger ml-1">Cancelled</span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </t>
+    
+    <!-- Template: Evento del calendario -->
+    <t t-name="inmoser_service_order.CalendarEvent">
+        <div class="calendar-event" t-att-data-id="event.id">
+            <div class="event-time">
+                <t t-esc="moment(event.start).format('HH:mm')"/>
+            </div>
+            <div class="event-title">
+                <t t-esc="event.title"/>
+            </div>
+            <div class="event-customer">
+                <small><t t-esc="event.customer"/></small>
+            </div>
+        </div>
+    </t>
+    
+    <!-- Template: Widget de navegación -->
+    <t t-name="inmoser_service_order.NavigationWidget">
+        <div class="navigation-widget">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i class="fa fa-map-marker mr-2"/>
+                        Navigation
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <p class="mb-2"><strong>Customer:</strong> <t t-esc="customer.name"/></p>
+                    <p class="mb-3"><strong>Address:</strong> <t t-esc="customer.address"/></p>
+                    
+                    <div class="row">
+                        <div class="col-6">
+                            <button class="btn btn-primary btn-block btn-navigate-maps">
+                                <i class="fa fa-map mr-1"/>
+                                Google Maps
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-info btn-block btn-navigate-waze">
+                                <i class="fa fa-location-arrow mr-1"/>
+                                Waze
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <small class="text-muted">
+                            <i class="fa fa-clock-o mr-1"/>
+                            Estimated time: <span id="estimated-time">Calculating...</span>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+    
+</templates>
+

@@ -1,0 +1,726 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Template: Portal de equipo -->
+        <template id="equipment_portal_template" name="Equipment Portal">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <div class="container mt-4">
+                        <div class="row">
+                            <div class="col-lg-8 offset-lg-2">
+                                
+                                <!-- Header del equipo -->
+                                <div class="card mb-4">
+                                    <div class="card-header bg-primary text-white">
+                                        <h3 class="mb-0">
+                                            <i class="fa fa-desktop mr-2"/>
+                                            <t t-esc="equipment.name"/>
+                                        </h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h5>Información del Equipo</h5>
+                                                <p><strong>Cliente:</strong> <t t-esc="equipment.partner_id.name"/></p>
+                                                <p><strong>Tipo:</strong> <t t-esc="equipment.equipment_type"/></p>
+                                                <p><strong>Marca:</strong> <t t-esc="equipment.brand"/></p>
+                                                <p><strong>Modelo:</strong> <t t-esc="equipment.model"/></p>
+                                                <p><strong>Ubicación:</strong> <t t-esc="equipment.location"/></p>
+                                                <p>
+                                                    <strong>Estado:</strong> 
+                                                    <span t-attf-class="badge badge-#{equipment.state == 'active' and 'success' or equipment.state == 'maintenance' and 'warning' or 'secondary'}">
+                                                        <t t-esc="equipment.state.title()"/>
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h5>Estadísticas</h5>
+                                                <p><strong>Total de Servicios:</strong> <t t-esc="equipment.service_order_count"/></p>
+                                                <p><strong>Último Servicio:</strong> 
+                                                    <t t-if="equipment.last_service_date">
+                                                        <t t-esc="equipment.last_service_date" t-options="{'widget': 'date'}"/>
+                                                    </t>
+                                                    <t t-else="">Nunca</t>
+                                                </p>
+                                                <p>
+                                                    <strong>Garantía:</strong>
+                                                    <span t-attf-class="badge badge-#{equipment.warranty_status == 'valid' and 'success' or equipment.warranty_status == 'expired' and 'danger' or 'warning'}">
+                                                        <t t-esc="equipment.warranty_status.title()"/>
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Orden actual -->
+                                <t t-if="current_order">
+                                    <div class="card mb-4">
+                                        <div class="card-header bg-warning text-dark">
+                                            <h4 class="mb-0">
+                                                <i class="fa fa-wrench mr-2"/>
+                                                Servicio Actual
+                                            </h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <h5><t t-esc="current_order.name"/></h5>
+                                                    <p><strong>Tipo de Servicio:</strong> <t t-esc="current_order.service_type_id.name"/></p>
+                                                    <p><strong>Técnico:</strong> 
+                                                        <t t-if="current_order.assigned_technician_id">
+                                                            <t t-esc="current_order.assigned_technician_id.name"/>
+                                                        </t>
+                                                        <t t-else="">Por asignar</t>
+                                                    </p>
+                                                    <p><strong>Fecha Programada:</strong> 
+                                                        <t t-if="current_order.scheduled_date">
+                                                            <t t-esc="current_order.scheduled_date" t-options="{'widget': 'datetime'}"/>
+                                                        </t>
+                                                        <t t-else="">Por programar</t>
+                                                    </p>
+                                                    <p><strong>Falla Reportada:</strong> <t t-esc="current_order.reported_fault"/></p>
+                                                </div>
+                                                <div class="col-md-4 text-center">
+                                                    <div class="mb-3">
+                                                        <span t-attf-class="badge badge-lg badge-#{current_order.state == 'draft' and 'secondary' or current_order.state == 'assigned' and 'info' or current_order.state == 'in_progress' and 'primary' or current_order.state == 'pending_approval' and 'warning' or 'success'}">
+                                                            <t t-esc="dict(current_order._fields['state'].selection)[current_order.state]"/>
+                                                        </span>
+                                                    </div>
+                                                    <a t-attf-href="/inmoser/service-order/#{current_order.id}" class="btn btn-primary">
+                                                        Ver Detalles
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                                
+                                <!-- Historial de servicios -->
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h4 class="mb-0">
+                                            <i class="fa fa-history mr-2"/>
+                                            Historial de Servicios
+                                        </h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <t t-if="service_orders">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Orden</th>
+                                                            <th>Tipo</th>
+                                                            <th>Técnico</th>
+                                                            <th>Fecha</th>
+                                                            <th>Estado</th>
+                                                            <th>Monto</th>
+                                                            <th>Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <t t-foreach="service_orders" t-as="order">
+                                                            <tr>
+                                                                <td><t t-esc="order.name"/></td>
+                                                                <td><t t-esc="order.service_type_id.name"/></td>
+                                                                <td>
+                                                                    <t t-if="order.assigned_technician_id">
+                                                                        <t t-esc="order.assigned_technician_id.name"/>
+                                                                    </t>
+                                                                    <t t-else="">-</t>
+                                                                </td>
+                                                                <td>
+                                                                    <t t-if="order.scheduled_date">
+                                                                        <t t-esc="order.scheduled_date" t-options="{'widget': 'date'}"/>
+                                                                    </t>
+                                                                    <t t-else="">-</t>
+                                                                </td>
+                                                                <td>
+                                                                    <span t-attf-class="badge badge-#{order.state == 'done' and 'success' or order.state == 'cancelled' and 'danger' or 'info'}">
+                                                                        <t t-esc="dict(order._fields['state'].selection)[order.state]"/>
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <t t-if="order.total_amount">
+                                                                        <t t-esc="order.total_amount" t-options="{'widget': 'monetary', 'display_currency': order.currency_id}"/>
+                                                                    </t>
+                                                                    <t t-else="">-</t>
+                                                                </td>
+                                                                <td>
+                                                                    <a t-attf-href="/inmoser/service-order/#{order.id}" class="btn btn-sm btn-outline-primary">
+                                                                        Ver
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </t>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </t>
+                                        <t t-else="">
+                                            <div class="text-center text-muted py-4">
+                                                <i class="fa fa-inbox fa-3x mb-3"/>
+                                                <p>No hay servicios registrados para este equipo.</p>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                                
+                                <!-- Botón para solicitar servicio -->
+                                <div class="text-center mb-4">
+                                    <a href="/inmoser/request-service" class="btn btn-success btn-lg">
+                                        <i class="fa fa-plus mr-2"/>
+                                        Solicitar Nuevo Servicio
+                                    </a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+        
+        <!-- Template: Portal de orden de servicio -->
+        <template id="service_order_portal_template" name="Service Order Portal">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <div class="container mt-4">
+                        <div class="row">
+                            <div class="col-lg-8 offset-lg-2">
+                                
+                                <!-- Header de la orden -->
+                                <div class="card mb-4">
+                                    <div class="card-header bg-primary text-white">
+                                        <h3 class="mb-0">
+                                            <i class="fa fa-wrench mr-2"/>
+                                            Orden de Servicio: <t t-esc="order.name"/>
+                                        </h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h5>Información General</h5>
+                                                <p><strong>Cliente:</strong> <t t-esc="order.partner_id.name"/></p>
+                                                <p><strong>Equipo:</strong> <t t-esc="order.equipment_id.name"/></p>
+                                                <p><strong>Tipo de Servicio:</strong> <t t-esc="order.service_type_id.name"/></p>
+                                                <p><strong>Prioridad:</strong> 
+                                                    <span t-attf-class="badge badge-#{order.priority == 'urgent' and 'danger' or order.priority == 'high' and 'warning' or 'info'}">
+                                                        <t t-esc="dict(order._fields['priority'].selection)[order.priority]"/>
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h5>Estado del Servicio</h5>
+                                                <div class="mb-3">
+                                                    <span t-attf-class="badge badge-lg badge-#{order.state == 'draft' and 'secondary' or order.state == 'assigned' and 'info' or order.state == 'in_progress' and 'primary' or order.state == 'pending_approval' and 'warning' or order.state == 'done' and 'success' or 'danger'}">
+                                                        <t t-esc="dict(order._fields['state'].selection)[order.state]"/>
+                                                    </span>
+                                                </div>
+                                                <p><strong>Técnico Asignado:</strong> 
+                                                    <t t-if="order.assigned_technician_id">
+                                                        <t t-esc="order.assigned_technician_id.name"/>
+                                                    </t>
+                                                    <t t-else="">Por asignar</t>
+                                                </p>
+                                                <p><strong>Fecha Programada:</strong> 
+                                                    <t t-if="order.scheduled_date">
+                                                        <t t-esc="order.scheduled_date" t-options="{'widget': 'datetime'}"/>
+                                                    </t>
+                                                    <t t-else="">Por programar</t>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Progreso del servicio -->
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h4 class="mb-0">
+                                            <i class="fa fa-tasks mr-2"/>
+                                            Progreso del Servicio
+                                        </h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="progress mb-3" style="height: 25px;">
+                                            <div class="progress-bar" role="progressbar" 
+                                                 t-attf-style="width: #{order._get_progress_percentage()}%"
+                                                 t-attf-aria-valuenow="#{order._get_progress_percentage()}"
+                                                 aria-valuemin="0" aria-valuemax="100">
+                                                <t t-esc="order._get_progress_percentage()"/>%
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Timeline de estados -->
+                                        <div class="timeline">
+                                            <div t-attf-class="timeline-item #{order.state in ['draft', 'assigned', 'in_progress', 'pending_approval', 'accepted', 'done'] and 'completed' or ''}">
+                                                <i class="fa fa-file-o"/>
+                                                <div class="timeline-content">
+                                                    <h6>Orden Creada</h6>
+                                                    <small><t t-esc="order.create_date" t-options="{'widget': 'datetime'}"/></small>
+                                                </div>
+                                            </div>
+                                            
+                                            <div t-attf-class="timeline-item #{order.state in ['assigned', 'in_progress', 'pending_approval', 'accepted', 'done'] and 'completed' or ''}">
+                                                <i class="fa fa-user"/>
+                                                <div class="timeline-content">
+                                                    <h6>Técnico Asignado</h6>
+                                                    <t t-if="order.assigned_technician_id">
+                                                        <small><t t-esc="order.assigned_technician_id.name"/></small>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                            
+                                            <div t-attf-class="timeline-item #{order.state in ['in_progress', 'pending_approval', 'accepted', 'done'] and 'completed' or ''}">
+                                                <i class="fa fa-play"/>
+                                                <div class="timeline-content">
+                                                    <h6>Servicio Iniciado</h6>
+                                                    <t t-if="order.start_date">
+                                                        <small><t t-esc="order.start_date" t-options="{'widget': 'datetime'}"/></small>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                            
+                                            <div t-attf-class="timeline-item #{order.state in ['done'] and 'completed' or ''}">
+                                                <i class="fa fa-check"/>
+                                                <div class="timeline-content">
+                                                    <h6>Servicio Completado</h6>
+                                                    <t t-if="order.end_date">
+                                                        <small><t t-esc="order.end_date" t-options="{'widget': 'datetime'}"/></small>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Detalles del servicio -->
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h4 class="mb-0">
+                                            <i class="fa fa-info-circle mr-2"/>
+                                            Detalles del Servicio
+                                        </h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h6>Falla Reportada:</h6>
+                                                <p class="bg-light p-3 rounded"><t t-esc="order.reported_fault"/></p>
+                                            </div>
+                                        </div>
+                                        
+                                        <t t-if="order.diagnosis">
+                                            <div class="row mt-3">
+                                                <div class="col-md-12">
+                                                    <h6>Diagnóstico:</h6>
+                                                    <p class="bg-info text-white p-3 rounded"><t t-esc="order.diagnosis"/></p>
+                                                </div>
+                                            </div>
+                                        </t>
+                                        
+                                        <t t-if="order.work_performed">
+                                            <div class="row mt-3">
+                                                <div class="col-md-12">
+                                                    <h6>Trabajo Realizado:</h6>
+                                                    <p class="bg-success text-white p-3 rounded"><t t-esc="order.work_performed"/></p>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                                
+                                <!-- Refacciones -->
+                                <t t-if="order.refaction_line_ids">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <h4 class="mb-0">
+                                                <i class="fa fa-cogs mr-2"/>
+                                                Refacciones Utilizadas
+                                            </h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Producto</th>
+                                                            <th>Descripción</th>
+                                                            <th>Cantidad</th>
+                                                            <th>Precio Unit.</th>
+                                                            <th>Total</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <t t-foreach="order.refaction_line_ids" t-as="line">
+                                                            <tr>
+                                                                <td><t t-esc="line.product_id.name"/></td>
+                                                                <td><t t-esc="line.description"/></td>
+                                                                <td><t t-esc="line.quantity"/></td>
+                                                                <td><t t-esc="line.unit_price" t-options="{'widget': 'monetary', 'display_currency': order.currency_id}"/></td>
+                                                                <td><t t-esc="line.total_price" t-options="{'widget': 'monetary', 'display_currency': order.currency_id}"/></td>
+                                                            </tr>
+                                                        </t>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr class="table-info">
+                                                            <th colspan="4">Total:</th>
+                                                            <th><t t-esc="order.total_amount" t-options="{'widget': 'monetary', 'display_currency': order.currency_id}"/></th>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                                
+                                <!-- Evidencias fotográficas -->
+                                <t t-if="order.photo_before or order.photo_after">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <h4 class="mb-0">
+                                                <i class="fa fa-camera mr-2"/>
+                                                Evidencias Fotográficas
+                                            </h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <t t-if="order.photo_before">
+                                                    <div class="col-md-6">
+                                                        <h6>Antes del Servicio</h6>
+                                                        <img t-attf-src="data:image/png;base64,#{order.photo_before}" 
+                                                             class="img-fluid rounded" alt="Antes del servicio"/>
+                                                    </div>
+                                                </t>
+                                                <t t-if="order.photo_after">
+                                                    <div class="col-md-6">
+                                                        <h6>Después del Servicio</h6>
+                                                        <img t-attf-src="data:image/png;base64,#{order.photo_after}" 
+                                                             class="img-fluid rounded" alt="Después del servicio"/>
+                                                    </div>
+                                                </t>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                                
+                                <!-- Botones de acción -->
+                                <div class="text-center mb-4">
+                                    <t t-if="order.equipment_id">
+                                        <a t-attf-href="/inmoser/equipment/#{order.equipment_id.id}" class="btn btn-outline-primary mr-2">
+                                            <i class="fa fa-desktop mr-1"/>
+                                            Ver Equipo
+                                        </a>
+                                    </t>
+                                    <a href="/inmoser/request-service" class="btn btn-success">
+                                        <i class="fa fa-plus mr-1"/>
+                                        Solicitar Nuevo Servicio
+                                    </a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- JavaScript para actualización en tiempo real -->
+                <script>
+                    $(document).ready(function() {
+                        // Actualizar estado cada 30 segundos
+                        setInterval(function() {
+                            updateOrderStatus();
+                        }, 30000);
+                        
+                        function updateOrderStatus() {
+                            $.ajax({
+                                url: '/inmoser/api/order-status/' + <t t-esc="order.id"/>,
+                                type: 'POST',
+                                contentType: 'application/json',
+                                data: JSON.stringify({}),
+                                success: function(data) {
+                                    if (data.success) {
+                                        // Actualizar elementos de la página
+                                        location.reload(); // Recargar página si hay cambios
+                                    }
+                                }
+                            });
+                        }
+                    });
+                </script>
+            </t>
+        </template>
+        
+        <!-- Template: Formulario de solicitud de servicio -->
+        <template id="request_service_template" name="Request Service">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <div class="container mt-4">
+                        <div class="row">
+                            <div class="col-lg-8 offset-lg-2">
+                                
+                                <div class="card">
+                                    <div class="card-header bg-success text-white">
+                                        <h3 class="mb-0">
+                                            <i class="fa fa-plus mr-2"/>
+                                            Solicitar Nuevo Servicio
+                                        </h3>
+                                    </div>
+                                    <div class="card-body">
+                                        
+                                        <t t-if="error">
+                                            <div class="alert alert-danger">
+                                                <i class="fa fa-exclamation-triangle mr-2"/>
+                                                <t t-esc="error"/>
+                                            </div>
+                                        </t>
+                                        
+                                        <form method="post" action="/inmoser/request-service">
+                                            
+                                            <!-- Información del cliente -->
+                                            <h5 class="mb-3">Información del Cliente</h5>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="customer_name">Nombre Completo *</label>
+                                                        <input type="text" class="form-control" id="customer_name" 
+                                                               name="customer_name" required="required"
+                                                               t-att-value="form_data and form_data.get('customer_name', '')"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="customer_email">Email *</label>
+                                                        <input type="email" class="form-control" id="customer_email" 
+                                                               name="customer_email" required="required"
+                                                               t-att-value="form_data and form_data.get('customer_email', '')"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="customer_phone">Teléfono Fijo *</label>
+                                                        <input type="tel" class="form-control" id="customer_phone" 
+                                                               name="customer_phone" required="required"
+                                                               t-att-value="form_data and form_data.get('customer_phone', '')"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="customer_mobile">Teléfono Móvil</label>
+                                                        <input type="tel" class="form-control" id="customer_mobile" 
+                                                               name="customer_mobile"
+                                                               t-att-value="form_data and form_data.get('customer_mobile', '')"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="customer_address">Dirección</label>
+                                                <textarea class="form-control" id="customer_address" 
+                                                          name="customer_address" rows="2"
+                                                          t-att-value="form_data and form_data.get('customer_address', '')"></textarea>
+                                            </div>
+                                            
+                                            <!-- Información del equipo -->
+                                            <h5 class="mb-3 mt-4">Información del Equipo</h5>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="equipment_type">Tipo de Equipo *</label>
+                                                        <select class="form-control" id="equipment_type" 
+                                                                name="equipment_type" required="required">
+                                                            <option value="">Seleccione...</option>
+                                                            <option value="Laptop">Laptop</option>
+                                                            <option value="Desktop">Computadora de Escritorio</option>
+                                                            <option value="Impresora">Impresora</option>
+                                                            <option value="Servidor">Servidor</option>
+                                                            <option value="Router">Router</option>
+                                                            <option value="Switch">Switch</option>
+                                                            <option value="Otro">Otro</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="equipment_brand">Marca</label>
+                                                        <input type="text" class="form-control" id="equipment_brand" 
+                                                               name="equipment_brand"
+                                                               t-att-value="form_data and form_data.get('equipment_brand', '')"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="equipment_model">Modelo</label>
+                                                        <input type="text" class="form-control" id="equipment_model" 
+                                                               name="equipment_model"
+                                                               t-att-value="form_data and form_data.get('equipment_model', '')"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="equipment_serial">Número de Serie</label>
+                                                        <input type="text" class="form-control" id="equipment_serial" 
+                                                               name="equipment_serial"
+                                                               t-att-value="form_data and form_data.get('equipment_serial', '')"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="equipment_location">Ubicación del Equipo</label>
+                                                <input type="text" class="form-control" id="equipment_location" 
+                                                       name="equipment_location" 
+                                                       placeholder="Ej: Oficina principal, Sala de juntas, etc."
+                                                       t-att-value="form_data and form_data.get('equipment_location', '')"/>
+                                            </div>
+                                            
+                                            <!-- Información del servicio -->
+                                            <h5 class="mb-3 mt-4">Información del Servicio</h5>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="service_type_id">Tipo de Servicio *</label>
+                                                        <select class="form-control" id="service_type_id" 
+                                                                name="service_type_id" required="required">
+                                                            <option value="">Seleccione...</option>
+                                                            <t t-foreach="service_types" t-as="service_type">
+                                                                <option t-att-value="service_type.id">
+                                                                    <t t-esc="service_type.name"/> - 
+                                                                    <t t-esc="service_type.base_price" t-options="{'widget': 'monetary', 'display_currency': service_type.currency_id}"/>
+                                                                </option>
+                                                            </t>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="priority">Prioridad</label>
+                                                        <select class="form-control" id="priority" name="priority">
+                                                            <option value="normal">Normal</option>
+                                                            <option value="high">Alta</option>
+                                                            <option value="urgent">Urgente</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="reported_fault">Descripción de la Falla *</label>
+                                                <textarea class="form-control" id="reported_fault" 
+                                                          name="reported_fault" rows="4" required="required"
+                                                          placeholder="Describa detalladamente el problema que presenta el equipo..."
+                                                          t-att-value="form_data and form_data.get('reported_fault', '')"></textarea>
+                                            </div>
+                                            
+                                            <div class="text-center mt-4">
+                                                <button type="submit" class="btn btn-success btn-lg">
+                                                    <i class="fa fa-paper-plane mr-2"/>
+                                                    Enviar Solicitud
+                                                </button>
+                                            </div>
+                                            
+                                        </form>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+        
+        <!-- Template: Error pages -->
+        <template id="equipment_not_found" name="Equipment Not Found">
+            <t t-call="website.layout">
+                <div class="container mt-5 text-center">
+                    <h1>Equipo No Encontrado</h1>
+                    <p>El equipo que busca no existe o no está disponible.</p>
+                    <a href="/inmoser/request-service" class="btn btn-primary">Solicitar Servicio</a>
+                </div>
+            </t>
+        </template>
+        
+        <template id="order_not_found" name="Order Not Found">
+            <t t-call="website.layout">
+                <div class="container mt-5 text-center">
+                    <h1>Orden No Encontrada</h1>
+                    <p>La orden de servicio que busca no existe o no está disponible.</p>
+                    <a href="/inmoser/request-service" class="btn btn-primary">Solicitar Servicio</a>
+                </div>
+            </t>
+        </template>
+        
+        <template id="portal_error" name="Portal Error">
+            <t t-call="website.layout">
+                <div class="container mt-5 text-center">
+                    <h1>Error</h1>
+                    <p>Ha ocurrido un error: <t t-esc="error"/></p>
+                    <a href="/" class="btn btn-primary">Volver al Inicio</a>
+                </div>
+            </t>
+        </template>
+        
+        <!-- CSS personalizado -->
+        <template id="portal_assets" name="Portal Assets" inherit_id="website.assets_frontend">
+            <xpath expr="." position="inside">
+                <style>
+                    .timeline {
+                        position: relative;
+                        padding-left: 30px;
+                    }
+                    
+                    .timeline::before {
+                        content: '';
+                        position: absolute;
+                        left: 15px;
+                        top: 0;
+                        bottom: 0;
+                        width: 2px;
+                        background: #dee2e6;
+                    }
+                    
+                    .timeline-item {
+                        position: relative;
+                        margin-bottom: 20px;
+                        padding-left: 30px;
+                    }
+                    
+                    .timeline-item i {
+                        position: absolute;
+                        left: -22px;
+                        top: 0;
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        background: #6c757d;
+                        color: white;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 12px;
+                    }
+                    
+                    .timeline-item.completed i {
+                        background: #28a745;
+                    }
+                    
+                    .badge-lg {
+                        font-size: 1em;
+                        padding: 0.5em 1em;
+                    }
+                </style>
+            </xpath>
+        </template>
+        
+    </data>
+</odoo>
+

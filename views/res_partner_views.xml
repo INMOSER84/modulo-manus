@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Extensión de la vista de formulario de contactos -->
+        <record id="view_partner_form_inherit_inmoser" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit.inmoser</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                
+                <!-- Añadir botones estadísticos -->
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_view_equipment" type="object" 
+                            class="oe_stat_button" icon="fa-desktop"
+                            attrs="{'invisible': [('x_inmoser_is_service_client', '=', False)]}">
+                        <field name="x_inmoser_equipment_count" widget="statbutton" string="Equipment"/>
+                    </button>
+                    <button name="action_view_service_orders" type="object" 
+                            class="oe_stat_button" icon="fa-wrench"
+                            attrs="{'invisible': [('x_inmoser_is_service_client', '=', False)]}">
+                        <field name="x_inmoser_service_order_count" widget="statbutton" string="Service Orders"/>
+                    </button>
+                    <button name="action_create_service_order" type="object" 
+                            class="oe_stat_button" icon="fa-plus"
+                            attrs="{'invisible': [('x_inmoser_is_service_client', '=', False)]}">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_text">New Service</span>
+                        </div>
+                    </button>
+                </xpath>
+                
+                <!-- Añadir campos de servicio después del teléfono -->
+                <xpath expr="//field[@name='mobile']" position="after">
+                    <field name="x_inmoser_phone_mobile_2" 
+                           attrs="{'invisible': [('x_inmoser_is_service_client', '=', False)]}"/>
+                </xpath>
+                
+                <!-- Añadir checkbox de cliente de servicio -->
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="x_inmoser_is_service_client"/>
+                    <field name="x_inmoser_client_sequence" readonly="1"
+                           attrs="{'invisible': [('x_inmoser_client_sequence', '=', False)]}"/>
+                </xpath>
+                
+                <!-- Añadir página de información de servicio -->
+                <xpath expr="//notebook" position="inside">
+                    <page string="Service Information" name="service_info"
+                          attrs="{'invisible': [('x_inmoser_is_service_client', '=', False)]}">
+                        
+                        <group string="Service Client Information">
+                            <field name="x_inmoser_client_notes" 
+                                   placeholder="Additional notes about this service client..."/>
+                        </group>
+                        
+                        <group string="Equipment" name="equipment_section">
+                            <field name="x_inmoser_equipment_ids" nolabel="1">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="equipment_type"/>
+                                    <field name="brand"/>
+                                    <field name="model"/>
+                                    <field name="state" widget="badge"/>
+                                    <field name="service_order_count"/>
+                                    <field name="last_service_date"/>
+                                </tree>
+                            </field>
+                        </group>
+                        
+                        <group string="Recent Service Orders" name="service_orders_section">
+                            <field name="x_inmoser_service_order_ids" nolabel="1">
+                                <tree limit="5">
+                                    <field name="name"/>
+                                    <field name="equipment_id"/>
+                                    <field name="service_type_id"/>
+                                    <field name="assigned_technician_id"/>
+                                    <field name="scheduled_date"/>
+                                    <field name="state" widget="badge"/>
+                                    <field name="total_amount"/>
+                                </tree>
+                            </field>
+                        </group>
+                        
+                    </page>
+                </xpath>
+                
+            </field>
+        </record>
+        
+        <!-- Extensión de la vista de árbol de contactos -->
+        <record id="view_partner_tree_inherit_inmoser" model="ir.ui.view">
+            <field name="name">res.partner.tree.inherit.inmoser</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                
+                <!-- Añadir columna de secuencia de cliente -->
+                <xpath expr="//field[@name='display_name']" position="after">
+                    <field name="x_inmoser_client_sequence" optional="hide"/>
+                    <field name="x_inmoser_is_service_client" optional="hide"/>
+                </xpath>
+                
+            </field>
+        </record>
+        
+        <!-- Vista específica para clientes de servicio -->
+        <record id="view_service_client_tree" model="ir.ui.view">
+            <field name="name">res.partner.service.client.tree</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree string="Service Clients" decoration-info="x_inmoser_is_service_client==True">
+                    <field name="x_inmoser_client_sequence"/>
+                    <field name="name"/>
+                    <field name="phone"/>
+                    <field name="mobile"/>
+                    <field name="x_inmoser_phone_mobile_2"/>
+                    <field name="email"/>
+                    <field name="x_inmoser_equipment_count"/>
+                    <field name="x_inmoser_service_order_count"/>
+                    <field name="x_inmoser_is_service_client" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Vista kanban para clientes de servicio -->
+        <record id="view_service_client_kanban" model="ir.ui.view">
+            <field name="name">res.partner.service.client.kanban</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="x_inmoser_client_sequence"/>
+                    <field name="name"/>
+                    <field name="phone"/>
+                    <field name="mobile"/>
+                    <field name="email"/>
+                    <field name="x_inmoser_equipment_count"/>
+                    <field name="x_inmoser_service_order_count"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_card oe_kanban_global_click">
+                                <div class="o_kanban_image">
+                                    <img t-att-src="kanban_image('res.partner', 'avatar_128', record.id.raw_value)" 
+                                         alt="Avatar" class="o_kanban_image_inner"/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                    <div class="o_kanban_record_subtitle">
+                                        <field name="x_inmoser_client_sequence"/>
+                                    </div>
+                                    <div class="o_kanban_record_body">
+                                        <t t-if="record.phone.raw_value">
+                                            <i class="fa fa-phone"/> <field name="phone"/>
+                                        </t>
+                                        <t t-if="record.mobile.raw_value">
+                                            <br/><i class="fa fa-mobile"/> <field name="mobile"/>
+                                        </t>
+                                        <t t-if="record.email.raw_value">
+                                            <br/><i class="fa fa-envelope"/> <field name="email"/>
+                                        </t>
+                                    </div>
+                                </div>
+                                <div class="oe_kanban_footer">
+                                    <div class="oe_kanban_footer_left">
+                                        <span t-if="record.x_inmoser_equipment_count.raw_value > 0">
+                                            <i class="fa fa-desktop"/> <field name="x_inmoser_equipment_count"/> equipment
+                                        </span>
+                                    </div>
+                                    <div class="oe_kanban_footer_right">
+                                        <span t-if="record.x_inmoser_service_order_count.raw_value > 0">
+                                            <i class="fa fa-wrench"/> <field name="x_inmoser_service_order_count"/> services
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        
+        <!-- Vista de búsqueda para clientes de servicio -->
+        <record id="view_service_client_search" model="ir.ui.view">
+            <field name="name">res.partner.service.client.search</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                
+                <!-- Añadir filtros específicos de servicio -->
+                <xpath expr="//filter[@name='supplier']" position="after">
+                    <filter string="Service Clients" name="service_clients" 
+                            domain="[('x_inmoser_is_service_client', '=', True)]"/>
+                </xpath>
+                
+                <!-- Añadir campo de búsqueda por secuencia -->
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="x_inmoser_client_sequence" string="Client Code"/>
+                </xpath>
+                
+            </field>
+        </record>
+        
+        <!-- Acción para clientes de servicio -->
+        <record id="action_service_clients" model="ir.actions.act_window">
+            <field name="name">Service Clients</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('x_inmoser_is_service_client', '=', True)]</field>
+            <field name="context">{'default_x_inmoser_is_service_client': True, 'search_default_service_clients': 1}</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                                          (0, 0, {'view_mode': 'kanban', 'view_id': ref('view_service_client_kanban')}),
+                                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_service_client_tree')}),
+                                          (0, 0, {'view_mode': 'form', 'view_id': ref('base.view_partner_form')})]"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first service client!
+                </p>
+                <p>
+                    Service clients are customers who use your equipment maintenance and repair services.
+                    They get automatic client codes and can have multiple equipment registered.
+                </p>
+            </field>
+        </record>
+        
+    </data>
+</odoo>
+

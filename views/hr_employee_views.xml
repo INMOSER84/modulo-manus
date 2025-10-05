@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Extensión de la vista de formulario de empleados -->
+        <record id="view_employee_form_inherit_inmoser" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherit.inmoser</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                
+                <!-- Añadir botones estadísticos -->
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_view_assigned_orders" type="object" 
+                            class="oe_stat_button" icon="fa-tasks"
+                            attrs="{'invisible': [('x_inmoser_is_technician', '=', False)]}">
+                        <field name="x_inmoser_active_orders_count" widget="statbutton" string="Active Orders"/>
+                    </button>
+                    <button name="action_view_technician_calendar" type="object" 
+                            class="oe_stat_button" icon="fa-calendar"
+                            attrs="{'invisible': [('x_inmoser_is_technician', '=', False)]}">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_text">Calendar</span>
+                        </div>
+                    </button>
+                    <button name="action_view_assigned_orders" type="object" 
+                            class="oe_stat_button" icon="fa-check-circle"
+                            attrs="{'invisible': [('x_inmoser_is_technician', '=', False)]}">
+                        <field name="x_inmoser_completed_orders_count" widget="statbutton" string="Completed"/>
+                    </button>
+                </xpath>
+                
+                <!-- Añadir checkbox de técnico -->
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="x_inmoser_is_technician"/>
+                </xpath>
+                
+                <!-- Añadir página de información de técnico -->
+                <xpath expr="//notebook" position="inside">
+                    <page string="Technician Information" name="technician_info"
+                          attrs="{'invisible': [('x_inmoser_is_technician', '=', False)]}">
+                        
+                        <group>
+                            <group string="Technician Configuration">
+                                <field name="x_inmoser_technician_level"/>
+                                <field name="x_inmoser_available_hours" 
+                                       placeholder="10-12,12-14,15-17"/>
+                                <field name="x_inmoser_max_daily_orders"/>
+                                <field name="x_inmoser_virtual_warehouse_id" 
+                                       domain="[('usage', '=', 'internal')]"/>
+                            </group>
+                            <group string="Statistics">
+                                <field name="x_inmoser_active_orders_count" readonly="1"/>
+                                <field name="x_inmoser_completed_orders_count" readonly="1"/>
+                            </group>
+                        </group>
+                        
+                        <group string="Specialties and Certifications">
+                            <field name="x_inmoser_specialties" nolabel="1" 
+                                   placeholder="List technician specialties, certifications, and areas of expertise..."/>
+                        </group>
+                        
+                        <group string="Assigned Service Orders" name="assigned_orders_section">
+                            <field name="x_inmoser_assigned_orders" nolabel="1">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="equipment_id"/>
+                                    <field name="service_type_id"/>
+                                    <field name="scheduled_date"/>
+                                    <field name="state" widget="badge"/>
+                                    <field name="priority" widget="priority"/>
+                                    <field name="total_amount"/>
+                                </tree>
+                            </field>
+                        </group>
+                        
+                    </page>
+                </xpath>
+                
+            </field>
+        </record>
+        
+        <!-- Extensión de la vista de árbol de empleados -->
+        <record id="view_employee_tree_inherit_inmoser" model="ir.ui.view">
+            <field name="name">hr.employee.tree.inherit.inmoser</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+                
+                <!-- Añadir columnas de técnico -->
+                <xpath expr="//field[@name='job_id']" position="after">
+                    <field name="x_inmoser_is_technician" optional="hide"/>
+                    <field name="x_inmoser_technician_level" optional="hide"/>
+                    <field name="x_inmoser_active_orders_count" optional="hide"/>
+                </xpath>
+                
+            </field>
+        </record>
+        
+        <!-- Vista específica para técnicos -->
+        <record id="view_technician_tree" model="ir.ui.view">
+            <field name="name">hr.employee.technician.tree</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <tree string="Technicians" decoration-info="x_inmoser_is_technician==True">
+                    <field name="name"/>
+                    <field name="department_id"/>
+                    <field name="job_id"/>
+                    <field name="x_inmoser_technician_level"/>
+                    <field name="x_inmoser_available_hours"/>
+                    <field name="x_inmoser_max_daily_orders"/>
+                    <field name="x_inmoser_active_orders_count"/>
+                    <field name="x_inmoser_completed_orders_count"/>
+                    <field name="x_inmoser_is_technician" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Vista kanban para técnicos -->
+        <record id="view_technician_kanban" model="ir.ui.view">
+            <field name="name">hr.employee.technician.kanban</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="name"/>
+                    <field name="job_id"/>
+                    <field name="department_id"/>
+                    <field name="x_inmoser_technician_level"/>
+                    <field name="x_inmoser_active_orders_count"/>
+                    <field name="x_inmoser_completed_orders_count"/>
+                    <field name="x_inmoser_available_hours"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_card oe_kanban_global_click">
+                                <div class="o_kanban_image">
+                                    <img t-att-src="kanban_image('hr.employee', 'avatar_128', record.id.raw_value)" 
+                                         alt="Avatar" class="o_kanban_image_inner"/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                    <div class="o_kanban_record_subtitle">
+                                        <field name="job_id"/>
+                                        <t t-if="record.x_inmoser_technician_level.raw_value">
+                                            - <field name="x_inmoser_technician_level"/>
+                                        </t>
+                                    </div>
+                                    <div class="o_kanban_record_body">
+                                        <field name="department_id"/>
+                                        <t t-if="record.x_inmoser_available_hours.raw_value">
+                                            <br/><i class="fa fa-clock-o"/> <field name="x_inmoser_available_hours"/>
+                                        </t>
+                                    </div>
+                                </div>
+                                <div class="oe_kanban_footer">
+                                    <div class="oe_kanban_footer_left">
+                                        <span t-if="record.x_inmoser_active_orders_count.raw_value > 0" 
+                                              class="badge badge-warning">
+                                            <field name="x_inmoser_active_orders_count"/> active
+                                        </span>
+                                    </div>
+                                    <div class="oe_kanban_footer_right">
+                                        <span t-if="record.x_inmoser_completed_orders_count.raw_value > 0" 
+                                              class="badge badge-success">
+                                            <field name="x_inmoser_completed_orders_count"/> done
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        
+        <!-- Vista de búsqueda para técnicos -->
+        <record id="view_technician_search" model="ir.ui.view">
+            <field name="name">hr.employee.technician.search</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_filter"/>
+            <field name="arch" type="xml">
+                
+                <!-- Añadir filtros específicos de técnico -->
+                <xpath expr="//filter[@name='my_team']" position="after">
+                    <filter string="Technicians" name="technicians" 
+                            domain="[('x_inmoser_is_technician', '=', True)]"/>
+                    <filter string="Available Today" name="available_today" 
+                            domain="[('x_inmoser_is_technician', '=', True)]"/>
+                    <filter string="With Active Orders" name="with_active_orders" 
+                            domain="[('x_inmoser_active_orders_count', '>', 0)]"/>
+                </xpath>
+                
+                <!-- Añadir agrupaciones específicas -->
+                <xpath expr="//group[@name='group_by']" position="inside">
+                    <filter string="Technician Level" name="group_technician_level" 
+                            context="{'group_by': 'x_inmoser_technician_level'}"/>
+                </xpath>
+                
+            </field>
+        </record>
+        
+        <!-- Vista de calendario para técnicos -->
+        <record id="view_technician_calendar" model="ir.ui.view">
+            <field name="name">hr.employee.technician.calendar</field>
+            <field name="model">inmoser.service.order</field>
+            <field name="arch" type="xml">
+                <calendar string="Technician Calendar" 
+                          date_start="scheduled_date" 
+                          color="assigned_technician_id"
+                          quick_add="False"
+                          event_open_popup="true"
+                          mode="week">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="equipment_id"/>
+                    <field name="assigned_technician_id"/>
+                    <field name="state"/>
+                </calendar>
+            </field>
+        </record>
+        
+        <!-- Acción para técnicos -->
+        <record id="action_technicians" model="ir.actions.act_window">
+            <field name="name">Technicians</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('x_inmoser_is_technician', '=', True)]</field>
+            <field name="context">{'default_x_inmoser_is_technician': True, 'search_default_technicians': 1}</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                                          (0, 0, {'view_mode': 'kanban', 'view_id': ref('view_technician_kanban')}),
+                                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_technician_tree')}),
+                                          (0, 0, {'view_mode': 'form', 'view_id': ref('hr.view_employee_form')})]"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Register your first technician!
+                </p>
+                <p>
+                    Technicians are employees who perform service orders.
+                    Configure their availability, specialties, and virtual warehouse for parts management.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Acción de calendario para técnico específico -->
+        <record id="action_technician_calendar" model="ir.actions.act_window">
+            <field name="name">My Calendar</field>
+            <field name="res_model">inmoser.service.order</field>
+            <field name="view_mode">calendar,kanban,tree,form</field>
+            <field name="view_id" ref="view_technician_calendar"/>
+            <field name="domain">[('assigned_technician_id.user_id', '=', uid)]</field>
+            <field name="context">{'search_default_my_orders': 1}</field>
+        </record>
+        
+    </data>
+</odoo>
+

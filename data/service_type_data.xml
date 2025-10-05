@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Tipos de servicio por defecto -->
+        <record id="service_type_repair" model="inmoser.service.type">
+            <field name="name">Reparación</field>
+            <field name="description">Servicio de reparación de equipos con diagnóstico y corrección de fallas</field>
+            <field name="estimated_duration">3.0</field>
+            <field name="requires_diagnosis" eval="True"/>
+            <field name="requires_approval" eval="True"/>
+            <field name="allow_photos" eval="True"/>
+            <field name="base_price">150.0</field>
+            <field name="sequence">10</field>
+            <field name="color">1</field>
+        </record>
+        
+        <record id="service_type_maintenance" model="inmoser.service.type">
+            <field name="name">Mantenimiento Preventivo</field>
+            <field name="description">Servicio de mantenimiento preventivo para equipos</field>
+            <field name="estimated_duration">2.0</field>
+            <field name="requires_diagnosis" eval="False"/>
+            <field name="requires_approval" eval="False"/>
+            <field name="allow_photos" eval="True"/>
+            <field name="base_price">100.0</field>
+            <field name="sequence">20</field>
+            <field name="color">3</field>
+        </record>
+        
+        <record id="service_type_installation" model="inmoser.service.type">
+            <field name="name">Instalación</field>
+            <field name="description">Servicio de instalación y configuración de equipos nuevos</field>
+            <field name="estimated_duration">4.0</field>
+            <field name="requires_diagnosis" eval="False"/>
+            <field name="requires_approval" eval="True"/>
+            <field name="allow_photos" eval="True"/>
+            <field name="base_price">200.0</field>
+            <field name="sequence">30</field>
+            <field name="color">5</field>
+        </record>
+        
+        <record id="service_type_inspection" model="inmoser.service.type">
+            <field name="name">Inspección</field>
+            <field name="description">Servicio de inspección y evaluación del estado de equipos</field>
+            <field name="estimated_duration">1.0</field>
+            <field name="requires_diagnosis" eval="True"/>
+            <field name="requires_approval" eval="False"/>
+            <field name="allow_photos" eval="True"/>
+            <field name="base_price">75.0</field>
+            <field name="sequence">40</field>
+            <field name="color">7</field>
+        </record>
+        
+        <record id="service_type_emergency" model="inmoser.service.type">
+            <field name="name">Servicio de Emergencia</field>
+            <field name="description">Servicio urgente para equipos críticos fuera de horario normal</field>
+            <field name="estimated_duration">2.5</field>
+            <field name="requires_diagnosis" eval="True"/>
+            <field name="requires_approval" eval="True"/>
+            <field name="allow_photos" eval="True"/>
+            <field name="base_price">300.0</field>
+            <field name="sequence">50</field>
+            <field name="color">2</field>
+        </record>
+        
+        <record id="service_type_consultation" model="inmoser.service.type">
+            <field name="name">Consultoría Técnica</field>
+            <field name="description">Servicio de consultoría y asesoramiento técnico</field>
+            <field name="estimated_duration">1.5</field>
+            <field name="requires_diagnosis" eval="False"/>
+            <field name="requires_approval" eval="False"/>
+            <field name="allow_photos" eval="False"/>
+            <field name="base_price">120.0</field>
+            <field name="sequence">60</field>
+            <field name="color">4</field>
+        </record>
+        
+    </data>
+</odoo>
+

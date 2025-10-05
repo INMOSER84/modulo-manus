@@ -1,0 +1,329 @@
+/* Inmoser Service Order Module Styles */
+
+/* Main color scheme */
+:root {
+    --inmoser-primary: #2E86AB;
+    --inmoser-secondary: #A23B72;
+    --inmoser-success: #F18F01;
+    --inmoser-warning: #C73E1D;
+    --inmoser-info: #87CEEB;
+    --inmoser-light: #F8F9FA;
+    --inmoser-dark: #343A40;
+}
+
+/* Service Order Status Colors */
+.badge-draft {
+    background-color: #6c757d;
+    color: white;
+}
+
+.badge-assigned {
+    background-color: var(--inmoser-info);
+    color: #333;
+}
+
+.badge-in_progress {
+    background-color: var(--inmoser-primary);
+    color: white;
+}
+
+.badge-pending_approval {
+    background-color: var(--inmoser-warning);
+    color: white;
+}
+
+.badge-accepted {
+    background-color: var(--inmoser-success);
+    color: white;
+}
+
+.badge-done {
+    background-color: #28a745;
+    color: white;
+}
+
+.badge-cancelled {
+    background-color: #dc3545;
+    color: white;
+}
+
+.badge-rescheduled {
+    background-color: #ffc107;
+    color: #333;
+}
+
+/* Kanban Card Enhancements */
+.o_kanban_view .oe_kanban_card {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.o_kanban_view .oe_kanban_card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+/* Service Order Priority Indicators */
+.priority-urgent {
+    border-left: 4px solid #dc3545 !important;
+}
+
+.priority-high {
+    border-left: 4px solid #fd7e14 !important;
+}
+
+.priority-normal {
+    border-left: 4px solid #28a745 !important;
+}
+
+.priority-low {
+    border-left: 4px solid #6c757d !important;
+}
+
+/* Overdue Service Orders */
+.oe_kanban_card_danger {
+    border: 2px solid var(--inmoser-warning) !important;
+    background-color: #fff5f5;
+}
+
+.oe_kanban_card_danger .o_kanban_record_title {
+    color: var(--inmoser-warning);
+}
+
+/* Equipment Status Indicators */
+.equipment-active {
+    color: #28a745;
+}
+
+.equipment-maintenance {
+    color: #ffc107;
+}
+
+.equipment-retired {
+    color: #6c757d;
+}
+
+/* Warranty Status */
+.warranty-valid {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.warranty-expired {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.warranty-unknown {
+    color: #ffc107;
+    font-weight: bold;
+}
+
+/* Technician Cards */
+.technician-card {
+    background: linear-gradient(135deg, var(--inmoser-primary), var(--inmoser-secondary));
+    color: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.technician-card .o_kanban_record_title {
+    color: white !important;
+    font-size: 1.1em;
+}
+
+.technician-card .badge {
+    background-color: rgba(255,255,255,0.2);
+    color: white;
+}
+
+/* Service Order Form Enhancements */
+.o_form_view .oe_title h1 {
+    color: var(--inmoser-primary);
+    border-bottom: 2px solid var(--inmoser-primary);
+    padding-bottom: 10px;
+}
+
+/* Status Bar Customization */
+.o_statusbar_status > .btn-secondary {
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+    color: #6c757d;
+}
+
+.o_statusbar_status > .btn-primary {
+    background-color: var(--inmoser-primary);
+    border-color: var(--inmoser-primary);
+}
+
+/* Button Enhancements */
+.btn-primary {
+    background-color: var(--inmoser-primary);
+    border-color: var(--inmoser-primary);
+}
+
+.btn-primary:hover {
+    background-color: #1e5f7a;
+    border-color: #1e5f7a;
+}
+
+.btn-success {
+    background-color: var(--inmoser-success);
+    border-color: var(--inmoser-success);
+}
+
+.btn-warning {
+    background-color: var(--inmoser-warning);
+    border-color: var(--inmoser-warning);
+}
+
+/* Calendar View Enhancements */
+.fc-event {
+    border-radius: 4px;
+    border: none;
+    padding: 2px 4px;
+}
+
+.fc-event.fc-event-draft {
+    background-color: #6c757d;
+}
+
+.fc-event.fc-event-assigned {
+    background-color: var(--inmoser-info);
+    color: #333;
+}
+
+.fc-event.fc-event-in_progress {
+    background-color: var(--inmoser-primary);
+}
+
+.fc-event.fc-event-done {
+    background-color: #28a745;
+}
+
+/* QR Code Display */
+.qr-code-container {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--inmoser-light);
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.qr-code-container img {
+    border: 2px solid var(--inmoser-primary);
+    border-radius: 8px;
+    padding: 10px;
+    background-color: white;
+}
+
+/* Statistics Boxes */
+.o_stat_info {
+    text-align: center;
+}
+
+.o_stat_value {
+    font-size: 2em;
+    font-weight: bold;
+    color: var(--inmoser-primary);
+}
+
+.o_stat_text {
+    color: #6c757d;
+    font-size: 0.9em;
+}
+
+/* Form Field Enhancements */
+.o_field_widget.o_field_many2one input {
+    border-radius: 4px;
+}
+
+.o_field_widget.o_field_text textarea {
+    border-radius: 4px;
+    min-height: 80px;
+}
+
+/* Notebook Tab Styling */
+.nav-tabs .nav-link {
+    color: var(--inmoser-primary);
+    border: none;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--inmoser-primary);
+    border-bottom: 2px solid var(--inmoser-primary);
+    background-color: transparent;
+}
+
+/* Chatter Enhancements */
+.o_mail_thread {
+    border-radius: 8px;
+    background-color: var(--inmoser-light);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .o_kanban_view .oe_kanban_card {
+        margin: 5px;
+    }
+    
+    .technician-card {
+        margin: 5px 0;
+        padding: 10px;
+    }
+    
+    .o_form_view .oe_title h1 {
+        font-size: 1.5em;
+    }
+}
+
+/* Loading and Animation Effects */
+.o_loading {
+    position: relative;
+}
+
+.o_loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Hover Effects */
+.o_list_table tbody tr:hover {
+    background-color: rgba(46, 134, 171, 0.1);
+}
+
+/* Custom Icons */
+.fa-inmoser::before {
+    content: "\f085"; /* cogs icon as default */
+    color: var(--inmoser-primary);
+}
+
+/* Print Styles */
+@media print {
+    .oe_button_box,
+    .o_form_statusbar,
+    .oe_chatter {
+        display: none !important;
+    }
+    
+    .o_form_view {
+        background: white !important;
+    }
+    
+    .qr-code-container {
+        background: white !important;
+        border: 1px solid #000 !important;
+    }
+}
+
