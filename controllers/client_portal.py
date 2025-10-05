@@ -1,322 +1,265 @@
-# -*- coding: utf-8 -*-
-
-from odoo import http, fields, _
-from odoo.http import request
-from odoo.addons.portal.controllers.portal import CustomerPortal
+from odoo import http, _
+from odoo.http import request, content_disposition
+from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
 from odoo.exceptions import AccessError, MissingError
-import json
-import logging
 
-_logger = logging.getLogger(__name__)
-
-class InmoserPortal(http.Controller):
-    """
-    Controlador del portal web de Inmoser para acceso público
-    """
-    
-    @http.route(['/inmoser/equipment/<int:equipment_id>'], type='http', auth="public", website=True)
-    def equipment_portal(self, equipment_id, **kw):
-        """Portal público para ver información del equipo"""
-        try:
-            # Buscar equipo
-            equipment = request.env['inmoser.service.equipment'].sudo().browse(equipment_id)
-            
-            if not equipment.exists():
-                return request.render('inmoser_service_order.equipment_not_found')
-            
-            # Obtener órdenes de servicio del equipo
-            service_orders = request.env['inmoser.service.order'].sudo().search([
-                ('equipment_id', '=', equipment_id)
-            ], order='create_date desc', limit=10)
-            
-            # Obtener orden actual (si existe)
-            current_order = service_orders.filtered(lambda o: o.state not in ['done', 'cancelled'])[:1]
-            
-            values = {
-                'equipment': equipment,
-                'service_orders': service_orders,
-                'current_order': current_order,
-                'page_name': 'equipment_portal',
-            }
-            
-            return request.render('inmoser_service_order.equipment_portal_template', values)
-            
-        except Exception as e:
-            _logger.error(f"Error in equipment portal: {str(e)}")
-            return request.render('inmoser_service_order.portal_error', {'error': str(e)})
-    
-    @http.route(['/inmoser/service-order/<int:order_id>'], type='http', auth="public", website=True)
-    def service_order_portal(self, order_id, **kw):
-        """Portal público para ver información de la orden de servicio"""
-        try:
-            # Buscar orden de servicio
-            order = request.env['inmoser.service.order'].sudo().browse(order_id)
-            
-            if not order.exists():
-                return request.render('inmoser_service_order.order_not_found')
-            
-            values = {
-                'order': order,
-                'page_name': 'service_order_portal',
-            }
-            
-            return request.render('inmoser_service_order.service_order_portal_template', values)
-            
-        except Exception as e:
-            _logger.error(f"Error in service order portal: {str(e)}")
-            return request.render('inmoser_service_order.portal_error', {'error': str(e)})
-    
-    @http.route(['/inmoser/request-service'], type='http', auth="public", website=True, methods=['GET', 'POST'])
-    def request_service(self, **kw):
-        """Formulario para solicitar nuevo servicio"""
-        if request.httprequest.method == 'POST':
-            return self._process_service_request(**kw)
-        
-        # Obtener tipos de servicio disponibles
-        service_types = request.env['inmoser.service.type'].sudo().search([
-            ('active', '=', True)
-        ])
-        
-        values = {
-            'service_types': service_types,
-            'page_name': 'request_service',
-        }
-        
-        return request.render('inmoser_service_order.request_service_template', values)
-    
-    def _process_service_request(self, **kw):
-        """Procesar solicitud de servicio"""
-        try:
-            # Validar datos requeridos
-            required_fields = ['customer_name', 'customer_phone', 'customer_email', 
-                             'equipment_type', 'service_type_id', 'reported_fault']
-            
-            for field in required_fields:
-                if not kw.get(field):
-                    raise ValueError(f"Field {field} is required")
-            
-            # Buscar o crear cliente
-            partner = self._find_or_create_customer(kw)
-            
-            # Buscar o crear equipo
-            equipment = self._find_or_create_equipment(partner, kw)
-            
-            # Crear orden de servicio
-            order_vals = {
-                'partner_id': partner.id,
-                'equipment_id': equipment.id,
-                'service_type_id': int(kw.get('service_type_id')),
-                'reported_fault': kw.get('reported_fault'),
-                'priority': kw.get('priority', 'normal'),
-            }
-            
-            order = request.env['inmoser.service.order'].sudo().create(order_vals)
-            
-            # Redirigir al portal de la orden creada
-            return request.redirect(f'/inmoser/service-order/{order.id}?success=1')
-            
-        except Exception as e:
-            _logger.error(f"Error processing service request: {str(e)}")
-            return request.render('inmoser_service_order.request_service_template', {
-                'error': str(e),
-                'form_data': kw,
-                'service_types': request.env['inmoser.service.type'].sudo().search([('active', '=', True)])
-            })
-    
-    def _find_or_create_customer(self, data):
-        """Buscar o crear cliente"""
-        # Buscar por email o teléfono
-        partner = request.env['res.partner'].sudo().search([
-            '|', 
-            ('email', '=', data.get('customer_email')),
-            ('phone', '=', data.get('customer_phone'))
-        ], limit=1)
-        
-        if not partner:
-            # Crear nuevo cliente
-            partner_vals = {
-                'name': data.get('customer_name'),
-                'phone': data.get('customer_phone'),
-                'mobile': data.get('customer_mobile'),
-                'email': data.get('customer_email'),
-                'street': data.get('customer_address'),
-                'x_inmoser_is_service_client': True,
-            }
-            partner = request.env['res.partner'].sudo().create(partner_vals)
-        
-        return partner
-    
-    def _find_or_create_equipment(self, partner, data):
-        """Buscar o crear equipo"""
-        # Buscar equipo existente
-        equipment = request.env['inmoser.service.equipment'].sudo().search([
-            ('partner_id', '=', partner.id),
-            ('equipment_type', '=', data.get('equipment_type')),
-            ('brand', '=', data.get('equipment_brand', '')),
-            ('model', '=', data.get('equipment_model', ''))
-        ], limit=1)
-        
-        if not equipment:
-            # Crear nuevo equipo
-            equipment_vals = {
-                'partner_id': partner.id,
-                'equipment_type': data.get('equipment_type'),
-                'brand': data.get('equipment_brand', ''),
-                'model': data.get('equipment_model', ''),
-                'serial_number': data.get('equipment_serial', ''),
-                'location': data.get('equipment_location', ''),
-            }
-            equipment = request.env['inmoser.service.equipment'].sudo().create(equipment_vals)
-        
-        return equipment
-    
-    @http.route(['/inmoser/api/order-status/<int:order_id>'], type='json', auth="public")
-    def get_order_status(self, order_id, **kw):
-        """API para obtener estado de la orden en tiempo real"""
-        try:
-            order = request.env['inmoser.service.order'].sudo().browse(order_id)
-            
-            if not order.exists():
-                return {'error': 'Order not found'}
-            
-            return {
-                'success': True,
-                'order_id': order.id,
-                'name': order.name,
-                'state': order.state,
-                'state_display': dict(order._fields['state'].selection)[order.state],
-                'assigned_technician': order.assigned_technician_id.name if order.assigned_technician_id else None,
-                'scheduled_date': order.scheduled_date.isoformat() if order.scheduled_date else None,
-                'total_amount': order.total_amount,
-                'currency': order.currency_id.symbol,
-                'progress_percentage': order._get_progress_percentage(),
-            }
-            
-        except Exception as e:
-            _logger.error(f"Error getting order status: {str(e)}")
-            return {'error': str(e)}
-    
-    @http.route(['/inmoser/api/technician-location/<int:order_id>'], type='json', auth="public")
-    def get_technician_location(self, order_id, **kw):
-        """API para obtener ubicación del técnico (si está disponible)"""
-        try:
-            order = request.env['inmoser.service.order'].sudo().browse(order_id)
-            
-            if not order.exists() or not order.assigned_technician_id:
-                return {'error': 'Order or technician not found'}
-            
-            # Aquí se podría integrar con un sistema de GPS real
-            # Por ahora retornamos datos simulados
-            return {
-                'success': True,
-                'technician_name': order.assigned_technician_id.name,
-                'estimated_arrival': '15 minutes',  # Esto sería calculado en tiempo real
-                'is_en_route': order.state in ['assigned', 'in_progress'],
-            }
-            
-        except Exception as e:
-            _logger.error(f"Error getting technician location: {str(e)}")
-            return {'error': str(e)}
-
-class InmoserPortalExtended(CustomerPortal):
-    """
-    Extensión del portal de clientes de Odoo para funcionalidades de Inmoser
-    """
+class CustomerPortal(CustomerPortal):
     
     def _prepare_home_portal_values(self, counters):
-        """Añadir contadores de Inmoser al portal"""
         values = super()._prepare_home_portal_values(counters)
+        partner = request.env.user.partner_id
+        
+        ServiceOrder = request.env['service.order']
+        ServiceEquipment = request.env['service.equipment']
         
         if 'service_order_count' in counters:
-            partner = request.env.user.partner_id
-            service_order_count = request.env['inmoser.service.order'].search_count([
-                ('partner_id', '=', partner.id)
-            ])
-            values['service_order_count'] = service_order_count
+            values['service_order_count'] = ServiceOrder.search_count([
+                ('client_id', '=', partner.id)
+            ]) if ServiceOrder.check_access_rights('read', raise_exception=False) else 0
         
-        if 'equipment_count' in counters:
-            partner = request.env.user.partner_id
-            equipment_count = request.env['inmoser.service.equipment'].search_count([
-                ('partner_id', '=', partner.id)
-            ])
-            values['equipment_count'] = equipment_count
+        if 'service_equipment_count' in counters:
+            values['service_equipment_count'] = ServiceEquipment.search_count([
+                ('client_id', '=', partner.id)
+            ]) if ServiceEquipment.check_access_rights('read', raise_exception=False) else 0
         
         return values
     
-    @http.route(['/my/service-orders', '/my/service-orders/page/<int:page>'], 
-                type='http', auth="user", website=True)
-    def portal_my_service_orders(self, page=1, date_begin=None, date_end=None, 
-                                sortby=None, filterby=None, **kw):
-        """Portal de órdenes de servicio del cliente"""
+    def _service_order_get_page_view_values(self, service_order, access_token, **kwargs):
+        values = {
+            'page_name': 'service_order',
+            'service_order': service_order,
+            'user': request.env.user,
+        }
+        return self._get_page_view_values(service_order, access_token, values, 'my_services_history', False, **kwargs)
+    
+    @http.route(['/my/services', '/my/services/page/<int:page>'], type='http', auth="user", website=True)
+    def portal_my_services(self, page=1, date_begin=None, date_end=None, sortby=None, search=None, search_in='all', **kw):
         values = self._prepare_portal_layout_values()
         partner = request.env.user.partner_id
+        ServiceOrder = request.env['service.order']
         
-        ServiceOrder = request.env['inmoser.service.order']
+        searchbar_sortings = {
+            'date': {'label': _('Fecha'), 'order': 'scheduled_date desc'},
+            'name': {'label': _('Número'), 'order': 'name'},
+            'state': {'label': _('Estado'), 'order': 'state'},
+        }
         
-        domain = [('partner_id', '=', partner.id)]
+        searchbar_filters = {
+            'all': {'label': _('Todos'), 'domain': []},
+            'draft': {'label': _('Borrador'), 'domain': [('state', '=', 'draft')]},
+            'confirmed': {'label': _('Confirmado'), 'domain': [('state', '=', 'confirmed')]},
+            'in_progress': {'label': _('En Progreso'), 'domain': [('state', '=', 'in_progress')]},
+            'done': {'label': _('Completado'), 'domain': [('state', '=', 'done')]},
+            'cancel': {'label': _('Cancelado'), 'domain': [('state', '=', 'cancel')]},
+        }
         
-        # Filtros de fecha
-        if date_begin and date_end:
-            domain += [('create_date', '>', date_begin), ('create_date', '<=', date_end)]
+        searchbar_inputs = {
+            'all': {'input': 'all', 'label': _('Buscar en todos')},
+            'name': {'input': 'name', 'label': _('Buscar en Número')},
+            'equipment': {'input': 'equipment', 'label': _('Buscar en Equipo')},
+            'technician': {'input': 'technician', 'label': _('Buscar en Técnico')},
+        }
         
-        # Filtros por estado
-        if filterby == 'active':
-            domain += [('state', 'not in', ['done', 'cancelled'])]
-        elif filterby == 'completed':
-            domain += [('state', '=', 'done')]
+        # default sort by order
+        if not sortby:
+            sortby = 'date'
+        order = searchbar_sortings[sortby]['order']
         
-        # Ordenamiento
-        order = 'create_date desc'
-        if sortby == 'date':
-            order = 'scheduled_date desc'
-        elif sortby == 'name':
-            order = 'name'
+        # default search by
+        if search and search_in:
+            search_domain = []
+            if search_in == 'name':
+                search_domain = [('name', 'ilike', search)]
+            elif search_in == 'equipment':
+                search_domain = [('equipment_id.name', 'ilike', search)]
+            elif search_in == 'technician':
+                search_domain = [('technician_id.name', 'ilike', search)]
+            else:
+                search_domain = [('name', 'ilike', search), ('description', 'ilike', search)]
+        else:
+            search_domain = searchbar_filters.get('all', {}).get('domain', [])
         
-        # Paginación
-        order_count = ServiceOrder.search_count(domain)
-        pager = request.website.pager(
-            url="/my/service-orders",
-            url_args={'date_begin': date_begin, 'date_end': date_end, 'sortby': sortby, 'filterby': filterby},
-            total=order_count,
+        # domain for partner
+        domain = [('client_id', '=', partner.id)] + search_domain
+        
+        # count for pager
+        service_order_count = ServiceOrder.search_count(domain)
+        
+        # pager
+        pager = portal_pager(
+            url="/my/services",
+            url_args={'date_begin': date_begin, 'date_end': date_end, 'sortby': sortby, 'search_in': search_in, 'search': search},
+            total=service_order_count,
             page=page,
             step=self._items_per_page
         )
         
-        orders = ServiceOrder.search(domain, order=order, limit=self._items_per_page, offset=pager['offset'])
+        # content according to pager and archive selected
+        service_orders = ServiceOrder.search(domain, order=order, limit=self._items_per_page, offset=pager['offset'])
+        request.session['my_services_history'] = service_orders.ids[:100]
         
         values.update({
-            'orders': orders,
-            'page_name': 'service_orders',
+            'date': date_begin,
+            'service_orders': service_orders,
+            'page_name': 'service_order',
             'pager': pager,
-            'default_url': '/my/service-orders',
-            'searchbar_sortings': {
-                'date': {'label': _('Newest'), 'order': 'create_date desc'},
-                'name': {'label': _('Name'), 'order': 'name'},
-                'scheduled': {'label': _('Scheduled Date'), 'order': 'scheduled_date desc'},
-            },
-            'searchbar_filters': {
-                'all': {'label': _('All'), 'domain': []},
-                'active': {'label': _('Active'), 'domain': [('state', 'not in', ['done', 'cancelled'])]},
-                'completed': {'label': _('Completed'), 'domain': [('state', '=', 'done')]},
-            },
+            'default_url': '/my/services',
+            'searchbar_sortings': searchbar_sortings,
+            'searchbar_filters': searchbar_filters,
+            'searchbar_inputs': searchbar_inputs,
             'sortby': sortby,
-            'filterby': filterby,
+            'search_in': search_in,
+            'search': search,
         })
-        
-        return request.render("inmoser_service_order.portal_my_service_orders", values)
+        return request.render("inmoser_service_order.portal_my_services", values)
     
-    @http.route(['/my/service-orders/<int:order_id>'], type='http', auth="user", website=True)
-    def portal_service_order_detail(self, order_id, **kw):
-        """Detalle de orden de servicio en el portal"""
+    @http.route(['/my/service/<int:service_order_id>'], type='http', auth="public", website=True)
+    def portal_my_service_order(self, service_order_id=None, access_token=None, **kw):
         try:
-            order = self._document_check_access('inmoser.service.order', order_id)
+            service_order_sudo = self._document_check_access('service.order', service_order_id, access_token)
+        except (AccessError, MissingError):
+            return request.redirect('/my')
+        
+        values = self._service_order_get_page_view_values(service_order_sudo, access_token, **kw)
+        return request.render("inmoser_service_order.portal_my_service", values)
+    
+    @http.route(['/my/equipments', '/my/equipments/page/<int:page>'], type='http', auth="user", website=True)
+    def portal_my_equipments(self, page=1, date_begin=None, date_end=None, sortby=None, **kw):
+        values = self._prepare_portal_layout_values()
+        partner = request.env.user.partner_id
+        ServiceEquipment = request.env['service.equipment']
+        
+        searchbar_sortings = {
+            'name': {'label': _('Nombre'), 'order': 'name'},
+            'serial': {'label': _('Serie'), 'order': 'serial_number'},
+            'type': {'label': _('Tipo'), 'order': 'equipment_type_id'},
+        }
+        
+        # default sort by order
+        if not sortby:
+            sortby = 'name'
+        order = searchbar_sortings[sortby]['order']
+        
+        # domain for partner
+        domain = [('client_id', '=', partner.id)]
+        
+        # count for pager
+        equipment_count = ServiceEquipment.search_count(domain)
+        
+        # pager
+        pager = portal_pager(
+            url="/my/equipments",
+            url_args={'date_begin': date_begin, 'date_end': date_end, 'sortby': sortby},
+            total=equipment_count,
+            page=page,
+            step=self._items_per_page
+        )
+        
+        # content according to pager and archive selected
+        equipments = ServiceEquipment.search(domain, order=order, limit=self._items_per_page, offset=pager['offset'])
+        request.session['my_equipments_history'] = equipments.ids[:100]
+        
+        values.update({
+            'date': date_begin,
+            'equipments': equipments,
+            'page_name': 'equipment',
+            'pager': pager,
+            'default_url': '/my/equipments',
+            'searchbar_sortings': searchbar_sortings,
+            'sortby': sortby,
+        })
+        return request.render("inmoser_service_order.portal_my_equipments", values)
+    
+    @http.route(['/my/equipment/<int:equipment_id>'], type='http', auth="public", website=True)
+    def portal_my_equipment(self, equipment_id=None, access_token=None, **kw):
+        try:
+            equipment_sudo = self._document_check_access('service.equipment', equipment_id, access_token)
         except (AccessError, MissingError):
             return request.redirect('/my')
         
         values = {
-            'order': order,
-            'page_name': 'service_order_detail',
+            'equipment': equipment_sudo,
+            'page_name': 'equipment',
+            'user': request.env.user,
+        }
+        return request.render("inmoser_service_order.portal_my_equipment", values)
+    
+    @http.route(['/my/service/<int:service_order_id>/pdf'], type='http', auth="public", website=True)
+    def portal_my_service_order_report(self, service_order_id=None, access_token=None, **kw):
+        try:
+            service_order_sudo = self._document_check_access('service.order', service_order_id, access_token)
+        except (AccessError, MissingError):
+            return request.redirect('/my')
+        
+        # print report as html
+        if 'report_type' in request.params and request.params['report_type'] == 'html':
+            return request.render('inmoser_service_order.report_service_order', {
+                'docids': service_order_sudo.ids,
+                'doc_model': 'service.order',
+                'docs': service_order_sudo,
+            })
+        
+        # print report as pdf
+        pdf = request.env.ref('inmoser_service_order.action_report_service_order').sudo().render_qweb_pdf([service_order_sudo.id])
+        pdfhttpheaders = [
+            ('Content-Type', 'application/pdf'),
+            ('Content-Length', len(pdf)),
+        ]
+        return request.make_response(pdf, headers=pdfhttpheaders)
+    
+    @http.route(['/my/service/new'], type='http', auth="user", website=True)
+    def portal_new_service_order(self, **kw):
+        partner = request.env.user.partner_id
+        
+        # Obtener equipos del cliente
+        equipments = request.env['service.equipment'].search([('client_id', '=', partner.id)])
+        
+        # Obtener tipos de servicio
+        service_types = request.env['service.type'].search([('active', '=', True)])
+        
+        # Obtener técnicos
+        technicians = request.env['hr.employee'].search([('is_technician', '=', True)])
+        
+        values = {
+            'equipments': equipments,
+            'service_types': service_types,
+            'technicians': technicians,
+            'page_name': 'new_service_order',
         }
         
-        return request.render("inmoser_service_order.portal_service_order_detail", values)
-
+        if request.httprequest.method == 'POST':
+            # Procesar formulario
+            service_order_data = {
+                'client_id': partner.id,
+                'equipment_id': int(kw.get('equipment_id')),
+                'service_type_id': int(kw.get('service_type_id')),
+                'technician_id': int(kw.get('technician_id')) if kw.get('technician_id') else False,
+                'scheduled_date': kw.get('scheduled_date'),
+                'description': kw.get('description'),
+                'custom_sale_type': kw.get('custom_sale_type', 'service'),
+                'priority': kw.get('priority', '0'),
+            }
+            
+            try:
+                service_order = request.env['service.order'].create(service_order_data)
+                return request.redirect(f'/my/service/{service_order.id}')
+            except Exception as e:
+                values['error'] = str(e)
+                values['form_data'] = kw
+        
+        return request.render("inmoser_service_order.portal_new_service_order", values)
+    
+    @http.route(['/my/service/<int:service_order_id>/cancel'], type='http', auth="user", website=True)
+    def portal_cancel_service_order(self, service_order_id, **kw):
+        try:
+            service_order = request.env['service.order'].browse(service_order_id)
+            if service_order.client_id != request.env.user.partner_id:
+                raise AccessError(_('No tiene permiso para cancelar esta orden de servicio'))
+            
+            if service_order.state in ['draft', 'confirmed']:
+                service_order.action_cancel_service()
+                return request.redirect(f'/my/service/{service_order_id}')
+            else:
+                return request.redirect(f'/my/service/{service_order_id}?error=No se puede cancelar esta orden')
+        except Exception as e:
+            return request.redirect(f'/my/service/{service_order_id}?error={str(e)}')
