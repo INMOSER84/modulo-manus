@@ -1,165 +1,140 @@
-# Checklist de Validación - Módulo Inmoser Service Order
+# Checklist de Validación del Módulo
 
-## ✅ Validaciones Técnicas Completadas
+## 1. Validación de Modelos
 
-### Estructura del Módulo
-- [x] **Archivo __manifest__.py** - Sintaxis válida
-- [x] **24 archivos Python** - Sintaxis validada
-- [x] **20 archivos XML** - Estructura correcta
-- [x] **66 archivos totales** - Módulo completo
+### ServiceEquipment
+- [ ] Crear equipo de servicio
+- [ ] Validar stock no negativo
+- [ ] Actualizar inventario
+- [ ] Generar alertas de stock
+- [ ] Crear historial de stock
 
-### Modelos de Datos
-- [x] **res.partner** - Extensión para clientes
-- [x] **hr.employee** - Extensión para técnicos
-- [x] **inmoser.service.equipment** - Equipos de servicio
-- [x] **inmoser.service.order** - Órdenes de servicio principales
-- [x] **inmoser.service.type** - Tipos de servicio
-- [x] **inmoser.service.order.refaction.line** - Líneas de refacciones
-- [x] **Modelos de integración** - Account, Stock, HR
+### ServiceOrder
+- [ ] Crear orden de servicio
+- [ ] Confirmar orden
+- [ ] Iniciar servicio
+- [ ] Completar servicio
+- [ ] Cancelar servicio
+- [ ] Validar stock al confirmar
+- [ ] Crear orden de venta asociada
+- [ ] Generar factura
 
-### Funcionalidades Core
-- [x] **Secuencias automáticas** - CLI00001, E00001, OS00001
-- [x] **Estados y workflows** - 8 estados con transiciones válidas
-- [x] **Validaciones de negocio** - Campos requeridos y lógica
-- [x] **Cálculos automáticos** - Totales, duración, estadísticas
+### StockHistory
+- [ ] Registrar movimientos de stock
+- [ ] Calcular diferencias
+- [ ] Mostrar historial
 
-### Vistas e Interfaces
-- [x] **Formularios completos** - Todos los modelos
-- [x] **Vistas de árbol** - Con filtros y agrupaciones
-- [x] **Vistas kanban** - Visuales y funcionales
-- [x] **Calendario de técnicos** - JavaScript personalizado
-- [x] **Portal web público** - Para clientes y QR
+## 2. Validación de Vistas
 
-### Seguridad y Permisos
-- [x] **4 grupos de usuarios** - Manager, Supervisor, Call Center, Technician
-- [x] **Permisos granulares** - Por modelo y operación
-- [x] **Reglas de acceso** - Técnicos solo ven sus órdenes
-- [x] **Validaciones de seguridad** - Estados y transiciones
+### Vistas de Equipo
+- [ ] Mostrar formulario de equipo
+- [ ] Mostrar árbol de equipos
+- [ ] Filtrar por stock bajo
+- [ ] Botón de actualizar inventario
+- [ ] Mostrar historial de stock
 
-### Integraciones Nativas
-- [x] **Contabilidad** - Facturas y asientos automáticos
-- [x] **Inventario** - Entregas y movimientos de stock
-- [x] **Recursos Humanos** - Timesheets y estadísticas
-- [x] **Mensajería** - Notificaciones automáticas
+### Vistas de Servicio
+- [ ] Mostrar formulario de servicio
+- [ ] Mostrar árbol de servicios
+- [ ] Mostrar calendario de servicios
+- [ ] Botones de flujo de trabajo
+- [ ] Mostrar partes utilizadas
 
-### Reportes y Documentos
-- [x] **Reporte de OS** - PDF completo con QR y firmas
-- [x] **Certificado de servicio** - Documento oficial
-- [x] **Reporte de técnicos** - Estadísticas y rendimiento
-- [x] **Historial de equipos** - Análisis completo
+### Vistas de Búsqueda
+- [ ] Filtrar por estado
+- [ ] Filtrar por tipo de venta
+- [ ] Filtrar por prioridad
+- [ ] Agrupar por cliente
+- [ ] Agrupar por técnico
 
-### Tests Unitarios
-- [x] **test_service_order.py** - 12 tests principales
-- [x] **test_service_equipment.py** - 8 tests de equipos
-- [x] **test_service_workflows.py** - 10 tests de workflows
-- [x] **test_integrations.py** - 12 tests de integración
+## 3. Validación de Integraciones
 
-### Datos de Demostración
-- [x] **3 clientes** - Empresas completas
-- [x] **2 técnicos** - Con usuarios y especialización
-- [x] **4 equipos** - Diferentes tipos y marcas
-- [x] **4 órdenes** - En diferentes estados
-- [x] **Inventario virtual** - Para técnicos
-- [x] **Horarios** - Configuración de disponibilidad
+### Ventas
+- [ ] Crear orden de venta desde servicio
+- [ ] Sincronizar datos de cliente
+- [ ] Sincronizar productos
+- [ ] Sincronizar precios
 
-## 📋 Checklist de Funcionalidades
+### Contabilidad
+- [ ] Crear factura desde servicio
+- [ ] Sincronizar líneas de factura
+- [ ] Calcular totales correctamente
 
-### Gestión de Clientes
-- [x] Registro automático con secuencia CLI00001
-- [x] Datos completos (nombre, dirección, teléfonos, email)
-- [x] Búsqueda y selección de clientes existentes
-- [x] Historial de equipos y servicios
+### Recursos Humanos
+- [ ] Asignar técnico a servicio
+- [ ] Mostrar servicios en empleado
+- [ ] Validar disponibilidad de técnico
 
-### Gestión de Equipos
-- [x] Registro con secuencia E00001
-- [x] Datos técnicos (tipo, marca, modelo, serie, ubicación)
-- [x] Generación automática de QR único
-- [x] Historial completo de servicios
-- [x] Portal web público por QR
+### Stock
+- [ ] Validar stock al confirmar
+- [ ] Descontar stock al completar
+- [ ] Restaurar stock al cancelar
+- [ ] Generar alertas automáticas
 
-### Órdenes de Servicio
-- [x] Creación con secuencia OS00001
-- [x] Selección de tipo de servicio
-- [x] Personalización por tipo de servicio
-- [x] Falla reportada por cliente
-- [x] Estados: Draft → Assigned → In Progress → Done/Cancelled
-- [x] Asignación de técnicos con validación de disponibilidad
-- [x] Programación por horarios (10-12, 12-14, 15-17)
-- [x] Notificaciones automáticas
+## 4. Validación de Funcionalidades
 
-### Funcionalidades del Técnico
-- [x] Vista de calendario personal
-- [x] Servicios asignados por día y hora
-- [x] Navegación a Google Maps
-- [x] Inicio/fin de servicio desde móvil
-- [x] Diagnóstico y trabajo realizado
-- [x] Gestión de refacciones con costos
-- [x] Captura de evidencias fotográficas
-- [x] Firma digital del cliente
-- [x] Inventario virtual personal
+### Gestión de Inventario
+- [ ] Control de stock personalizado
+- [ ] Alertas de stock bajo
+- [ ] Historial completo de movimientos
+- [ ] Actualización de inventario
 
-### Workflow de Aprobación
-- [x] Descarga de OS para cliente
-- [x] Firma de aceptación/rechazo
-- [x] Verificación de refacciones disponibles
-- [x] Reagendamiento automático si falta stock
-- [x] Completación con evidencias
-- [x] Descarga final con firmas
+### Gestión de Ventas
+- [ ] Tipos de venta personalizados
+- [ ] Priorización de pedidos
+- [ ] Integración con servicios
+- [ ] Validación de stock
 
-### Portal Web Público
-- [x] Acceso por QR sin login
-- [x] Información completa del equipo
-- [x] Historial de servicios
-- [x] Seguimiento en tiempo real
-- [x] Solicitud de nuevos servicios
-- [x] Formulario intuitivo
+### Automatización
+- [ ] Envío de alertas por correo
+- [ ] Tareas programadas
+- [ ] Actualización automática de stock
+- [ ] Generación de reportes
 
-### Integraciones Contables
-- [x] Generación automática de facturas
-- [x] Asientos contables automáticos
-- [x] Estados de facturación y pago
-- [x] Integración con cuentas por cobrar
+## 5. Validación de Seguridad
 
-### Reportes Profesionales
-- [x] OS completa con QR y firmas
-- [x] Certificado oficial de servicio
-- [x] Análisis de rendimiento de técnicos
-- [x] Historial detallado de equipos
-- [x] Recomendaciones automáticas
+### Permisos
+- [ ] Acceso de usuario a equipos
+- [ ] Acceso de usuario a servicios
+- [ ] Acceso de administrador a historial
+- [ ] Restricción por empresa
 
-## 🎯 Cumplimiento de Estándares Odoo
+### Reglas
+- [ ] Ver solo equipos propios
+- [ ] Ver solo servicios propios
+- [ ) Ver historial de stock propio
+- [ ] Validar stock en transacciones
 
-### Convenciones de Código
-- [x] **Nomenclatura** - Siguiendo convenciones de Odoo
-- [x] **Estructura MVC** - Modelos, Vistas, Controladores separados
-- [x] **Herencia correcta** - Usando _inherit y _inherits apropiadamente
-- [x] **Campos computed** - Con dependencias y store apropiados
-- [x] **Métodos de acción** - Siguiendo patrones de Odoo
+## 6. Validación de Rendimiento
 
-### Mejores Prácticas
-- [x] **Seguridad** - Grupos, reglas de acceso, validaciones
-- [x] **Rendimiento** - Índices, búsquedas optimizadas
-- [x] **Usabilidad** - Interfaces intuitivas, filtros útiles
-- [x] **Mantenibilidad** - Código documentado, estructura clara
-- [x] **Escalabilidad** - Diseño modular, extensible
+### Carga de Datos
+- [ ] Crear 100 equipos
+- [ ] Crear 100 servicios
+- [ ] Procesar 50 servicios simultáneos
+- [ ] Generar reportes con 1000 registros
 
-### Estándares Partner Gold
-- [x] **Documentación completa** - Código y funcionalidades
-- [x] **Tests comprehensivos** - Cobertura de funcionalidades críticas
-- [x] **Datos de demostración** - Casos de uso reales
-- [x] **Integración nativa** - Con módulos core de Odoo
-- [x] **Portal web** - Experiencia de usuario moderna
+### Tiempos de Respuesta
+- [ ] Cargar formulario de equipo < 1s
+- [ ] Cargar árbol de servicios < 2s
+- [ ] Procesar confirmación < 3s
+- [ ] Generar reporte < 5s
 
-## ✅ Resultado Final
+## 7. Validación de Compatibilidad
 
-**MÓDULO VALIDADO EXITOSAMENTE**
+### Odoo 17
+- [ ] Sintaxis XML correcta
+- [ ] Atributos de vista actualizados
+- [ ] Widgets compatibles
+- [ ] Métodos de API válidos
 
-- ✅ **66 archivos** creados sin errores de sintaxis
-- ✅ **Todas las funcionalidades** implementadas según especificaciones
-- ✅ **Tests unitarios** cubren casos críticos
-- ✅ **Integraciones** con módulos nativos funcionando
-- ✅ **Estándares Odoo** cumplidos completamente
-- ✅ **Nivel Partner Gold** alcanzado
+### Navegadores
+- [ ] Funcional en Chrome
+- [ ] Funcional en Firefox
+- [ ] Funcional en Safari
+- [ ] Funcional en Edge
 
-El módulo está listo para instalación y uso en producción.
-
+### Dispositivos
+- [ ] Funcional en desktop
+- [ ] Funcional en tablet
+- [ ] Funcional en móvil
+- [ ] Interfaz responsive
