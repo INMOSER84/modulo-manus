@@ -6,9 +6,13 @@
             <form string="Actualizar Inventario">
                 <sheet>
                     <group>
-                        <field name="product_id" readonly="1"/>
-                        <field name="new_stock"/>
-                        <field name="notes"/>
+                        <group>
+                            <field name="product_id" readonly="1"/>
+                            <field name="new_stock"/>
+                        </group>
+                        <group>
+                            <field name="notes"/>
+                        </group>
                     </group>
                 </sheet>
                 <footer>
