@@ -29,3 +29,5 @@ __pycache__/
 # Test coverage
 .coverage
 htmlcov/
+__pycache__/
+*.pyc

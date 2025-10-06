@@ -1,0 +1,2 @@
+[options]
+workers = 9

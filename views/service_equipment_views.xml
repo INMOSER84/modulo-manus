@@ -56,9 +56,9 @@
                     </notebook>
                 </sheet>
                 <div class="oe_button_box" name="button_box">
-                    <button name="action_update_inventory" 
-                            type="object" 
-                            class="oe_stat_button" 
+                    <button name="action_update_inventory"
+                            type="object"
+                            class="oe_stat_button"
                             icon="fa-refresh"
                             invisible="id == False">
                         <field string="Actualizar Inventario" name="last_inventory_date" widget="statinfo"/>
@@ -100,7 +100,7 @@
                 <separator/>
                 <filter name="active" string="Activos" domain="[('active', '=', True)]"/>
                 <filter name="inactive" string="Inactivos" domain="[('active', '=', False)]"/>
-                <filter name="low_stock" string="Stock Bajo" domain="[('custom_stock', '<=', stock_alert_threshold)]"/>
+                <filter name="low_stock" string="Stock Bajo" domain="[('custom_stock', '&lt;=', stock_alert_threshold)]"/>
                 <separator/>
                 <group expand="0" string="Agrupar por">
                     <filter name="group_client" string="Cliente" context="{'group_by': 'client_id'}"/>

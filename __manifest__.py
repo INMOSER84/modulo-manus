@@ -15,11 +15,12 @@ Características principales:
 - Generación de códigos QR
     """,
     'author': 'INMOSER84',
-    'license': 'MIT',
-    'depends': ['base', 'product', 'sale', 'account', 'hr', 'stock', 'website_portal'],
+    'license': 'LGPL-3',
+    'odoo_version': '17.0',
+    'depends': ['base', 'product', 'sale', 'account', 'hr', 'stock', 'portal', 'web'],
     'data': [
-        'security/ir.model.access.csv',
         'security/inmoser_security.xml',
+        'security/ir.model.access.csv',
         'views/menu_items.xml',
         'views/service_order_views.xml',
         'views/service_equipment_views.xml',
@@ -29,6 +30,7 @@ Características principales:
         'views/portal_templates.xml',
         'views/service_complete_wizard_views.xml',
         'views/service_reprogram_wizard_views.xml',
+        'views/stock_update_wizard_views.xml',
         'reports/service_order_report.xml',
         'reports/service_order_template.xml',
         'reports/equipment_history_template.xml',
@@ -39,6 +41,12 @@ Características principales:
         'data/cron_jobs.xml',
         'static/src/xml/calendar_templates.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'inmoser_manus/static/src/js/calendar_view.js',
+            'inmoser_manus/static/src/scss/service_order.scss',
+        ],
+    },
     'demo': ['demo/demo_data.xml'],
     'installable': True,
     'application': True,

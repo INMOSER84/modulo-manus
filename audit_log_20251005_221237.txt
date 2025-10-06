@@ -1,0 +1,204 @@
+🔐 Auditoría y blindaje de módulo: /home/baruc/odoo-inmoser_clean/addons/inmoser_manus
+
+📦 Generando backup físico...
+✔️ Backup creado en: /tmp/inmoser_backup_1759723957
+
+🌐 Validando puertos...
+✔️ Puerto 8069 activo
+⚠️ Puerto 8071 inactivo o bloqueado
+✔️ Puerto 5432 activo
+
+📁 Validando estructura mínima...
+
+🐍 Validando sintaxis Python...
+
+📜 Validando manifest...
+✔️ Manifest OK
+
+🔗 Validando dependencias...
+✔️ Dependencia encontrada: data
+❌ Dependencia faltante: security/ir.model.access.csv
+❌ Dependencia faltante: security/inmoser_security.xml
+❌ Dependencia faltante: views/menu_items.xml
+❌ Dependencia faltante: views/service_order_views.xml
+❌ Dependencia faltante: views/service_equipment_views.xml
+❌ Dependencia faltante: views/service_type_views.xml
+❌ Dependencia faltante: views/hr_employee_views.xml
+❌ Dependencia faltante: views/res_partner_views.xml
+❌ Dependencia faltante: views/portal_templates.xml
+❌ Dependencia faltante: views/service_complete_wizard_views.xml
+❌ Dependencia faltante: views/service_reprogram_wizard_views.xml
+❌ Dependencia faltante: views/stock_update_wizard_views.xml
+❌ Dependencia faltante: reports/service_order_report.xml
+❌ Dependencia faltante: reports/service_order_template.xml
+❌ Dependencia faltante: reports/equipment_history_template.xml
+❌ Dependencia faltante: reports/technician_performance_template.xml
+❌ Dependencia faltante: data/service_type_data.xml
+❌ Dependencia faltante: data/ir_sequence_data.xml
+❌ Dependencia faltante: data/email_templates.xml
+❌ Dependencia faltante: data/cron_jobs.xml
+❌ Dependencia faltante: static/src/xml/calendar_templates.xml
+
+🧩 Validando vistas XML...
+
+🔐 Validando seguridad...
+access_service_order_user,inmoser.service.order.user,model_inmoser_service_order,group_inmoser_user,1,1,1,0
+access_service_order_technician,inmoser.service.order.technician,model_inmoser_service_order,group_inmoser_technician,1,1,0,0
+access_service_order_supervisor,inmoser.service.order.supervisor,model_inmoser_service_order,group_inmoser_supervisor,1,1,1,1
+access_service_order_manager,inmoser.service.order.manager,model_inmoser_service_order,group_inmoser_manager,1,1,1,1
+access_service_equipment_user,inmoser.service.equipment.user,model_inmoser_service_equipment,group_inmoser_user,1,1,1,0
+access_service_equipment_technician,inmoser.service.equipment.technician,model_inmoser_service_equipment,group_inmoser_technician,1,0,0,0
+access_service_equipment_supervisor,inmoser.service.equipment.supervisor,model_inmoser_service_equipment,group_inmoser_supervisor,1,1,1,0
+access_service_equipment_manager,inmoser.service.equipment.manager,model_inmoser_service_equipment,group_inmoser_manager,1,1,1,1
+access_service_type_user,inmoser.service.type.user,model_inmoser_service_type,group_inmoser_user,1,0,0,0
+access_service_type_technician,inmoser.service.type.technician,model_inmoser_service_type,group_inmoser_technician,1,0,0,0
+access_service_type_supervisor,inmoser.service.type.supervisor,model_inmoser_service_type,group_inmoser_supervisor,1,0,0,0
+access_service_type_manager,inmoser.service.type.manager,model_inmoser_service_type,group_inmoser_manager,1,1,1,1
+access_refaction_line_user,inmoser.service.order.refaction.line.user,model_inmoser_service_order_refaction_line,group_inmoser_user,1,1,1,0
+access_refaction_line_technician,inmoser.service.order.refaction.line.technician,model_inmoser_service_order_refaction_line,group_inmoser_technician,1,1,1,1
+access_refaction_line_supervisor,inmoser.service.order.refaction.line.supervisor,model_inmoser_service_order_refaction_line,group_inmoser_supervisor,1,1,1,1
+access_refaction_line_manager,inmoser.service.order.refaction.line.manager,model_inmoser_service_order_refaction_line,group_inmoser_manager,1,1,1,1
+access_stock_history_user,stock.history.user,model_stock_history,base.group_user,1,0,0,0
+access_stock_history_manager,stock.history.manager,model_stock_history,stock.group_stock_manager,1,1,1,1
+
+📝 Generando changelog técnico...
+Modelos definidos:
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/hr_integration.py:    _name = 'inmoser.service.timesheet'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/hr_integration.py:    _name = 'inmoser.technician.inventory'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/hr_integration.py:    _name = 'inmoser.technician.schedule'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/qr_code_generator.py:    _name = 'inmoser.qr.generator'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/service_equipment.py:    _name = 'inmoser.service.equipment'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/service_equipment.py:    _rec_name = 'name'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/service_order.py:    _name = 'inmoser.service.order'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/service_order.py:    _rec_name = 'name'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/service_order.py:    partner_name = fields.Char(
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/service_order.py:    equipment_name = fields.Char(
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/service_order.py:    technician_name = fields.Char(
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/service_order_refaction_line.py:    _name = 'inmoser.service.order.refaction.line'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/service_order_refaction_line.py:    _rec_name = 'product_id'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/service_type.py:    _name = 'inmoser.service.type'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/service_type.py:    _rec_name = 'name'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/stock_history.py:    _name = 'stock.history'
+Herencias detectadas:
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/account_integration.py:    _inherit = 'inmoser.service.order'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/account_integration.py:    _inherit = 'account.move'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/hr_employee_extension.py:    _inherit = 'hr.employee'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/hr_integration.py:    _inherit = 'hr.employee'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/hr_integration.py:    _inherit = 'inmoser.service.order'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/qr_code_generator.py:    _inherit = 'inmoser.service.equipment'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/qr_code_generator.py:    _inherit = 'inmoser.service.order'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/res_partner_extension.py:    _inherit = 'res.partner'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/service_equipment.py:    _inherit = ['mail.thread', 'mail.activity.mixin']
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/service_order.py:    _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin']
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/service_order_business_logic.py:    _inherit = 'inmoser.service.order'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/stock_integration.py:    _inherit = 'inmoser.service.order'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/stock_integration.py:    _inherit = 'stock.picking'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/stock_integration.py:    _inherit = 'product.template'
+/home/baruc/odoo-inmoser_clean/addons/inmoser_manus/models/stock_integration.py:    _inherit = 'stock.quant'
+
+📸 Simulando evidencia fotográfica...
+[EVIDENCIA] Captura de estructura: .
+├── __init__.py
+├── __manifest__.py
+├── __pycache__
+│   └── __manifest__.cpython-310.pyc
+├── audit_log_20251005_221237.txt
+├── auditoria_modulo_2025-10-05_22-05-56.log
+├── auditoria_modulo_2025-10-05_22-06-24.log
+├── auditoria_odoo_modulo.sh
+├── autoconfig_odoo_workers.sh
+├── check_dependencies.sh
+├── check_module_structure.sh
+├── controllers
+│   ├── __init__.py
+│   └── client_portal.py
+├── data
+│   ├── cron_jobs.xml
+│   ├── email_templates.xml
+│   ├── ir_sequence_data.xml
+│   └── service_type_data.xml
+├── demo
+│   └── demo_data.xml
+├── errores_traceback.log
+├── find_missing_dependencies.sh
+├── models
+│   ├── __init__.py
+│   ├── __pycache__
+│   ├── account_integration.py
+│   ├── hr_employee_extension.py
+│   ├── hr_integration.py
+│   ├── qr_code_generator.py
+│   ├── res_partner_extension.py
+│   ├── service_equipment.py
+│   ├── service_order.py
+│   ├── service_order_business_logic.py
+│   ├── service_order_refaction_line.py
+│   ├── service_type.py
+│   ├── stock_history.py
+│   └── stock_integration.py
+├── preinstall_check.py
+├── preinstall_guardian_inmoser.sh
+├── reports
+│   ├── equipment_history_template.xml
+│   ├── service_order_report.py
+│   ├── service_order_report.xml
+│   ├── service_order_template.xml
+│   └── technician_performance_template.xml
+├── restart_odoo.sh
+├── security
+│   ├── inmoser_security.xml
+│   └── ir.model.access.csv
+├── static
+│   ├── description
+│   └── src
+├── tests
+│   ├── __init__.py
+│   ├── test_integrations.py
+│   ├── test_service_equipment.py
+│   ├── test_service_order.py
+│   ├── test_service_workflows.py
+│   └── test_validation_checklist.md
+├── views
+│   ├── hr_employee_views.xml
+│   ├── menu_items.xml
+│   ├── portal_templates.xml
+│   ├── res_partner_views.xml
+│   ├── service_complete_wizard_views.xml
+│   ├── service_equipment_views.xml
+│   ├── service_order_views.xml
+│   ├── service_reprogram_wizard_views.xml
+│   ├── service_type_views.xml
+│   └── stock_update_wizard_views.xml
+└── wizards
+    ├── __init__.py
+    ├── service_complete_wizard.py
+    ├── service_reprogram_wizard.py
+    └── stock_update_wizard.py
+
+14 directories, 62 files
+[EVIDENCIA] Captura de permisos: total 112
+-rwxr-xr-x 1 baruc baruc    95 Oct  5 17:01 __init__.py
+-rwxr-xr-x 1 baruc baruc  2024 Oct  5 18:31 __manifest__.py
+drwxr-xr-x 2 baruc baruc  4096 Oct  5 22:06 __pycache__
+-rw-r--r-- 1 baruc baruc 10508 Oct  5 22:12 audit_log_20251005_221237.txt
+-rw-r--r-- 1 baruc baruc   418 Oct  5 22:05 auditoria_modulo_2025-10-05_22-05-56.log
+-rw-r--r-- 1 baruc baruc  5333 Oct  5 22:06 auditoria_modulo_2025-10-05_22-06-24.log
+-rwxr-xr-x 1 root  root   1086 Oct  5 22:05 auditoria_odoo_modulo.sh
+-rw-r--r-- 1 root  root     22 Oct  5 22:06 autoconfig_odoo_workers.sh
+-rwxr-xr-x 1 root  root    173 Oct  5 21:59 check_dependencies.sh
+-rwxr-xr-x 1 root  root    454 Oct  5 21:57 check_module_structure.sh
+drwxr-xr-x 2 baruc baruc  4096 Oct  5 19:36 controllers
+drwxr-xr-x 2 baruc baruc  4096 Oct  5 17:01 data
+drwxr-xr-x 2 baruc baruc  4096 Oct  5 17:01 demo
+-rwxr-xr-x 1 baruc baruc     0 Oct  5 18:24 errores_traceback.log
+-rwxr-xr-x 1 root  root    311 Oct  5 22:01 find_missing_dependencies.sh
+drwxr-xr-x 3 baruc baruc  4096 Oct  5 22:01 models
+-rwxr-xr-x 1 baruc baruc  4157 Oct  5 19:36 preinstall_check.py
+-rwxr-xr-x 1 root  root   3200 Oct  5 22:11 preinstall_guardian_inmoser.sh
+drwxr-xr-x 2 baruc baruc  4096 Oct  5 19:36 reports
+-rwxr-xr-x 1 root  root    861 Oct  5 19:40 restart_odoo.sh
+drwxr-xr-x 2 baruc baruc  4096 Oct  5 19:03 security
+drwxr-xr-x 4 baruc baruc  4096 Oct  5 17:01 static
+drwxr-xr-x 2 baruc baruc  4096 Oct  5 19:36 tests
+drwxr-xr-x 2 baruc baruc  4096 Oct  5 19:03 views
+drwxr-xr-x 2 baruc baruc  4096 Oct  5 19:36 wizards
