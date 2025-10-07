@@ -7,7 +7,6 @@ import io
 import base64
 from PIL import Image
 
-
 class ServiceEquipment(models.Model):
     _name = 'inmoser.service.equipment'
     _description = 'Service Equipment'
@@ -25,39 +24,39 @@ class ServiceEquipment(models.Model):
         default=lambda self: _('New'),
         tracking=True
     )
-    
+
     equipment_type = fields.Char(
         string='Equipment Type',
         help='Tipo de equipo (Laptop, Impresora, etc.)',
         required=True,
         tracking=True
     )
-    
+
     brand = fields.Char(
         string='Brand',
         help='Marca del equipo',
         required=True,
         tracking=True
     )
-    
+
     model = fields.Char(
         string='Model',
         help='Modelo del equipo (se llena en sitio)',
         tracking=True
     )
-    
+
     serial_number = fields.Char(
         string='Serial Number',
         help='Número de serie del equipo (técnico)',
         tracking=True
     )
-    
+
     location = fields.Char(
         string='Location',
         help='Ubicación del equipo (técnico)',
         tracking=True
     )
-    
+
     # Relaciones
     partner_id = fields.Many2one(
         'res.partner',
@@ -67,14 +66,14 @@ class ServiceEquipment(models.Model):
         ondelete='cascade',
         tracking=True
     )
-    
+
     # Campos QR
     qr_code = fields.Binary(
         string='QR Code',
         help='Código QR del equipo',
         readonly=True
     )
-    
+
     qr_code_text = fields.Char(
         string='QR Code Text',
         help='Texto codificado en el QR',
@@ -82,37 +81,37 @@ class ServiceEquipment(models.Model):
         compute='_compute_qr_code_text',
         store=True
     )
-    
+
     # Estado y control
     active = fields.Boolean(
         string='Active',
         default=True,
         help='Si está desmarcado, el equipo no aparecerá en las búsquedas'
     )
-    
+
     state = fields.Selection([
         ('draft', 'Draft'),
         ('active', 'Active'),
         ('maintenance', 'In Maintenance'),
         ('retired', 'Retired')
     ], string='State', default='draft', tracking=True)
-    
+
     # Información adicional
     purchase_date = fields.Date(
         string='Purchase Date',
         help='Fecha de compra del equipo'
     )
-    
+
     warranty_expiry = fields.Date(
         string='Warranty Expiry',
         help='Fecha de vencimiento de la garantía'
     )
-    
+
     notes = fields.Text(
         string='Notes',
         help='Notas adicionales sobre el equipo'
     )
-    
+
     # Relaciones con órdenes de servicio
     service_order_ids = fields.One2many(
         'inmoser.service.order',
@@ -120,25 +119,44 @@ class ServiceEquipment(models.Model):
         string='Service Orders',
         help='Órdenes de servicio asociadas a este equipo'
     )
-    
+
     # Campos computados
     service_order_count = fields.Integer(
         string='Service Orders Count',
         compute='_compute_service_order_count',
         help='Número total de órdenes de servicio'
     )
-    
+
     last_service_date = fields.Datetime(
         string='Last Service Date',
         compute='_compute_last_service_date',
         help='Fecha del último servicio realizado'
     )
-    
+
     warranty_status = fields.Selection([
         ('valid', 'Under Warranty'),
         ('expired', 'Warranty Expired'),
         ('unknown', 'Unknown')
     ], string='Warranty Status', compute='_compute_warranty_status')
+
+    # Campos para gestión de inventario
+    custom_stock = fields.Integer(
+        string="Stock Personalizado",
+        default=0,
+        help="Stock personalizado para gestión interna",
+        tracking=True
+    )
+
+    stock_alert_threshold = fields.Integer(
+        string="Umbral de Alerta",
+        default=10,
+        help="Nivel mínimo de stock para generar alertas"
+    )
+
+    last_inventory_date = fields.Date(
+        string="Último Inventario",
+        readonly=True
+    )
 
     @api.depends('partner_id.x_inmoser_client_sequence', 'name')
     def _compute_qr_code_text(self):
@@ -184,21 +202,29 @@ class ServiceEquipment(models.Model):
         """Override create para generar secuencia y QR automáticamente"""
         if vals.get('name', _('New')) == _('New'):
             vals['name'] = self.env['ir.sequence'].next_by_code('inmoser.equipment.sequence') or _('New')
-        
+
         equipment = super(ServiceEquipment, self).create(vals)
         equipment._generate_qr_code()
+        
+        if 'custom_stock' in vals:
+            equipment._update_stock_history(vals['custom_stock'], 'CREATE')
+            
         return equipment
 
     def write(self, vals):
         """Override write para regenerar QR si cambian datos relevantes"""
         result = super(ServiceEquipment, self).write(vals)
-        
+
         # Regenerar QR si cambian datos que afectan el código
         qr_fields = ['partner_id', 'name']
         if any(field in vals for field in qr_fields):
             for equipment in self:
                 equipment._generate_qr_code()
-        
+
+        if 'custom_stock' in vals:
+            for record in self:
+                record._update_stock_history(vals['custom_stock'], 'UPDATE')
+                
         return result
 
     def _generate_qr_code(self):
@@ -213,24 +239,24 @@ class ServiceEquipment(models.Model):
                         box_size=10,
                         border=4,
                     )
-                    
+
                     # URL del portal del cliente para este equipo
                     base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
                     qr_url = f"{base_url}/equipment/{equipment.qr_code_text}"
-                    
+
                     qr.add_data(qr_url)
                     qr.make(fit=True)
-                    
+
                     # Crear imagen
                     img = qr.make_image(fill_color="black", back_color="white")
-                    
+
                     # Convertir a base64
                     buffer = io.BytesIO()
                     img.save(buffer, format='PNG')
                     qr_image = base64.b64encode(buffer.getvalue())
-                    
+
                     equipment.qr_code = qr_image
-                    
+
                 except Exception as e:
                     raise UserError(_('Error generating QR code: %s') % str(e))
 
@@ -327,40 +353,6 @@ class ServiceEquipment(models.Model):
                 return equipment_ids.name_get()
         return super(ServiceEquipment, self).name_search(name, args, operator, limit)
 
-
-    # Campos para gestión de inventario
-    custom_stock = fields.Integer(
-        string="Stock Personalizado",
-        default=0,
-        help="Stock personalizado para gestión interna",
-        tracking=True
-    )
-    
-    stock_alert_threshold = fields.Integer(
-        string="Umbral de Alerta",
-        default=10,
-        help="Nivel mínimo de stock para generar alertas"
-    )
-    
-    last_inventory_date = fields.Date(
-        string="Último Inventario",
-        readonly=True
-    )
-    
-    @api.model
-    def create(self, vals):
-        equipment = super(ServiceEquipment, self).create(vals)
-        if 'custom_stock' in vals:
-            equipment._update_stock_history(vals['custom_stock'], 'CREATE')
-        return equipment
-    
-    def write(self, vals):
-        res = super(ServiceEquipment, self).write(vals)
-        if 'custom_stock' in vals:
-            for record in self:
-                record._update_stock_history(vals['custom_stock'], 'UPDATE')
-        return res
-    
     def _update_stock_history(self, new_stock, operation):
         """Registra el movimiento de stock en el historial"""
         self.ensure_one()
@@ -371,22 +363,22 @@ class ServiceEquipment(models.Model):
             'operation': operation,
             'user_id': self.env.user.id,
         })
-        
+
         if new_stock <= self.stock_alert_threshold:
             self._send_stock_alert()
-    
+
     def _send_stock_alert(self):
         """Envía una alerta de stock bajo"""
         template = self.env.ref('inmoser_service_order.stock_alert_email_template')
         if template:
             template.send_mail(self.id)
-    
+
     @api.constrains('custom_stock')
     def _check_stock(self):
         for equipment in self:
             if equipment.custom_stock < 0:
                 raise ValidationError(_("El stock no puede ser negativo"))
-    
+
     def action_update_inventory(self):
         """Abre el wizard para actualizar inventario"""
         return {
@@ -397,7 +389,7 @@ class ServiceEquipment(models.Model):
             'target': 'new',
             'context': {'default_product_id': self.id}
         }
-    
+
     @api.model
     def _send_stock_alerts(self):
         """Envía alertas de stock para todos los productos con bajo stock"""

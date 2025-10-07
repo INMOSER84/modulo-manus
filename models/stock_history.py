@@ -1,26 +1,50 @@
+# -*- coding: utf-8 -*-
+
 from odoo import models, fields, api
 
 class StockHistory(models.Model):
     _name = 'stock.history'
-    _description = 'Historial de Movimientos de Stock'
-    _order = 'date desc'
+    _description = 'Stock History'
+    _order = 'date desc, id'
+
+    product_id = fields.Many2one(
+        'product.product',
+        string='Product',
+        required=True
+    )
     
-    product_id = fields.Many2one('service.equipment', string="Producto", required=True)
-    previous_stock = fields.Integer(string="Stock Anterior")
-    new_stock = fields.Integer(string="Stock Nuevo")
-    difference = fields.Integer(string="Diferencia", compute='_compute_difference')
+    previous_stock = fields.Float(
+        string='Previous Stock',
+        required=True
+    )
+    
+    new_stock = fields.Float(
+        string='New Stock',
+        required=True
+    )
+    
     operation = fields.Selection([
-        ('CREATE', 'Creación'),
-        ('UPDATE', 'Actualización'),
-        ('SALE', 'Venta'),
-        ('SERVICE', 'Servicio'),
-        ('CANCEL', 'Cancelación'),
-        ('ADJUST', 'Ajuste')
-    ], string="Operación")
-    date = fields.Datetime(string="Fecha", default=fields.Datetime.now)
-    user_id = fields.Many2one('res.users', string="Usuario")
+        ('CREATE', 'Create'),
+        ('UPDATE', 'Update'),
+        ('RESERVE', 'Reserve'),
+        ('CONSUME', 'Consume'),
+        ('CANCEL_RESERVE', 'Cancel Reserve'),
+        ('RESTORE', 'Restore'),
+    ], string='Operation', required=True)
     
-    @api.depends('previous_stock', 'new_stock')
-    def _compute_difference(self):
-        for record in self:
-            record.difference = record.new_stock - record.previous_stock
+    user_id = fields.Many2one(
+        'res.users',
+        string='User',
+        required=True,
+        default=lambda self: self.env.user
+    )
+    
+    date = fields.Datetime(
+        string='Date',
+        required=True,
+        default=fields.Datetime.now
+    )
+    
+    notes = fields.Text(
+        string='Notes'
+    )

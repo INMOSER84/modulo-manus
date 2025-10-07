@@ -4,7 +4,6 @@ from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 import re
 
-
 class ResPartnerExtension(models.Model):
     _inherit = 'res.partner'
 
@@ -16,23 +15,23 @@ class ResPartnerExtension(models.Model):
         copy=False,
         index=True
     )
-    
+
     x_inmoser_phone_mobile_2 = fields.Char(
         string='Mobile Phone 2',
         help='Teléfono celular adicional del cliente'
     )
-    
+
     x_inmoser_is_service_client = fields.Boolean(
         string='Is Service Client',
         help='Indica si este contacto es un cliente de servicios Inmoser',
         default=False
     )
-    
+
     x_inmoser_client_notes = fields.Text(
         string='Client Notes',
         help='Notas adicionales específicas del cliente de servicios'
     )
-    
+
     # Relaciones con otros modelos
     x_inmoser_equipment_ids = fields.One2many(
         'inmoser.service.equipment',
@@ -40,21 +39,21 @@ class ResPartnerExtension(models.Model):
         string='Equipment',
         help='Equipos registrados para este cliente'
     )
-    
+
     x_inmoser_service_order_ids = fields.One2many(
         'inmoser.service.order',
         'partner_id',
         string='Service Orders',
         help='Órdenes de servicio de este cliente'
     )
-    
+
     # Campos computados
     x_inmoser_equipment_count = fields.Integer(
         string='Equipment Count',
         compute='_compute_equipment_count',
         help='Número total de equipos registrados'
     )
-    
+
     x_inmoser_service_order_count = fields.Integer(
         string='Service Orders Count',
         compute='_compute_service_order_count',
@@ -150,4 +149,3 @@ class ResPartnerExtension(models.Model):
                 name = f"[{partner.x_inmoser_client_sequence}] {name}"
             result.append((partner.id, name))
         return result
-
