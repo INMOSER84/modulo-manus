@@ -1,22 +1,32 @@
 {
-    'name': 'INMOSER Service Order - Gestión de Servicios, Inventario y Ventas',
-    'version': '2.0',
-    'summary': 'Sistema completo de gestión de servicios técnicos, inventario y ventas',
+    'name': 'INMOSER Service Order - Gestión Integral de Servicios, Inventario y Ventas',
+    'version': '2.1',
+    'summary': 'Sistema completo de gestión de servicios técnicos, inventario y ventas con métricas de empleados',
     'description': """
-Módulo integral para gestión de servicios técnicos, inventario y ventas compatible con Odoo 17 Community Edition
+Módulo integral para gestión de servicios técnicos, inventario y ventas compatible con Odoo 17 Community Edition.
+
 Características principales:
-- Gestión de órdenes de servicio técnico
+- Gestión completa de órdenes de servicio técnico
 - Control de inventario personalizado
 - Validación automática de stock
 - Tipos de venta personalizados
 - Reportes de ventas y servicios
+- Métricas de desempeño de empleados
 - Integración con contabilidad
 - Portal para clientes
 - Generación de códigos QR
     """,
     'author': 'INMOSER84',
-    'license': 'MIT',
-    'depends': ['base', 'product', 'sale', 'account', 'hr', 'stock', 'website_portal'],
+    'license': 'LGPL-3',
+    'depends': [
+        'base',
+        'product',
+        'sale',
+        'account',
+        'hr',
+        'stock',
+        'website'
+    ],
     'data': [
         'security/ir.model.access.csv',
         'security/inmoser_security.xml',
@@ -37,10 +47,12 @@ Características principales:
         'data/ir_sequence_data.xml',
         'data/email_templates.xml',
         'data/cron_jobs.xml',
-        'static/src/xml/calendar_templates.xml',
+        'static/src/xml/calendar_templates.xml'
     ],
-    'demo': ['demo/demo_data.xml'],
+    'demo': [
+        'demo/demo_data.xml'
+    ],
     'installable': True,
     'application': True,
-    'auto_install': False,
+    'auto_install': False
 }
