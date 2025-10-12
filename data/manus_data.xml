@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Categorías por defecto -->
+        <record id="category_medieval" model="manus.category">
+            <field name="name">Medieval</field>
+        </record>
+        <record id="category_renaissance" model="manus.category">
+            <field name="name">Renacentista</field>
+        </record>
+        
+        <!-- Etiquetas por defecto -->
+        <record id="tag_religious" model="manus.tag">
+            <field name="name">Religioso</field>
+            <field name="color">2</field>
+        </record>
+        <record id="tag_historic" model="manus.tag">
+            <field name="name">Histórico</field>
+            <field name="color">5</field>
+        </record>
+    </data>
+</odoo>

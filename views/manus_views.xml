@@ -1,0 +1,146 @@
+<odoo>
+    <!-- Vista Tree (sin attrs deprecados) -->
+    <record id="view_manus_tree" model="ir.ui.view">
+        <field name="name">manus.manuscript.tree</field>
+        <field name="model">manus.manuscript</field>
+        <field name="arch" type="xml">
+            <tree string="Manuscritos" 
+                  decoration-success="state=='validated'" 
+                  decoration-warning="state=='review'">
+                <field name="name"/>
+                <field name="author"/>
+                <field name="date_desc"/>
+                <field name="category_id"/>
+                <field name="user_id"/>
+                <field name="state"/>
+                <field name="file_size" widget="byte_size"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista Form (sin attrs deprecados) -->
+    <record id="view_manus_form" model="ir.ui.view">
+        <field name="name">manus.manuscript.form</field>
+        <field name="model">manus.manuscript</field>
+        <field name="arch" type="xml">
+            <form string="Manuscrito">
+                <header>
+                    <!-- Botones con atributos directos (sin attrs) -->
+                    <button name="action_submit_review" 
+                            string="Enviar a Revisión" 
+                            type="object" 
+                            class="btn-primary" 
+                            invisible="state != 'draft'"/>
+                    
+                    <button name="action_validate" 
+                            string="Validar" 
+                            type="object" 
+                            class="btn-success" 
+                            invisible="state != 'review'"/>
+                    
+                    <button name="action_archive" 
+                            string="Archivar" 
+                            type="object" 
+                            class="btn-secondary" 
+                            invisible="state in ['archived']"/>
+                    
+                    <!-- Statusbar (aún válido en Odoo 17) -->
+                    <field name="state" 
+                           widget="statusbar" 
+                           statusbar_visible="draft,review,validated"/>
+                </header>
+                
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" 
+                                type="object" 
+                                class="oe_stat_button" 
+                                icon="fa-archive">
+                            <field name="active" widget="boolean_toggle"/>
+                        </button>
+                    </div>
+                    
+                    <group>
+                        <group>
+                            <field name="name" placeholder="Título del manuscrito"/>
+                            <field name="author"/>
+                            <field name="date_desc"/>
+                            <field name="category_id"/>
+                        </group>
+                        <group>
+                            <field name="user_id"/>
+                            <field name="department_id"/>
+                            <field name="file_size" widget="byte_size"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Descripción">
+                            <field name="description" 
+                                   placeholder="Descripción detallada..."
+                                   options="{'style-inline': false}"/>
+                        </page>
+                        <page string="Archivos">
+                            <group>
+                                <field name="file" filename="file_name"/>
+                                <field name="file_name" invisible="1"/>
+                            </group>
+                        </page>
+                        <page string="Clasificación">
+                            <field name="tag_ids" widget="many2many_tags"/>
+                        </page>
+                        <page string="Imágenes">
+                            <field name="image" widget="image"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Búsqueda Avanzada (sin cambios significativos) -->
+    <record id="view_manus_search" model="ir.ui.view">
+        <field name="name">manus.manuscript.search</field>
+        <field name="model">manus.manuscript</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Manuscritos">
+                <field name="name"/>
+                <field name="author"/>
+                <field name="description"/>
+                <filter name="draft" string="Borradores" domain="[('state','=','draft')]"/>
+                <filter name="validated" string="Validados" domain="[('state','=','validated')]"/>
+                <separator/>
+                <filter name="my_manuscripts" string="Mis Manuscritos" domain="[('user_id','=',uid)]"/>
+                <group expand="0" string="Agrupar">
+                    <filter name="group_category" string="Categoría" context="{'group_by':'category_id'}"/>
+                    <filter name="group_state" string="Estado" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción Principal (sin cambios) -->
+    <record id="action_manus_manuscript" model="ir.actions.act_window">
+        <field name="name">Manuscritos</field>
+        <field name="res_model">manus.manuscript</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_my_manuscripts':1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                ¡No hay manuscritos registrados!
+            </p>
+            <p>
+                Comience creando su primer manuscrito antiguo.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menús (sin cambios) -->
+    <menuitem id="menu_manus_root" name="Gestión de Manuscritos" sequence="65"/>
+    <menuitem id="menu_manus_manuscript" name="Manuscritos" parent="menu_manus_root" action="action_manus_manuscript"/>
+</odoo>
