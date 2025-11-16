@@ -1,0 +1,70 @@
+# Archivos de Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.py[cod]
+*$py.class
+
+# Archivos de Odoo
+*.log
+*.pot
+*.pyc
+filestore/
+sessions/
+addons/
+
+# Archivos de configuración local
+odoo.conf
+.odoorc
+*.conf.local
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+*:Zone.Identifier
+
+# Archivos de respaldo
+*.bak
+*.backup
+*.old
+
+# Archivos de base de datos
+*.db
+*.sql
+*.sqlite
+
+# Directorios de logs
+logs/
+*.log
+
+# Archivos de entorno
+.env
+.env.local
+venv/
+env/
+ENV/
+
+# Archivos de Docker
+docker-compose.override.yml
+
+# Reportes de auditoría (opcional)
+audit_reports/
+
+# Node modules (si se usa JavaScript)
+node_modules/

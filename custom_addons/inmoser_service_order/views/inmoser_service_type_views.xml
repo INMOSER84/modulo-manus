@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- VISTA TREE -->
+    <record id="view_inmoser_service_type_tree" model="ir.ui.view">
+        <field name="name">inmoser.service.type.tree</field>
+        <field name="model">inmoser.service.type</field>
+        <field name="arch" type="xml">
+            <tree string="Tipos de Servicio">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="active" widget="boolean"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- VISTA FORM -->
+    <record id="view_inmoser_service_type_form" model="ir.ui.view">
+        <field name="name">inmoser.service.type.form</field>
+        <field name="model">inmoser.service.type</field>
+        <field name="arch" type="xml">
+            <form string="Tipo de Servicio">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Nombre del tipo de servicio"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="sequence"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description" placeholder="Descripción del tipo de servicio..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ACCIÓN CORREGIDA -->
+    <record id="action_inmoser_service_type" model="ir.actions.act_window">
+        <field name="name">Tipos de Servicio</field>
+        <field name="res_model">inmoser.service.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea el primer tipo de servicio
+            </p>
+        </field>
+    </record>
+</odoo>

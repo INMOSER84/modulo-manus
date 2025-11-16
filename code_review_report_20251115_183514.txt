@@ -1,0 +1,975 @@
+
+In /home/baruc/odoo_project/c.sh line 7:
+echo "════════════════════════════════════════════════════════════════" > $REPORT_FILE
+                                                                          ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" > "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 8:
+echo "  AUDITORÍA ULTRA PROFUNDA - INMOSER SERVICE ORDER" >> $REPORT_FILE
+^-- SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+                                                             ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "  AUDITORÍA ULTRA PROFUNDA - INMOSER SERVICE ORDER" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 9:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 10:
+echo "Fecha: $(date)" >> $REPORT_FILE
+                         ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "Fecha: $(date)" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 11:
+echo "Ruta: $MODULE_PATH" >> $REPORT_FILE
+                             ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "Ruta: $MODULE_PATH" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 12:
+echo "" >> $REPORT_FILE
+           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 20:
+    echo "❌ ERROR: $1" | tee -a $REPORT_FILE
+                                ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "❌ ERROR: $1" | tee -a "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 25:
+    echo "⚠️  WARNING: $1" | tee -a $REPORT_FILE
+                                    ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "⚠️  WARNING: $1" | tee -a "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 30:
+    echo "✅ OK: $1" | tee -a $REPORT_FILE
+                             ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "✅ OK: $1" | tee -a "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 34:
+echo "" >> $REPORT_FILE
+^---------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 35:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 36:
+echo "1. AUDITORÍA DE ARCHIVOS PYTHON" >> $REPORT_FILE
+                                          ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "1. AUDITORÍA DE ARCHIVOS PYTHON" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 37:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 40:
+    echo "" >> $REPORT_FILE
+               ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 41:
+    echo "📄 Analizando: $py_file" >> $REPORT_FILE
+                                     ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "📄 Analizando: $py_file" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 48:
+        python3 -m py_compile "$py_file" 2>&1 >> $REPORT_FILE
+                                         ^--^ SC2069 (warning): To redirect stdout+stderr, 2>&1 must be last (or use '{ cmd > file; } 2>&1' to clarify).
+                                                 ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+        python3 -m py_compile "$py_file" 2>&1 >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 56:
+        file "$py_file" >> $REPORT_FILE
+                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+        file "$py_file" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 91:
+echo "" >> $REPORT_FILE
+^---------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 92:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 93:
+echo "2. AUDITORÍA DE ARCHIVOS XML" >> $REPORT_FILE
+                                       ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "2. AUDITORÍA DE ARCHIVOS XML" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 94:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 97:
+    echo "" >> $REPORT_FILE
+               ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 98:
+    echo "📄 Analizando: $xml_file" >> $REPORT_FILE
+                                      ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "📄 Analizando: $xml_file" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 105:
+        xmllint --noout "$xml_file" 2>&1 >> $REPORT_FILE
+                                    ^--^ SC2069 (warning): To redirect stdout+stderr, 2>&1 must be last (or use '{ cmd > file; } 2>&1' to clarify).
+                                            ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+        xmllint --noout "$xml_file" 2>&1 >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 134:
+echo "" >> $REPORT_FILE
+^---------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 135:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 136:
+echo "3. AUDITORÍA DE ARCHIVOS CSV" >> $REPORT_FILE
+                                       ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "3. AUDITORÍA DE ARCHIVOS CSV" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 137:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 140:
+    echo "" >> $REPORT_FILE
+               ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 141:
+    echo "📄 Analizando: $csv_file" >> $REPORT_FILE
+                                      ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "📄 Analizando: $csv_file" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 151:
+    head -1 "$csv_file" | grep -q "model_id:id" && log_success "Cabecera CSV correcta: $csv_file" || log_error "Cabecera CSV incorrecta: $csv_file"
+                                                ^-- SC2015 (info): Note that A && B || C is not if-then-else. C may run when A is true.
+
+
+In /home/baruc/odoo_project/c.sh line 154:
+    tail -n +2 "$csv_file" | while IFS=',' read -r id name model_id group_id perm_read perm_write perm_create perm_unlink; do
+                                                   ^-- SC2034 (warning): id appears unused. Verify use (or export if used externally).
+                                                      ^--^ SC2034 (warning): name appears unused. Verify use (or export if used externally).
+                                                                    ^------^ SC2034 (warning): group_id appears unused. Verify use (or export if used externally).
+                                                                             ^-------^ SC2034 (warning): perm_read appears unused. Verify use (or export if used externally).
+                                                                                       ^--------^ SC2034 (warning): perm_write appears unused. Verify use (or export if used externally).
+                                                                                                  ^---------^ SC2034 (warning): perm_create appears unused. Verify use (or export if used externally).
+                                                                                                              ^---------^ SC2034 (warning): perm_unlink appears unused. Verify use (or export if used externally).
+
+
+In /home/baruc/odoo_project/c.sh line 161:
+echo "" >> $REPORT_FILE
+^---------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 162:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 163:
+echo "4. VERIFICACIÓN DE COHERENCIA MODELO-VISTA" >> $REPORT_FILE
+                                                     ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "4. VERIFICACIÓN DE COHERENCIA MODELO-VISTA" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 164:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 182:
+echo "" >> $REPORT_FILE
+^---------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 183:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 184:
+echo "5. VERIFICACIÓN DE IMPORTS EN __init__.py" >> $REPORT_FILE
+                                                    ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "5. VERIFICACIÓN DE IMPORTS EN __init__.py" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 185:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 190:
+        module_name=$(echo "$import_line" | sed 's/from\.import//')
+                      ^-- SC2001 (style): See if you can use ${variable//search/replace} instead.
+
+
+In /home/baruc/odoo_project/c.sh line 203:
+        model_file=$(echo "$import_line" | sed 's/from\.import//')
+                     ^-- SC2001 (style): See if you can use ${variable//search/replace} instead.
+
+
+In /home/baruc/odoo_project/c.sh line 214:
+echo "" >> $REPORT_FILE
+^---------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 215:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 216:
+echo "6. VERIFICACIÓN DE DEPENDENCIAS" >> $REPORT_FILE
+                                          ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "6. VERIFICACIÓN DE DEPENDENCIAS" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 217:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 235:
+echo "" >> $REPORT_FILE
+^---------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 236:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 237:
+echo "7. VERIFICACIÓN DE REFERENCIAS CRUZADAS" >> $REPORT_FILE
+                                                  ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "7. VERIFICACIÓN DE REFERENCIAS CRUZADAS" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 238:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 251:
+echo "" >> $REPORT_FILE
+^---------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 252:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 253:
+echo "8. VERIFICACIÓN DE XMLIDS" >> $REPORT_FILE
+                                    ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "8. VERIFICACIÓN DE XMLIDS" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 254:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 262:
+echo "" >> $REPORT_FILE
+^---------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 263:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 264:
+echo "9. VERIFICACIÓN DE HERENCIA PYTHON" >> $REPORT_FILE
+                                             ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "9. VERIFICACIÓN DE HERENCIA PYTHON" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 265:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 267:
+for py_file in $(find $MODULE_PATH/models -name "*.py" -type f); do
+               ^-- SC2044 (warning): For loops over find output are fragile. Use find -exec or a while read loop.
+
+
+In /home/baruc/odoo_project/c.sh line 280:
+echo "" >> $REPORT_FILE
+^---------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 281:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 282:
+echo "10. RESUMEN FINAL" >> $REPORT_FILE
+                            ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "10. RESUMEN FINAL" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 283:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 285:
+echo "" | tee -a $REPORT_FILE
+                 ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" | tee -a "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 286:
+echo "📊 ESTADÍSTICAS:" | tee -a $REPORT_FILE
+                                ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "📊 ESTADÍSTICAS:" | tee -a "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 287:
+echo "   Errores encontrados: $ERRORS" | tee -a $REPORT_FILE
+                                                ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "   Errores encontrados: $ERRORS" | tee -a "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 288:
+echo "   Warnings encontrados: $WARNINGS" | tee -a $REPORT_FILE
+                                                   ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "   Warnings encontrados: $WARNINGS" | tee -a "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 289:
+echo "" | tee -a $REPORT_FILE
+                 ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" | tee -a "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 291:
+if [ $ERRORS -eq 0 ]; then
+     ^-----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+if [ "$ERRORS" -eq 0 ]; then
+
+
+In /home/baruc/odoo_project/c.sh line 292:
+    echo "🎉 ¡AUDITORÍA COMPLETADA SIN ERRORES CRÍTICOS!" | tee -a $REPORT_FILE
+                                                                  ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "🎉 ¡AUDITORÍA COMPLETADA SIN ERRORES CRÍTICOS!" | tee -a "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 295:
+    echo "❌ SE ENCONTRARON ERRORES CRÍTICOS" | tee -a $REPORT_FILE
+                                                      ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "❌ SE ENCONTRARON ERRORES CRÍTICOS" | tee -a "$REPORT_FILE"
+
+
+In /home/baruc/odoo_project/c.sh line 296:
+    echo "📄 Reporte completo guardado en: $REPORT_FILE" | tee -a $REPORT_FILE
+                                                                 ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "📄 Reporte completo guardado en: $REPORT_FILE" | tee -a "$REPORT_FILE"
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2034 -- group_id appears unused. Verify u...
+  https://www.shellcheck.net/wiki/SC2044 -- For loops over find output are fr...
+  https://www.shellcheck.net/wiki/SC2069 -- To redirect stdout+stderr, 2>&1 m...
+
+In /home/baruc/odoo_project/audit_odoo.sh line 30:
+    du -sh */ 2>/dev/null | sort -hr
+           ^-- SC2035 (info): Use ./*glob* or -- *glob* so names with dashes won't become options.
+
+
+In /home/baruc/odoo_project/audit_odoo.sh line 44:
+    for manifest in $(find custom_addons -name "__manifest__.py" -o -name "__openerp__.py"); do
+                    ^-- SC2044 (warning): For loops over find output are fragile. Use find -exec or a while read loop.
+
+
+In /home/baruc/odoo_project/audit_odoo.sh line 51:
+    find custom_addons -name "*.py" -type f | xargs wc -l | sort -nr
+    ^-- SC2038 (warning): Use -print0/-0 or -exec + to allow for non-alphanumeric filenames.
+
+
+In /home/baruc/odoo_project/audit_odoo.sh line 247:
+            echo "$(basename $repo): $count módulos"
+                             ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+            echo "$(basename "$repo"): $count módulos"
+
+
+In /home/baruc/odoo_project/audit_odoo.sh line 303:
+    echo "Repositorios OCA: $(ls -d oca_addons/*/ 2>/dev/null | wc -l)"
+                              ^-----------------------------^ SC2012 (info): Use find instead of ls to better handle non-alphanumeric filenames.
+
+
+In /home/baruc/odoo_project/audit_odoo.sh line 333:
+ls -lh "$REPORT_DIR"/*$TIMESTAMP.txt
+                      ^--------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+ls -lh "$REPORT_DIR"/*"$TIMESTAMP".txt
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2038 -- Use -print0/-0 or -exec + to allo...
+  https://www.shellcheck.net/wiki/SC2044 -- For loops over find output are fr...
+  https://www.shellcheck.net/wiki/SC2012 -- Use find instead of ls to better ...
+
+In /home/baruc/odoo_project/b.sh line 77:
+    local cache_count=$(find . -type d -name "__pycache__" | wc -l)
+          ^---------^ SC2155 (warning): Declare and assign separately to avoid masking return values.
+
+
+In /home/baruc/odoo_project/b.sh line 83:
+    local pyc_count=$(find . -name "*.pyc" | wc -l)
+          ^-------^ SC2155 (warning): Declare and assign separately to avoid masking return values.
+
+
+In /home/baruc/odoo_project/b.sh line 101:
+    local uid_gid=$(stat -c "%u:%g" "${CUSTOM_ADDONS_PATH}")
+          ^-----^ SC2155 (warning): Declare and assign separately to avoid masking return values.
+
+
+In /home/baruc/odoo_project/b.sh line 152:
+        if [ "$(module_exists $module)" == "$module" ]; then
+                              ^-----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+        if [ "$(module_exists "$module")" == "$module" ]; then
+
+
+In /home/baruc/odoo_project/b.sh line 180:
+    local errors=$(docker logs "$CONTAINER_NAME" --since 5m 2>&1 | grep -c "ERROR\|Traceback" || true)
+          ^----^ SC2155 (warning): Declare and assign separately to avoid masking return values.
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2155 -- Declare and assign separately to ...
+  https://www.shellcheck.net/wiki/SC2086 -- Double quote to prevent globbing ...
+
+In /home/baruc/odoo_project/a.sh line 53:
+for py_file in $(find "$MODULE_PATH" -name "*.py" -type f); do
+               ^-- SC2044 (warning): For loops over find output are fragile. Use find -exec or a while read loop.
+
+
+In /home/baruc/odoo_project/a.sh line 74:
+for xml_file in $(find "$MODULE_PATH" -name "*.xml" -type f); do
+                ^-- SC2044 (warning): For loops over find output are fragile. Use find -exec or a while read loop.
+
+
+In /home/baruc/odoo_project/a.sh line 98:
+cat "$MANIFEST" | tee -a "$REPORT_FILE"
+    ^---------^ SC2002 (style): Useless cat. Consider 'cmd < file | ..' or 'cmd file | ..' instead.
+
+
+In /home/baruc/odoo_project/a.sh line 102:
+python3 -c "import ast; ast.parse(open('$MANIFEST').read())" 2>&1 | tee -a "$REPORT_FILE" && log "   ✅ Sintaxis válida" || log "   ❌ SINTAXIS INVÁLIDA"
+                                                                                          ^-- SC2015 (info): Note that A && B || C is not if-then-else. C may run when A is true.
+
+
+In /home/baruc/odoo_project/a.sh line 146:
+cat "${MODULE_PATH}/__init__.py" | tee -a "$REPORT_FILE"
+    ^--------------------------^ SC2002 (style): Useless cat. Consider 'cmd < file | ..' or 'cmd file | ..' instead.
+
+
+In /home/baruc/odoo_project/a.sh line 150:
+cat "${MODULE_PATH}/models/__init__.py" | tee -a "$REPORT_FILE"
+    ^-- SC2002 (style): Useless cat. Consider 'cmd < file | ..' or 'cmd file | ..' instead.
+
+
+In /home/baruc/odoo_project/a.sh line 173:
+for py_file in $(find "$MODULE_PATH/models" -name "*.py" -type f ! -name "__init__.py"); do
+               ^-- SC2044 (warning): For loops over find output are fragile. Use find -exec or a while read loop.
+
+
+In /home/baruc/odoo_project/a.sh line 175:
+    log "📄 Analizando: $(basename $py_file)"
+                                  ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    log "📄 Analizando: $(basename "$py_file")"
+
+
+In /home/baruc/odoo_project/a.sh line 204:
+    if [ $FIELD_COUNT -gt 0 ]; then
+         ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    if [ "$FIELD_COUNT" -gt 0 ]; then
+
+
+In /home/baruc/odoo_project/a.sh line 220:
+for py_file in $(find "$MODULE_PATH/models" -name "*.py" -type f ! -name "__init__.py"); do
+               ^-- SC2044 (warning): For loops over find output are fragile. Use find -exec or a while read loop.
+
+
+In /home/baruc/odoo_project/a.sh line 225:
+            log "   $(basename $py_file): Many2one('$referenced_model')"
+                               ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+            log "   $(basename "$py_file"): Many2one('$referenced_model')"
+
+
+In /home/baruc/odoo_project/a.sh line 232:
+for py_file in $(find "$MODULE_PATH/models" -name "*.py" -type f ! -name "__init__.py"); do
+               ^-- SC2044 (warning): For loops over find output are fragile. Use find -exec or a while read loop.
+
+
+In /home/baruc/odoo_project/a.sh line 236:
+            log "   $(basename $py_file): One2many('$referenced_model')"
+                               ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+            log "   $(basename "$py_file"): One2many('$referenced_model')"
+
+
+In /home/baruc/odoo_project/a.sh line 252:
+cat "$CSV_FILE" | tee -a "$REPORT_FILE"
+    ^---------^ SC2002 (style): Useless cat. Consider 'cmd < file | ..' or 'cmd file | ..' instead.
+
+
+In /home/baruc/odoo_project/a.sh line 256:
+tail -n +2 "$CSV_FILE" | while IFS=',' read -r id name model_id group_id perm_read perm_write perm_create perm_unlink; do
+                                               ^-- SC2034 (warning): id appears unused. Verify use (or export if used externally).
+                                                                         ^-------^ SC2034 (warning): perm_read appears unused. Verify use (or export if used externally).
+                                                                                   ^--------^ SC2034 (warning): perm_write appears unused. Verify use (or export if used externally).
+                                                                                              ^---------^ SC2034 (warning): perm_create appears unused. Verify use (or export if used externally).
+                                                                                                          ^---------^ SC2034 (warning): perm_unlink appears unused. Verify use (or export if used externally).
+
+
+In /home/baruc/odoo_project/a.sh line 275:
+for xml_file in $(find "$MODULE_PATH/data" -name "*.xml" -type f 2>/dev/null); do
+                ^-- SC2044 (warning): For loops over find output are fragile. Use find -exec or a while read loop.
+
+
+In /home/baruc/odoo_project/a.sh line 277:
+    log "📄 Analizando: $(basename $xml_file)"
+                                  ^-------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    log "📄 Analizando: $(basename "$xml_file")"
+
+
+In /home/baruc/odoo_project/a.sh line 279:
+    cat "$xml_file" | tee -a "$REPORT_FILE"
+        ^---------^ SC2002 (style): Useless cat. Consider 'cmd < file | ..' or 'cmd file | ..' instead.
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2034 -- id appears unused. Verify use (or...
+  https://www.shellcheck.net/wiki/SC2044 -- For loops over find output are fr...
+  https://www.shellcheck.net/wiki/SC2015 -- Note that A && B || C is not if-t...
+
+In /home/baruc/odoo_project/d.sh line 104:
+    if [ $? -ne 0 ]; then
+         ^-- SC2181 (style): Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2181 -- Check exit code directly with e.g...
+
+In /home/baruc/odoo_project/e.sh line 61:
+    local REPORT_FILE="code_review_report_$(date +%Y%m%d_%H%M%S).txt"
+          ^---------^ SC2155 (warning): Declare and assign separately to avoid masking return values.
+
+
+In /home/baruc/odoo_project/e.sh line 62:
+    local PROJECT_DIR=$(pwd)
+          ^---------^ SC2155 (warning): Declare and assign separately to avoid masking return values.
+
+
+In /home/baruc/odoo_project/e.sh line 70:
+            if [ ${PIPESTATUS[0]} -ne 0 ]; then
+                 ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+            if [ "${PIPESTATUS[0]}" -ne 0 ]; then
+
+
+In /home/baruc/odoo_project/e.sh line 71:
+                ERROR_COUNT=$((ERROR_COUNT + 1))
+                ^---------^ SC2030 (info): Modification of ERROR_COUNT is local (to subshell caused by pipeline).
+
+
+In /home/baruc/odoo_project/e.sh line 81:
+            if [ ${PIPESTATUS[0]} -ne 0 ]; then
+                 ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+            if [ "${PIPESTATUS[0]}" -ne 0 ]; then
+
+
+In /home/baruc/odoo_project/e.sh line 82:
+                ERROR_COUNT=$((ERROR_COUNT + 1))
+                ^---------^ SC2030 (info): Modification of ERROR_COUNT is local (to subshell caused by pipeline).
+                               ^---------^ SC2031 (info): ERROR_COUNT was modified in a subshell. That change might be lost.
+
+
+In /home/baruc/odoo_project/e.sh line 92:
+            if [ ${PIPESTATUS[0]} -ne 0 ]; then
+                 ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+            if [ "${PIPESTATUS[0]}" -ne 0 ]; then
+
+
+In /home/baruc/odoo_project/e.sh line 93:
+                ERROR_COUNT=$((ERROR_COUNT + 1))
+                ^---------^ SC2030 (info): Modification of ERROR_COUNT is local (to subshell caused by pipeline).
+                               ^---------^ SC2031 (info): ERROR_COUNT was modified in a subshell. That change might be lost.
+
+
+In /home/baruc/odoo_project/e.sh line 98:
+    if [ $ERROR_COUNT -gt 0 ]; then
+         ^----------^ SC2031 (info): ERROR_COUNT was modified in a subshell. That change might be lost.
+
+
+In /home/baruc/odoo_project/e.sh line 99:
+        echo -e "\n${RED}ADVERTENCIA: Se encontraron $ERROR_COUNT errores de código. Revise $REPORT_FILE antes de continuar.${NC}"
+                                                     ^----------^ SC2031 (info): ERROR_COUNT was modified in a subshell. That change might be lost.
+
+
+In /home/baruc/odoo_project/e.sh line 132:
+    if [ $? -ne 0 ]; then
+         ^-- SC2181 (style): Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
+
+
+In /home/baruc/odoo_project/e.sh line 148:
+    cat $CONFIG_FILE > $TEMP_CONFIG_FILE
+                       ^---------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    cat $CONFIG_FILE > "$TEMP_CONFIG_FILE"
+
+
+In /home/baruc/odoo_project/e.sh line 153:
+        sed -i "/^$key/d" $TEMP_CONFIG_FILE
+                          ^---------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+        sed -i "/^$key/d" "$TEMP_CONFIG_FILE"
+
+
+In /home/baruc/odoo_project/e.sh line 154:
+        echo "$key = $value" >> $TEMP_CONFIG_FILE
+                                ^---------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+        echo "$key = $value" >> "$TEMP_CONFIG_FILE"
+
+
+In /home/baruc/odoo_project/e.sh line 168:
+    mv $TEMP_CONFIG_FILE $CONFIG_FILE
+       ^---------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    mv "$TEMP_CONFIG_FILE" $CONFIG_FILE
+
+
+In /home/baruc/odoo_project/e.sh line 194:
+    if [ $? -eq 0 ]; then
+         ^-- SC2181 (style): Check exit code directly with e.g. 'if mycmd;', not indirectly with $?.
+
+
+In /home/baruc/odoo_project/e.sh line 208:
+    if [ $? -ne 0 ]; then
+         ^-- SC2181 (style): Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2155 -- Declare and assign separately to ...
+  https://www.shellcheck.net/wiki/SC2030 -- Modification of ERROR_COUNT is lo...
+  https://www.shellcheck.net/wiki/SC2031 -- ERROR_COUNT was modified in a sub...
+
+In /home/baruc/odoo_project/update_inmoser.sh line 23:
+    docker exec -it odoo_project-odoo-1 odoo -d $DB -u $MODULE --stop-after-init
+                                                       ^-----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    docker exec -it odoo_project-odoo-1 odoo -d $DB -u "$MODULE" --stop-after-init
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2086 -- Double quote to prevent globbing ...
+
+In /home/baruc/odoo_project/deep_analysis.sh line 24:
+        if [ $module_count -gt 0 ]; then
+             ^-----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+        if [ "$module_count" -gt 0 ]; then
+
+
+In /home/baruc/odoo_project/deep_analysis.sh line 49:
+    echo "=== $(dirname $manifest) ==="
+                        ^-------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "=== $(dirname "$manifest") ==="
+
+
+In /home/baruc/odoo_project/deep_analysis.sh line 130:
+        echo "=== $(basename $xml) ==="
+                             ^--^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+        echo "=== $(basename "$xml") ==="
+
+
+In /home/baruc/odoo_project/deep_analysis.sh line 163:
+    echo "=== $(dirname $manifest) ==="
+                        ^-------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "=== $(dirname "$manifest") ==="
+
+
+In /home/baruc/odoo_project/deep_analysis.sh line 194:
+        echo "⚠️  $(basename $module) - Sin README"
+                             ^-----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+        echo "⚠️  $(basename "$module") - Sin README"
+
+
+In /home/baruc/odoo_project/deep_analysis.sh line 202:
+        echo "⚠️  $(basename $module) - Sin carpeta tests/"
+                             ^-----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+        echo "⚠️  $(basename "$module") - Sin carpeta tests/"
+
+
+In /home/baruc/odoo_project/deep_analysis.sh line 228:
+for py_file in $(find custom_addons -name "*.py" -type f); do
+               ^-- SC2044 (warning): For loops over find output are fragile. Use find -exec or a while read loop.
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2044 -- For loops over find output are fr...
+  https://www.shellcheck.net/wiki/SC2086 -- Double quote to prevent globbing ...
+
+In /home/baruc/odoo_project/cleanup_project.sh line 198:
+find custom_addons -maxdepth 2 -name "__manifest__.py" -exec dirname {} \; | while read module; do
+                                                                                   ^--^ SC2162 (info): read without -r will mangle backslashes.
+
+
+In /home/baruc/odoo_project/cleanup_project.sh line 199:
+    echo "   📦 $(basename $module)"
+                          ^-----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "   📦 $(basename "$module")"
+
+
+In /home/baruc/odoo_project/cleanup_project.sh line 220:
+du -sh */ 2>/dev/null | sort -hr | head -10
+       ^-- SC2035 (info): Use ./*glob* or -- *glob* so names with dashes won't become options.
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2035 -- Use ./*glob* or -- *glob* so name...
+  https://www.shellcheck.net/wiki/SC2086 -- Double quote to prevent globbing ...
+  https://www.shellcheck.net/wiki/SC2162 -- read without -r will mangle backs...

@@ -1,0 +1,92 @@
+=== ANALISIS COMPLETO DE MODULO ODOO ===
+
+MÓDULO ANALIZADO: custom_addons/inmoser_service_order
+
+========================
+ARCHIVOS PYTHON
+========================
+
+📌 Archivo: custom_addons/inmoser_service_order/models/inmoser_service_type.py
+  Modelos encontrados:
+    - InmoserServiceType
+
+📌 Archivo: custom_addons/inmoser_service_order/models/res_partner.py
+  Modelos encontrados:
+    - ResPartner
+
+📌 Archivo: custom_addons/inmoser_service_order/models/inmoser_service_equipment.py
+  Modelos encontrados:
+    - InmoserServiceEquipment
+
+📌 Archivo: custom_addons/inmoser_service_order/models/__init__.py
+  ⚠️ No se encontraron modelos en este archivo.
+
+📌 Archivo: custom_addons/inmoser_service_order/models/inmoser_service_order_refaction_line.py
+  Modelos encontrados:
+    - InmoserServiceOrderRefactionLine
+
+📌 Archivo: custom_addons/inmoser_service_order/models/inmoser_service_order.py
+  Modelos encontrados:
+    - InmoserServiceOrder
+
+📌 Archivo: custom_addons/inmoser_service_order/models/account_move.py
+  Modelos encontrados:
+    - AccountMove
+
+📌 Archivo: custom_addons/inmoser_service_order/models/hr_employee.py
+  Modelos encontrados:
+    - HrEmployee
+
+📌 Archivo: custom_addons/inmoser_service_order/models/inmoser_service_specialty.py
+  Modelos encontrados:
+    - InmoserServiceSpecialty
+
+========================
+VALIDACIÓN DE CAMPOS XML
+========================
+
+❌ CAMPOS USADOS EN XML QUE NO EXISTEN EN MODELOS:
+   - Configuración
+   - Equipos
+   - Inmoser Service
+   - Tipos de Servicio
+   - action_approve
+   - action_assign
+   - action_cancel
+   - action_complete
+   - action_confirm
+   - action_generate_qr
+   - action_request_approval
+   - action_start
+   - activity_ids
+   - assigned_technician_id
+   - body_html
+   - category_id
+   - company_id
+   - email_from
+   - email_to
+   - equipment_id
+   - groups
+   - help
+   - implied_ids
+   - inherit_id
+   - inmoser_service_group
+   - invoice_id
+   - message_follower_ids
+   - message_ids
+   - model_id
+   - padding
+   - partner_id
+   - perm_create
+   - perm_read
+   - perm_unlink
+   - perm_write
+   - prefix
+   - product_id
+   - res_model
+   - service_order_line_ids
+   - service_type_id
+   - subject
+   - users
+   - view_mode
+   - Órdenes de Servicio

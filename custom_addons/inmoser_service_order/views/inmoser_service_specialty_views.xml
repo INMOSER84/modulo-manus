@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inmoser_service_specialty_view_form" model="ir.ui.view">
+        <field name="name">inmoser.service.specialty.view.form</field>
+        <field name="model">inmoser.service.specialty</field>
+        <field name="arch" type="xml">
+            <form string="Especialidad de Técnico">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="inmoser_service_specialty_view_tree" model="ir.ui.view">
+        <field name="name">inmoser.service.specialty.view.tree</field>
+        <field name="model">inmoser.service.specialty</field>
+        <field name="arch" type="xml">
+            <tree string="Especialidades de Técnico">
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="inmoser_service_specialty_action" model="ir.actions.act_window">
+        <field name="name">Especialidades de Técnico</field>
+        <field name="res_model">inmoser.service.specialty</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

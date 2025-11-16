@@ -1,0 +1,434 @@
+==========================================
+ANÁLISIS PROFUNDO DEL PROYECTO
+==========================================
+
+📊 1. ANÁLISIS DE MÓDULOS OCA (ocupan 718M de 719M)
+==================================================
+
+Top 10 repositorios por tamaño:
+249M	oca_addons/oca-web/
+151M	oca_addons/oca-stock-logistics-warehouse/
+147M	oca_addons/oca-partner-contact/
+57M	oca_addons/oca-server-ux/
+31M	oca_addons/oca-fieldservice/
+29M	oca_addons/oca-hr/
+14M	oca_addons/oca-contract/
+13M	oca_addons/field-service/
+11M	oca_addons/oca-geospatial/
+6.9M	oca_addons/oca-maintenance/
+
+Conteo de módulos por repositorio:
+oca-partner-contact                       61 módulos
+oca-fieldservice                          39 módulos
+field-service                             39 módulos
+oca-web                                   38 módulos
+oca-stock-logistics-warehouse             35 módulos
+oca-pos                                   26 módulos
+oca-server-ux                             23 módulos
+oca-hr                                    21 módulos
+oca-maintenance                           16 módulos
+oca-repair                                15 módulos
+oca-contract                              15 módulos
+oca-geospatial                             5 módulos
+oca-agreement                              5 módulos
+
+
+📦 2. ANÁLISIS DE MÓDULOS PERSONALIZADOS
+==================================================
+
+--- Estructura de inmoser_service_order ---
+custom_addons/inmoser_service_order
+├── __init__.py
+├── __manifest__.py
+├── data
+│   ├── inmoser_service_order_mail_template.xml
+│   ├── inmoser_service_type_data.xml
+│   └── sequences.xml
+├── fix_inmoser_files.sh
+├── models
+│   ├── __init__.py
+│   ├── account_move.py
+│   ├── hr_employee.py
+│   ├── inmoser_service_equipment.py
+│   ├── inmoser_service_order.py
+│   ├── inmoser_service_order_refaction_line.py
+│   ├── inmoser_service_specialty.py
+│   ├── inmoser_service_type.py
+│   └── res_partner.py
+├── security
+│   ├── inmoser_service_order_security.xml
+│   └── ir.model.access.csv
+├── static
+│   ├── description
+│   └── src
+├── tests
+│   ├── __init__.py
+│   └── test_inmoser_service_order.py
+├── views
+│   ├── account_move_views.xml
+│   ├── hr_employee_views.xml
+│   ├── inmoser_service_equipment_views.xml
+│   ├── inmoser_service_order_refaction_line_views.xml
+│   ├── inmoser_service_order_views.xml
+│   ├── inmoser_service_specialty_views.xml
+│   ├── inmoser_service_type_views.xml
+│   └── menu_views.xml
+└── wizards
+
+9 directories, 27 files
+
+--- Estructura de inmoser_field_service ---
+custom_addons/inmoser_field_service
+├── __init__.py
+├── __manifest__.py
+├── models
+│   ├── __init__.py
+│   └── fsm_order.py
+├── security
+│   └── ir.model.access.csv
+└── views
+    └── fsm_order_views.xml
+
+3 directories, 6 files
+
+--- Manifiestos de módulos custom ---
+
+=== custom_addons/inmoser_field_service ===
+Nombre: Inmoser Field Service
+Versión: 17.0.1.0.0
+Categoría: Services
+Depende de: inmoser_service_order, industry_fsm, fieldservice
+Auto-instalable: False
+Aplicación: False
+
+=== custom_addons/inmoser_service_order ===
+Nombre: Inmoser Service Order
+Versión: 17.0.1.0.0
+Categoría: Services
+Depende de: base, mail, account, hr, stock
+Auto-instalable: False
+Aplicación: True
+
+
+🔒 3. ANÁLISIS DE SEGURIDAD
+==================================================
+
+--- Archivos de seguridad encontrados ---
+custom_addons/inmoser_service_order/security/inmoser_service_order_security.xml
+custom_addons/inmoser_service_order/security/ir.model.access.csv
+custom_addons/inmoser_field_service/security/ir.model.access.csv
+
+--- Reglas de acceso (CSV) ---
+
+=== custom_addons/inmoser_field_service/security/ir.model.access.csv ===
+Cantidad de reglas: 1
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fsm_order_technician,fsm.order.technician,model_fsm_order,inmoser_service_order.group_inmoser_technician,1,1,1,0
+
+=== custom_addons/inmoser_service_order/security/ir.model.access.csv ===
+Cantidad de reglas: 0
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_inmoser_service_specialty_user,inmoser.service.specialty.user,model_inmoser_service_specialty,base.group_user,1,1,1,1
+--- Grupos de seguridad definidos ---
+custom_addons/inmoser_service_order/security/inmoser_service_order_security.xml:    <record id="group_inmoser_callcenter" model="res.groups">
+custom_addons/inmoser_service_order/security/inmoser_service_order_security.xml-        <field name="name">Inmoser / Call Center</field>
+custom_addons/inmoser_service_order/security/inmoser_service_order_security.xml-        <field name="category_id" ref="module_category_inmoser_service"/>
+custom_addons/inmoser_service_order/security/inmoser_service_order_security.xml-        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+custom_addons/inmoser_service_order/security/inmoser_service_order_security.xml-    </record>
+custom_addons/inmoser_service_order/security/inmoser_service_order_security.xml:    <record id="group_inmoser_technician" model="res.groups">
+custom_addons/inmoser_service_order/security/inmoser_service_order_security.xml-        <field name="name">Inmoser / Técnico</field>
+custom_addons/inmoser_service_order/security/inmoser_service_order_security.xml-        <field name="category_id" ref="module_category_inmoser_service"/>
+custom_addons/inmoser_service_order/security/inmoser_service_order_security.xml-        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+custom_addons/inmoser_service_order/security/inmoser_service_order_security.xml-    </record>
+custom_addons/inmoser_service_order/security/inmoser_service_order_security.xml:    <record id="group_inmoser_supervisor" model="res.groups">
+custom_addons/inmoser_service_order/security/inmoser_service_order_security.xml-        <field name="name">Inmoser / Supervisor</field>
+custom_addons/inmoser_service_order/security/inmoser_service_order_security.xml-        <field name="category_id" ref="module_category_inmoser_service"/>
+custom_addons/inmoser_service_order/security/inmoser_service_order_security.xml-        <field name="implied_ids" eval="[(4, ref('group_inmoser_callcenter')), (4, ref('group_inmoser_technician'))]"/>
+custom_addons/inmoser_service_order/security/inmoser_service_order_security.xml-    </record>
+custom_addons/inmoser_service_order/security/inmoser_service_order_security.xml:    <record id="group_inmoser_manager" model="res.groups">
+custom_addons/inmoser_service_order/security/inmoser_service_order_security.xml-        <field name="name">Inmoser / Gerente</field>
+custom_addons/inmoser_service_order/security/inmoser_service_order_security.xml-        <field name="category_id" ref="module_category_inmoser_service"/>
+custom_addons/inmoser_service_order/security/inmoser_service_order_security.xml-        <field name="implied_ids" eval="[(4, ref('group_inmoser_supervisor'))]"/>
+custom_addons/inmoser_service_order/security/inmoser_service_order_security.xml-        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+custom_addons/inmoser_service_order/security/inmoser_service_order_security.xml-    </record>
+
+
+🗄️ 4. ANÁLISIS DE MODELOS DE DATOS
+==================================================
+
+--- Modelos definidos en custom_addons ---
+class AccountMove(models.Model):
+class FsmOrder(models.Model):
+class HrEmployee(models.Model):
+class InmoserServiceEquipment(models.Model):
+class InmoserServiceOrder(models.Model):
+class InmoserServiceOrderRefactionLine(models.Model):
+class InmoserServiceSpecialty(models.Model):
+class ResPartner(models.Model):
+
+--- Herencias de modelos ---
+    _inherit = 'account.move'
+    _inherit = 'fsm.order'
+    _inherit = 'hr.employee'
+    _inherit = 'res.partner'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+
+--- Campos computados ---
+5
+ campos computados encontrados
+
+--- Campos relacionados ---
+2
+ campos relacionados encontrados
+
+
+👁️ 5. ANÁLISIS DE VISTAS
+==================================================
+
+--- Vistas XML en custom_addons ---
+custom_addons/inmoser_service_order/views/inmoser_service_order_refaction_line_views.xml
+custom_addons/inmoser_service_order/views/hr_employee_views.xml
+custom_addons/inmoser_service_order/views/inmoser_service_order_views.xml
+custom_addons/inmoser_service_order/views/inmoser_service_type_views.xml
+custom_addons/inmoser_service_order/views/menu_views.xml
+custom_addons/inmoser_service_order/views/account_move_views.xml
+custom_addons/inmoser_service_order/views/inmoser_service_equipment_views.xml
+custom_addons/inmoser_service_order/views/inmoser_service_specialty_views.xml
+custom_addons/inmoser_field_service/views/fsm_order_views.xml
+
+--- Tipos de vistas ---
+
+=== fsm_order_views.xml ===
+type="xml"
+
+=== account_move_views.xml ===
+type="xml"
+
+=== hr_employee_views.xml ===
+type="xml"
+
+=== inmoser_service_equipment_views.xml ===
+type="object"
+type="xml"
+
+=== inmoser_service_order_refaction_line_views.xml ===
+type="xml"
+
+=== inmoser_service_order_views.xml ===
+type="html"
+type="object"
+type="xml"
+
+=== inmoser_service_specialty_views.xml ===
+type="xml"
+
+=== inmoser_service_type_views.xml ===
+type="html"
+type="xml"
+
+=== menu_views.xml ===
+
+--- Menús definidos ---
+    <menuitem id="menu_inmoser_root" name="Inmoser Service" sequence="10" web_icon="inmoser_service_order,static/description/icon.png"/>
+    <menuitem id="menu_inmoser_service_order" name="Órdenes de Servicio" parent="menu_inmoser_root" action="action_inmoser_service_order" sequence="1"/>
+    <menuitem id="menu_inmoser_equipment" name="Equipos" parent="menu_inmoser_root" action="action_inmoser_equipment" sequence="2"/>
+    <menuitem id="menu_inmoser_configuration" name="Configuración" parent="menu_inmoser_root" sequence="99"/>
+    <menuitem id="menu_inmoser_service_type" name="Tipos de Servicio" parent="menu_inmoser_configuration" action="action_inmoser_service_type" sequence="1"/>
+    <menuitem id="menu_inmoser_service_specialty"
+
+
+📦 6. ANÁLISIS DE DEPENDENCIAS
+==================================================
+
+--- requirements.txt principal ---
+qrcode
+
+--- Dependencias Python en módulos custom ---
+.
+base64,
+
+--- Dependencias de módulos Odoo declaradas ---
+
+=== custom_addons/inmoser_field_service ===
+    'depends': [
+        'inmoser_service_order',
+        'industry_fsm',
+        'fieldservice',
+    ],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/fsm_order_views.xml',
+    ],
+    'installable': True,
+    'application': False,
+
+=== custom_addons/inmoser_service_order ===
+    'depends': ['base', 'mail', 'account', 'hr', 'stock'],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/hr_employee_views.xml',
+        'views/inmoser_service_equipment_views.xml',
+        'views/inmoser_service_type_views.xml',
+        'views/inmoser_service_order_views.xml',
+        'views/inmoser_service_order_refaction_line_views.xml',
+        'views/inmoser_service_specialty_views.xml',
+        'views/account_move_views.xml',
+        'views/menu_views.xml',
+
+
+🐳 7. ANÁLISIS DE CONFIGURACIÓN DOCKER
+==================================================
+
+--- docker-compose.yml ---
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: odoo_mx
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  odoo:
+    image: odoo:17
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+    environment:
+      - HOST=db
+      - PORT=5432
+      - USER=odoo
+      - PASSWORD=odoo
+      - ADDONS_PATH=/mnt/custom_addons,/mnt/oca_addons/field-service,/mnt/oca_addons/l10n-mexico,/mnt/oca_addons/oca-agreement,/mnt/oca_addons/oca-contract,/mnt/oca_addons/oca-fieldservice,/mnt/oca_addons/oca-geospatial,/mnt/oca_addons/oca-hr,/mnt/oca_addons/oca-maintenance,/mnt/oca_addons/oca-partner-contact,/mnt/oca_addons/oca-pos,/mnt/oca_addons/oca-repair,/mnt/oca_addons/oca-server-ux,/mnt/oca_addons/oca-stock-logistics-warehouse,/mnt/oca_addons/oca-web,/mnt/oca_addons/partner-contact,/mnt/oca_addons/web
+      - ADMIN_PASSWORD=bae
+    volumes:
+      - ./odoo.conf:/etc/odoo/odoo.conf:ro
+      - ./custom_addons:/mnt/custom_addons
+      - ./oca_addons/field-service:/mnt/oca_addons/field-service
+      - ./oca_addons/l10n-mexico:/mnt/oca_addons/l10n-mexico
+      - ./oca_addons/oca-agreement:/mnt/oca_addons/oca-agreement
+      - ./oca_addons/oca-contract:/mnt/oca_addons/oca-contract
+      - ./oca_addons/oca-fieldservice:/mnt/oca_addons/oca-fieldservice
+      - ./oca_addons/oca-geospatial:/mnt/oca_addons/oca-geospatial
+      - ./oca_addons/oca-hr:/mnt/oca_addons/oca-hr
+      - ./oca_addons/oca-maintenance:/mnt/oca_addons/oca-maintenance
+      - ./oca_addons/oca-partner-contact:/mnt/oca_addons/oca-partner-contact
+      - ./oca_addons/oca-pos:/mnt/oca_addons/oca-pos
+      - ./oca_addons/oca-repair:/mnt/oca_addons/oca-repair
+      - ./oca_addons/oca-server-ux:/mnt/oca_addons/oca-server-ux
+      - ./oca_addons/oca-stock-logistics-warehouse:/mnt/oca_addons/oca-stock-logistics-warehouse
+      - ./oca_addons/oca-web:/mnt/oca_addons/oca-web
+      - ./oca_addons/partner-contact:/mnt/oca_addons/partner-contact
+      - ./oca_addons/web:/mnt/oca_addons/web
+
+volumes:
+  pg_data:
+
+--- Versión de Odoo configurada ---
+    image: odoo:17
+
+
+💡 8. OPORTUNIDADES DE MEJORA
+==================================================
+
+--- Módulos sin README ---
+⚠️  inmoser_field_service - Sin README
+⚠️  inmoser_service_order - Sin README
+
+--- Módulos sin tests ---
+⚠️  inmoser_field_service - Sin carpeta tests/
+
+--- Archivos Python sin docstrings ---
+⚠️  custom_addons/inmoser_service_order/__manifest__.py - Sin docstring
+⚠️  custom_addons/inmoser_service_order/models/inmoser_service_type.py - Sin docstring
+⚠️  custom_addons/inmoser_service_order/models/res_partner.py - Sin docstring
+⚠️  custom_addons/inmoser_service_order/models/inmoser_service_equipment.py - Sin docstring
+⚠️  custom_addons/inmoser_service_order/models/inmoser_service_order_refaction_line.py - Sin docstring
+⚠️  custom_addons/inmoser_service_order/models/inmoser_service_order.py - Sin docstring
+⚠️  custom_addons/inmoser_service_order/models/account_move.py - Sin docstring
+⚠️  custom_addons/inmoser_service_order/models/hr_employee.py - Sin docstring
+⚠️  custom_addons/inmoser_service_order/models/inmoser_service_specialty.py - Sin docstring
+⚠️  custom_addons/inmoser_service_order/tests/test_inmoser_service_order.py - Sin docstring
+find: ‘sh’ terminated by signal 13
+
+
+✅ 9. VERIFICACIÓN DE CALIDAD DE CÓDIGO
+==================================================
+
+--- Líneas por archivo Python ---
+150 custom_addons/inmoser_service_order/models/inmoser_service_order.py
+57 custom_addons/inmoser_service_order/models/inmoser_service_equipment.py
+26 custom_addons/inmoser_service_order/models/inmoser_service_order_refaction_line.py
+23 custom_addons/inmoser_service_order/__manifest__.py
+23 custom_addons/inmoser_field_service/__manifest__.py
+19 custom_addons/inmoser_service_order/models/res_partner.py
+14 custom_addons/inmoser_service_order/tests/test_inmoser_service_order.py
+10 custom_addons/inmoser_field_service/models/fsm_order.py
+8 custom_addons/inmoser_service_order/models/inmoser_service_specialty.py
+8 custom_addons/inmoser_service_order/models/hr_employee.py
+
+--- Complejidad: Funciones largas (>50 líneas) ---
+
+--- Imports no utilizados (sample) ---
+
+=== custom_addons/inmoser_service_order/__manifest__.py ===
+
+=== custom_addons/inmoser_service_order/__init__.py ===
+from . import models
+
+=== custom_addons/inmoser_service_order/models/inmoser_service_type.py ===
+
+=== custom_addons/inmoser_service_order/models/res_partner.py ===
+from odoo import fields, models, api, _
+
+=== custom_addons/inmoser_service_order/models/inmoser_service_equipment.py ===
+from odoo import fields, models, api
+from odoo.exceptions import ValidationError
+import base64, io
+
+
+==========================================
+📋 RESUMEN Y RECOMENDACIONES FINALES
+==========================================
+
+✅ ESTADO ACTUAL:
+  • Proyecto limpio (eliminados 1,214 Zone.Identifier)
+  • Tamaño: 719M (718M en módulos OCA)
+  • 2 módulos personalizados funcionando
+  • 16 repositorios OCA instalados
+
+🎯 ACCIONES PRIORITARIAS:
+
+1. OPTIMIZACIÓN DE MÓDULOS OCA:
+   • Revisar qué módulos OCA realmente usas
+   • Considerar eliminar repositorios no utilizados
+   • Comando: grep -r "'field" custom_addons --include="*.py"
+
+2. DOCUMENTACIÓN:
+   • Crear README.md en cada módulo custom
+   • Documentar dependencias y configuración
+   • Template disponible en Odoo docs
+
+3. TESTING:
+   • Agregar carpeta tests/ a tus módulos
+   • Crear tests básicos para funcionalidad crítica
+   • Ejecutar: python3 -m pytest custom_addons/*/tests/
+
+4. CONTROL DE VERSIONES:
+   • Inicializar git si no está: git init
+   • Hacer commit inicial: git add . && git commit -m 'Initial commit'
+   • Configurar .gitignore (ya está actualizado)
+
+5. SEGURIDAD:
+   • Verificar reglas de acceso para todos los modelos
+   • Revisar permisos de grupos
+   • Documentar usuarios y roles necesarios
+
+==========================================
+Para más detalles, revisa los reportes en:
+  ls -lh audit_reports/
+==========================================

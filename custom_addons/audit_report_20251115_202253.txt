@@ -1,0 +1,80 @@
+========================================================================
+  FASE 1: AUDITORÍA DE CÓDIGO (Errores no corregibles automáticamente)
+========================================================================
+
+[0;32m--- 1. Auditoría de Archivos Python (.py) con flake8 ---[0m
+
+[0;32m--- 2. Auditoría de Archivos XML (.xml) con xmllint ---[0m
+
+[0;32m--- 3. Auditoría de Archivos Shell (.sh) con shellcheck ---[0m
+
+In /home/baruc/odoo_project/custom_addons/e.sh line 65:
+            if [ ${PIPESTATUS[0]} -ne 0 ]; then
+                 ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+            if [ "${PIPESTATUS[0]}" -ne 0 ]; then
+
+
+In /home/baruc/odoo_project/custom_addons/e.sh line 66:
+                ERROR_COUNT=$((ERROR_COUNT + 1))
+                ^---------^ SC2030 (info): Modification of ERROR_COUNT is local (to subshell caused by pipeline).
+
+
+In /home/baruc/odoo_project/custom_addons/e.sh line 76:
+            if [ ${PIPESTATUS[0]} -ne 0 ]; then
+                 ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+            if [ "${PIPESTATUS[0]}" -ne 0 ]; then
+
+
+In /home/baruc/odoo_project/custom_addons/e.sh line 77:
+                ERROR_COUNT=$((ERROR_COUNT + 1))
+                ^---------^ SC2030 (info): Modification of ERROR_COUNT is local (to subshell caused by pipeline).
+                               ^---------^ SC2031 (info): ERROR_COUNT was modified in a subshell. That change might be lost.
+
+
+In /home/baruc/odoo_project/custom_addons/e.sh line 87:
+            if [ ${PIPESTATUS[0]} -ne 0 ]; then
+                 ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+            if [ "${PIPESTATUS[0]}" -ne 0 ]; then
+
+
+In /home/baruc/odoo_project/custom_addons/e.sh line 88:
+                ERROR_COUNT=$((ERROR_COUNT + 1))
+                ^---------^ SC2030 (info): Modification of ERROR_COUNT is local (to subshell caused by pipeline).
+                               ^---------^ SC2031 (info): ERROR_COUNT was modified in a subshell. That change might be lost.
+
+
+In /home/baruc/odoo_project/custom_addons/e.sh line 93:
+    if [ $ERROR_COUNT -gt 0 ]; then
+         ^----------^ SC2031 (info): ERROR_COUNT was modified in a subshell. That change might be lost.
+
+
+In /home/baruc/odoo_project/custom_addons/e.sh line 94:
+        echo -e "\n${RED}AUDITORÍA COMPLETA: Se encontraron $ERROR_COUNT errores que requieren corrección manual. Revise $REPORT_FILE.${NC}" | tee -a "$REPORT_FILE"
+                                                            ^----------^ SC2031 (info): ERROR_COUNT was modified in a subshell. That change might be lost.
+
+
+In /home/baruc/odoo_project/custom_addons/e.sh line 121:
+    docker-compose exec -T db psql -U $DB_USER -d $DB_NAME -c "
+                                      ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                                  ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    docker-compose exec -T db psql -U "$DB_USER" -d "$DB_NAME" -c "
+
+
+In /home/baruc/odoo_project/custom_addons/e.sh line 126:
+    if [ $? -eq 0 ]; then
+         ^-- SC2181 (style): Check exit code directly with e.g. 'if mycmd;', not indirectly with $?.
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2030 -- Modification of ERROR_COUNT is lo...
+  https://www.shellcheck.net/wiki/SC2031 -- ERROR_COUNT was modified in a sub...
+  https://www.shellcheck.net/wiki/SC2086 -- Double quote to prevent globbing ...
+
+[0;32mAUDITORÍA COMPLETA: No se encontraron errores críticos de lógica o sintaxis (después de la corrección automática).[0m

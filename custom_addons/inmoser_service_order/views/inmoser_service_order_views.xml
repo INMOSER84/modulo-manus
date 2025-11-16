@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- VISTA FORM -->
+    <record id="view_inmoser_service_order_form" model="ir.ui.view">
+        <field name="name">inmoser.service.order.form</field>
+        <field name="model">inmoser.service.order</field>
+        <field name="arch" type="xml">
+            <form string="Orden de Servicio">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirmar" class="oe_highlight"/>
+                    <button name="action_assign" type="object" string="Asignar" class="oe_highlight"/>
+                    <button name="action_start" type="object" string="Iniciar" class="oe_highlight"/>
+                    <button name="action_complete" type="object" string="Completar" class="oe_highlight"/>
+                    <button name="action_cancel" type="object" string="Cancelar" invisible="state not in ('draft','confirmed','assigned','in_progress')"/>
+                    <button name="action_request_approval" type="object" string="Solicitar Aprobación" invisible="state != 'in_progress'"/>
+                    <button name="action_approve" type="object" string="Aprobar" invisible="state != 'waiting_approval'" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,assigned,in_progress,accepted,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1" default_focus="1" placeholder="Nueva OS"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" options='{"no_open": False}'/>
+                            <field name="equipment_id" options='{"no_open": False}' domain="[('partner_id', '=', partner_id)]"/>
+                            <field name="service_type_id" options='{"no_open": False}'/>
+                            <field name="assigned_technician_id" options="{&quot;no_open&quot;: False}" domain="[('x_inmoser_is_technician', '=', True)]"/>
+                        </group>
+                        <group>
+                            <field name="date_scheduled"/>
+                            <field name="date_start" readonly="1"/>
+                            <field name="date_end" readonly="1"/>
+                            <field name="total_amount" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Líneas de Refacción">
+                            <field name="service_order_line_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id" options='{"no_open": False}'/>
+                                    <field name="quantity"/>
+                                    <field name="price_unit"/>
+                                    <field name="price_subtotal" readonly="1" sum="Total"/>
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                            <group class="oe_subtotal_footer">
+                                <field name="labor_hours" widget="float_time"/>
+                                <field name="labor_price"/>
+                                <field name="labor_total" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Diagnóstico y Trabajo">
+                            <group>
+                                <field name="diagnosis" placeholder="Describa el diagnóstico del equipo..."/>
+                                <field name="work_performed" placeholder="Describa el trabajo realizado..."/>
+                            </group>
+                        </page>
+                        <page string="Facturación">
+                            <field name="invoice_id" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- VISTA TREE -->
+    <record id="view_inmoser_service_order_tree" model="ir.ui.view">
+        <field name="name">inmoser.service.order.tree</field>
+        <field name="model">inmoser.service.order</field>
+        <field name="arch" type="xml">
+            <tree string="Órdenes de Servicio" decoration-muted="state == 'cancelled'" decoration-success="state == 'completed'">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="equipment_id"/>
+                <field name="service_type_id"/>
+                <field name="assigned_technician_id"/>
+                <field name="date_scheduled"/>
+                <field name="state"/>
+                <field name="total_amount" sum="Total General"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ACTION PRINCIPAL -->
+    <record id="action_inmoser_service_order" model="ir.actions.act_window">
+        <field name="name">Órdenes de Servicio</field>
+        <field name="res_model">inmoser.service.order</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea la primera Orden de Servicio
+            </p>
+        </field>
+    </record>
+
+    <!-- MENÚS ELIMINADOS - AHORA ESTÁN EN inmoser_service_order_menus.xml -->
+</odoo>

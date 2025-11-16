@@ -1,0 +1,190 @@
+[0;34m================================================================[0m
+[0;34m  ANALISIS COMPLETO - PROYECTO ODOO INMOSER[0m
+[0;34m================================================================[0m
+Fecha de analisis: 2025-11-15 06:03:59
+Usuario: baruc
+Directorio: /home/baruc/odoo_project
+
+
+[1;33m>>> 1. INFORMACION DEL SISTEMA[0m
+----------------------------------------------------------------
+Sistema Operativo:
+Linux DirGeneral 6.6.87.2-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Thu Jun  5 18:30:46 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux
+
+Version Docker:
+Docker version 28.5.2, build ecc6942
+
+Version Docker Compose:
+Docker Compose version v2.40.0
+
+Espacio en disco:
+/dev/sdd       1007G   12G  945G   2% /
+
+
+[1;33m>>> 2. ESTRUCTURA DEL PROYECTO[0m
+----------------------------------------------------------------
+Tamano total del proyecto:
+105M	.
+
+Distribucion de tamano por directorio principal:
+104M	oca_addons/
+508K	custom_addons/
+196K	audit_reports/
+8.0K	config/
+
+Estructura de custom_addons:
+total 24
+drwxr-xr-x  6 systemd-resolve systemd-journal 4096 Nov 15 03:59 .
+drwxr-xr-x  6 baruc           baruc           4096 Nov 15 06:03 ..
+drwxr-xr-x  6 systemd-resolve systemd-journal 4096 Nov 13 03:18 inmoser_field_service
+drwxr-xr-x  9 systemd-resolve systemd-journal 4096 Nov 15 05:49 inmoser_service_order
+drwxr-xr-x 10 systemd-resolve systemd-journal 4096 Nov 15 04:33 inmoser_service_order_backup_20251115_035944
+drwxr-xr-x  3 systemd-resolve systemd-journal 4096 Nov 13 20:34 test_module
+
+
+[1;33m>>> 3. ANALISIS DETALLADO DE MODULOS CUSTOM[0m
+----------------------------------------------------------------
+================================================================
+3.1 MODULO: inmoser_service_order
+================================================================
+
+>>> Manifiesto (__manifest__.py):
+----------------------------------------------------------------
+{
+    'name': 'Inmoser Service Order',
+    'version': '17.0.1.0.0',
+    'summary': 'Service Order Management for Inmoser',
+    'description': 'Complete module for managing service orders, equipment, and technicians',
+    'category': 'Services',
+    'author': 'Your Name',
+    'depends': ['base', 'mail', 'account', 'hr', 'stock'],
+    'external_dependencies': {
+        'python': ['qrcode'],
+    },
+    'data': [
+        'security/inmoser_service_order_groups.xml',
+        'security/inmoser_service_order_security.xml',
+        'security/ir.model.access.csv',
+        'data/sequences.xml',
+        'data/inmoser_service_type_data.xml',
+        'data/inmoser_service_order_mail_template.xml',
+        'views/hr_employee_views.xml',
+        'views/inmoser_service_equipment_views.xml',
+        'views/inmoser_service_type_views.xml',
+        'views/inmoser_service_order_views.xml',
+        'views/inmoser_service_order_refaction_line_views.xml',
+        'views/inmoser_service_specialty_views.xml',
+        'views/account_move_views.xml',
+        'views/menu_views.xml',
+    ],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+    'license': 'LGPL-3',
+}
+
+>>> Estructura de archivos:
+----------------------------------------------------------------
+custom_addons/inmoser_service_order
+├── README.md
+├── __init__.py
+├── __manifest__.py
+├── data
+│   ├── inmoser_service_order_mail_template.xml
+│   ├── inmoser_service_type_data.xml
+│   └── sequences.xml
+├── fix_inmoser_files.sh
+├── models
+│   ├── __init__.py
+│   ├── account_move.py
+│   ├── hr_employee.py
+│   ├── inmoser_service_equipment.py
+│   ├── inmoser_service_order.py
+│   ├── inmoser_service_order.py.backup_20251115_054948
+│   ├── inmoser_service_order_refaction_line.py
+│   ├── inmoser_service_specialty.py
+│   ├── inmoser_service_type.py
+│   └── res_partner.py
+├── security
+│   ├── inmoser_service_order_groups.xml
+│   ├── inmoser_service_order_security.xml
+│   ├── inmoser_service_order_security.xml.backup_1763202515
+│   ├── inmoser_service_order_security.xml.backup_1763202816
+│   └── ir.model.access.csv
+├── static
+│   ├── description
+│   └── src
+├── tests
+│   ├── __init__.py
+│   └── test_inmoser_service_order.py
+├── views
+│   ├── account_move_views.xml
+│   ├── hr_employee_views.xml
+│   ├── inmoser_service_equipment_views.xml
+│   ├── inmoser_service_order_refaction_line_views.xml
+│   ├── inmoser_service_order_views.xml
+│   ├── inmoser_service_specialty_views.xml
+│   ├── inmoser_service_type_views.xml
+│   └── menu_views.xml
+└── wizards
+
+9 directories, 32 files
+
+>>> Modelos Python:
+----------------------------------------------------------------
+Archivo: custom_addons/inmoser_service_order/models/inmoser_service_type.py
+   Lineas: 34
+   Clases: 1
+Archivo: custom_addons/inmoser_service_order/models/res_partner.py
+   Lineas: 33
+   Clases: 1
+Archivo: custom_addons/inmoser_service_order/models/inmoser_service_equipment.py
+   Lineas: 107
+   Clases: 1
+Archivo: custom_addons/inmoser_service_order/models/__init__.py
+   Lineas: 8
+   Clases: 0
+0
+Archivo: custom_addons/inmoser_service_order/models/inmoser_service_order_refaction_line.py
+   Lineas: 44
+   Clases: 1
+Archivo: custom_addons/inmoser_service_order/models/inmoser_service_order.py
+   Lineas: 175
+   Clases: 1
+Archivo: custom_addons/inmoser_service_order/models/account_move.py
+   Lineas: 8
+   Clases: 1
+Archivo: custom_addons/inmoser_service_order/models/hr_employee.py
+   Lineas: 14
+   Clases: 1
+Archivo: custom_addons/inmoser_service_order/models/inmoser_service_specialty.py
+   Lineas: 12
+   Clases: 1
+
+>>> Vistas XML:
+----------------------------------------------------------------
+Archivo XML: inmoser_service_order_refaction_line_views.xml
+Archivo XML: hr_employee_views.xml
+Archivo XML: inmoser_service_order_views.xml
+Archivo XML: inmoser_service_type_views.xml
+Archivo XML: menu_views.xml
+Archivo XML: account_move_views.xml
+Archivo XML: inmoser_service_equipment_views.xml
+Archivo XML: inmoser_service_specialty_views.xml
+
+>>> Seguridad:
+----------------------------------------------------------------
+Reglas de acceso (ir.model.access.csv):
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_inmoser_service_equipment_user,inmoser.service.equipment.user,model_inmoser_service_equipment,inmoser_service_order.group_inmoser_service_order_user,1,1,1,0
+access_inmoser_service_equipment_manager,inmoser.service.equipment.manager,model_inmoser_service_equipment,inmoser_service_order.group_inmoser_service_order_manager,1,1,1,1
+access_inmoser_service_order_user,inmoser.service.order.user,model_inmoser_service_order,inmoser_service_order.group_inmoser_service_order_user,1,1,1,0
+access_inmoser_service_order_manager,inmoser.service.order.manager,model_inmoser_service_order,inmoser_service_order.group_inmoser_service_order_manager,1,1,1,1
+access_inmoser_service_order_refaction_line_user,inmoser.service.order.refaction.line.user,model_inmoser_service_order_refaction_line,inmoser_service_order.group_inmoser_service_order_user,1,1,1,0
+access_inmoser_service_order_refaction_line_manager,inmoser.service.order.refaction.line.manager,model_inmoser_service_order_refaction_line,inmoser_service_order.group_inmoser_service_order_manager,1,1,1,1
+access_inmoser_service_type_user,inmoser.service.type.user,model_inmoser_service_type,inmoser_service_order.group_inmoser_service_order_user,1,1,1,0
+access_inmoser_service_type_manager,inmoser.service.type.manager,model_inmoser_service_type,inmoser_service_order.group_inmoser_service_order_manager,1,1,1,1
+access_inmoser_service_specialty_user,inmoser.service.specialty.user,model_inmoser_service_specialty,inmoser_service_order.group_inmoser_service_order_user,1,1,1,0
+access_inmoser_service_specialty_manager,inmoser.service.specialty.manager,model_inmoser_service_specialty,inmoser_service_order.group_inmoser_service_order_manager,1,1,1,1
+
+Grupos de seguridad:

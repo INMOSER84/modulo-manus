@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_employee_form_inmoser" model="ir.ui.view">
+        <field name="name">hr.employee.form.inmoser</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Servicios de Inmoser">
+                    <group name="inmoser_service_group">
+                        <p>Añade aquí los campos relacionados con los servicios de Inmoser para este técnico.</p>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

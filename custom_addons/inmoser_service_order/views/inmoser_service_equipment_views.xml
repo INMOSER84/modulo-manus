@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_inmoser_service_equipment_tree" model="ir.ui.view">
+        <field name="name">inmoser.service.equipment.tree</field>
+        <field name="model">inmoser.service.equipment</field>
+        <field name="arch" type="xml">
+            <tree string="Equipos de Servicio">
+                <field name="name"/>
+                <field name="equipment_type"/>
+                <field name="brand"/>
+                <field name="model"/>
+                <field name="serial_number"/>
+                <field name="partner_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_inmoser_service_equipment_form" model="ir.ui.view">
+        <field name="name">inmoser.service.equipment.form</field>
+        <field name="model">inmoser.service.equipment</field>
+        <field name="arch" type="xml">
+            <form string="Equipo de Servicio">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="equipment_type"/>
+                            <field name="brand"/>
+                            <field name="model"/>
+                            <field name="serial_number"/>
+                        </group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="purchase_date"/>
+                            <field name="warranty_end_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="QR Code">
+                            <group>
+                                <group>
+                                    <field name="qr_code_text" placeholder="Enter text to generate QR..."/>
+                                     <button name="action_generate_qr" 
+                                            type="object" 
+                                            string="Generar QR" 
+                                            icon="fa-qrcode"
+                                            class="oe_highlight"
+                                            invisible="not qr_code_text"/>
+                                </group>
+                                <group>
+                                    <field name="qr_code" widget="image" class="oe_avatar" readonly="1" nolabel="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ACCIÓN CORREGIDA (eliminado el /> incorrecto) -->
+    <record id="action_inmoser_equipment" model="ir.actions.act_window">
+        <field name="name">Equipos</field>
+        <field name="res_model">inmoser.service.equipment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

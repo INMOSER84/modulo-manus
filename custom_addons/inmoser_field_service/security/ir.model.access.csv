@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fsm_order_technician,fsm.order.technician,model_fsm_order,inmoser_service_order.group_inmoser_technician,1,1,1,0

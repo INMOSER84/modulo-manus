@@ -1,0 +1,1519 @@
+========================================================================
+  INICIANDO ANÁLISIS ESTÁTICO DE CÓDIGO EN EL PROYECTO ODOO
+  Fecha y Hora: Sat Nov 15 17:59:42 CST 2025
+========================================================================
+
+[0;32m--- 1. Revisión de Archivos Python (.py) con flake8 ---[0m
+[0;31mSaltando revisión de Python.[0m
+
+[0;32m--- 2. Revisión de Archivos XML (.xml) con xmllint ---[0m
+-> Analizando: ./custom_addons/inmoser_service_order/data/inmoser_service_order_mail_template.xml
+-> Analizando: ./custom_addons/inmoser_service_order/data/sequences.xml
+-> Analizando: ./custom_addons/inmoser_service_order/data/inmoser_service_type_data.xml
+-> Analizando: ./custom_addons/inmoser_service_order/views/inmoser_service_order_refaction_line_views.xml
+-> Analizando: ./custom_addons/inmoser_service_order/views/hr_employee_views.xml
+-> Analizando: ./custom_addons/inmoser_service_order/views/inmoser_service_order_views.xml
+-> Analizando: ./custom_addons/inmoser_service_order/views/inmoser_service_type_views.xml
+-> Analizando: ./custom_addons/inmoser_service_order/views/menu_views.xml
+-> Analizando: ./custom_addons/inmoser_service_order/views/account_move_views.xml
+-> Analizando: ./custom_addons/inmoser_service_order/views/inmoser_service_equipment_views.xml
+-> Analizando: ./custom_addons/inmoser_service_order/views/inmoser_service_specialty_views.xml
+-> Analizando: ./custom_addons/inmoser_service_order/security/inmoser_service_order_security.xml
+-> Analizando: ./custom_addons/inmoser_service_order/security/inmoser_service_order_groups.xml
+-> Analizando: ./custom_addons/inmoser_field_service/views/fsm_order_views.xml
+-> Analizando: ./oca_addons/oca-contract/contract/data/mail_message_subtype.xml
+-> Analizando: ./oca_addons/oca-contract/contract/data/template_mail_notification.xml
+-> Analizando: ./oca_addons/oca-contract/contract/data/mail_template.xml
+-> Analizando: ./oca_addons/oca-contract/contract/data/contract_renew_cron.xml
+-> Analizando: ./oca_addons/oca-contract/contract/data/contract_cron.xml
+-> Analizando: ./oca_addons/oca-contract/contract/data/ir_ui_menu.xml
+-> Analizando: ./oca_addons/oca-contract/contract/views/contract_tag.xml
+-> Analizando: ./oca_addons/oca-contract/contract/views/abstract_contract_line.xml
+-> Analizando: ./oca_addons/oca-contract/contract/views/res_partner_view.xml
+-> Analizando: ./oca_addons/oca-contract/contract/views/contract.xml
+-> Analizando: ./oca_addons/oca-contract/contract/views/contract_template.xml
+-> Analizando: ./oca_addons/oca-contract/contract/views/contract_line.xml
+-> Analizando: ./oca_addons/oca-contract/contract/views/contract_terminate_reason.xml
+-> Analizando: ./oca_addons/oca-contract/contract/views/contract_template_line.xml
+-> Analizando: ./oca_addons/oca-contract/contract/views/res_config_settings.xml
+-> Analizando: ./oca_addons/oca-contract/contract/views/contract_portal_templates.xml
+-> Analizando: ./oca_addons/oca-contract/contract/report/contract_views.xml
+-> Analizando: ./oca_addons/oca-contract/contract/report/report_contract.xml
+-> Analizando: ./oca_addons/oca-contract/contract/wizards/contract_line_wizard.xml
+-> Analizando: ./oca_addons/oca-contract/contract/wizards/contract_manually_create_invoice.xml
+-> Analizando: ./oca_addons/oca-contract/contract/wizards/contract_contract_terminate.xml
+-> Analizando: ./oca_addons/oca-contract/contract/security/contract_security.xml
+-> Analizando: ./oca_addons/oca-contract/contract/security/contract_tag.xml
+-> Analizando: ./oca_addons/oca-contract/contract/security/groups.xml
+-> Analizando: ./oca_addons/oca-contract/contract/security/contract_terminate_reason.xml
+-> Analizando: ./oca_addons/oca-contract/contract_update_last_date_invoiced/views/contract_views.xml
+-> Analizando: ./oca_addons/oca-contract/contract_update_last_date_invoiced/views/contract_line.xml
+-> Analizando: ./oca_addons/oca-contract/contract_update_last_date_invoiced/wizards/update_last_date_invoiced.xml
+-> Analizando: ./oca_addons/oca-contract/contract_update_last_date_invoiced/security/security.xml
+-> Analizando: ./oca_addons/oca-contract/product_contract/views/product_template.xml
+-> Analizando: ./oca_addons/oca-contract/product_contract/views/contract.xml
+-> Analizando: ./oca_addons/oca-contract/product_contract/views/sale_order.xml
+-> Analizando: ./oca_addons/oca-contract/product_contract/wizards/res_config_settings.xml
+-> Analizando: ./oca_addons/oca-contract/product_contract/wizards/product_contract_configurator_views.xml
+-> Analizando: ./oca_addons/oca-contract/product_contract/static/src/xml/sale_product_field.xml
+-> Analizando: ./oca_addons/oca-contract/subscription_oca/data/sale_subscription_data.xml
+-> Analizando: ./oca_addons/oca-contract/subscription_oca/data/ir_cron.xml
+-> Analizando: ./oca_addons/oca-contract/subscription_oca/wizard/close_subscription_wizard.xml
+-> Analizando: ./oca_addons/oca-contract/subscription_oca/views/sale_order_views.xml
+-> Analizando: ./oca_addons/oca-contract/subscription_oca/views/sale_subscription_stage_views.xml
+-> Analizando: ./oca_addons/oca-contract/subscription_oca/views/sale_subscription_template_views.xml
+-> Analizando: ./oca_addons/oca-contract/subscription_oca/views/res_partner_views.xml
+-> Analizando: ./oca_addons/oca-contract/subscription_oca/views/sale_subscription_tag_views.xml
+-> Analizando: ./oca_addons/oca-contract/subscription_oca/views/sale_subscription_views.xml
+-> Analizando: ./oca_addons/oca-contract/subscription_oca/views/product_template_views.xml
+-> Analizando: ./oca_addons/oca-contract/contract_sale_invoicing/views/contract_view.xml
+-> Analizando: ./oca_addons/oca-contract/contract_variable_qty_timesheet/data/contract_line_qty_formula_data.xml
+-> Analizando: ./oca_addons/oca-contract/contract_sale/views/res_partner_view.xml
+-> Analizando: ./oca_addons/oca-contract/contract_sale/views/contract.xml
+-> Analizando: ./oca_addons/oca-contract/contract_sale/security/contract_security.xml
+-> Analizando: ./oca_addons/oca-contract/contract_price_revision/views/contract_line.xml
+-> Analizando: ./oca_addons/oca-contract/contract_price_revision/wizards/contract_price_revision_views.xml
+-> Analizando: ./oca_addons/oca-contract/contract_analytic_tag/views/contract_views.xml
+-> Analizando: ./oca_addons/oca-contract/contract_analytic_tag/views/contract_line_views.xml
+-> Analizando: ./oca_addons/oca-contract/contract_queue_job/data/ir_config_parameter.xml
+-> Analizando: ./oca_addons/oca-contract/contract_queue_job/wizards/contract_manually_create_invoice.xml
+-> Analizando: ./oca_addons/oca-contract/contract_variable_quantity/views/abstract_contract_line.xml
+-> Analizando: ./oca_addons/oca-contract/contract_variable_quantity/views/contract_line_views.xml
+-> Analizando: ./oca_addons/oca-contract/contract_variable_quantity/views/contract.xml
+-> Analizando: ./oca_addons/oca-contract/contract_variable_quantity/views/contract_template.xml
+-> Analizando: ./oca_addons/oca-contract/contract_variable_quantity/views/contract_line_formula.xml
+-> Analizando: ./oca_addons/oca-contract/contract_variable_quantity/views/contract_portal_templates.xml
+-> Analizando: ./oca_addons/oca-contract/contract_mandate/views/contract_view.xml
+-> Analizando: ./oca_addons/oca-contract/contract_invoice_auto_validate/views/res_config_settings.xml
+-> Analizando: ./oca_addons/oca-contract/contract_payment_mode/views/contract_view.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_account/views/account_move.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_account/views/agreement.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_legal/data/agreement_stage.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_legal/data/ir_sequence.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_legal/data/agreement_type.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_legal/data/cron.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_legal/views/agreement_recital.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_legal/views/res_partner.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_legal/views/agreement_stages.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_legal/views/agreement_clause.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_legal/views/agreement_type.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_legal/views/agreement_appendix.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_legal/views/agreement_subtype.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_legal/views/menu.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_legal/views/agreement_section.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_legal/views/agreement.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_legal/views/res_config_settings.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_legal/report/agreement.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_legal/wizards/create_agreement_wizard.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_legal/security/res_groups.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_legal/static/src/xml/agreement_template.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_legal/static/src/xml/agreement_list_view.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_legal/static/src/xml/agreement_kanban_view.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_legal/static/src/xml/agreement_form_view.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_legal/demo/demo.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_repair/views/repair_view.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_repair/views/agreement_view.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement/views/agreement_type.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement/views/agreement.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement/views/agreement_menu.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement/security/agreement_security.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement/demo/demo.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_sale/views/agreement_view.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_sale/views/sale_order.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_sale/views/agreement_menu.xml
+-> Analizando: ./oca_addons/oca-agreement/agreement_sale/views/res_config_settings.xml
+-> Analizando: ./oca_addons/oca-repair/repair_stock/views/repair_order_view.xml
+-> Analizando: ./oca_addons/oca-repair/repair_refurbish/data/stock_data.xml
+-> Analizando: ./oca_addons/oca-repair/repair_refurbish/views/product_product_view.xml
+-> Analizando: ./oca_addons/oca-repair/repair_refurbish/views/product_template_view.xml
+-> Analizando: ./oca_addons/oca-repair/repair_refurbish/views/repair_view.xml
+-> Analizando: ./oca_addons/oca-repair/repair_restrict_lot/views/repair_order_view.xml
+-> Analizando: ./oca_addons/oca-repair/repair_order_template/views/repair_order.xml
+-> Analizando: ./oca_addons/oca-repair/repair_order_template/views/repair_order_template.xml
+-> Analizando: ./oca_addons/oca-repair/repair_order_template/security/security.xml
+-> Analizando: ./oca_addons/oca-repair/repair_order_template/demo/repair_order_template.xml
+-> Analizando: ./oca_addons/oca-repair/repair_quality_control/views/qc_inspection_views.xml
+-> Analizando: ./oca_addons/oca-repair/repair_quality_control/views/repair_views.xml
+-> Analizando: ./oca_addons/oca-repair/repair_quotation_manual_sync/views/sale_order_views.xml
+-> Analizando: ./oca_addons/oca-repair/repair_quotation_manual_sync/views/repair_order_views.xml
+-> Analizando: ./oca_addons/oca-repair/repair_type/views/stock_picking_type_views.xml
+-> Analizando: ./oca_addons/oca-repair/repair_substate/data/repair_substate_data.xml
+-> Analizando: ./oca_addons/oca-repair/repair_substate/views/repair_views.xml
+-> Analizando: ./oca_addons/oca-repair/repair_service/views/repair_views.xml
+-> Analizando: ./oca_addons/oca-repair/repair_order_line_sequence/views/repair_order_views.xml
+-> Analizando: ./oca_addons/oca-repair/base_repair_config/views/res_config_settings.xml
+-> Analizando: ./oca_addons/oca-repair/repair_type_product_destination/views/repair_views.xml
+-> Analizando: ./oca_addons/oca-repair/repair_type_product_destination/views/stock_picking_type_views.xml
+-> Analizando: ./oca_addons/oca-repair/repair_picking_after_done/views/repair.xml
+-> Analizando: ./oca_addons/oca-repair/repair_picking_after_done/views/res_config_settings_views.xml
+-> Analizando: ./oca_addons/oca-repair/repair_picking_after_done/wizards/repair_move_transfer_views.xml
+-> Analizando: ./oca_addons/oca-repair/repair_picking/views/stock_warehouse_views.xml
+-> Analizando: ./oca_addons/oca-repair/repair_timesheet/views/repair_views.xml
+-> Analizando: ./oca_addons/oca-geospatial/geoengine_base_geolocalize/views/res_partner_view.xml
+-> Analizando: ./oca_addons/oca-geospatial/web_leaflet_lib/data/ir_config_parameter.xml
+-> Analizando: ./oca_addons/oca-geospatial/web_leaflet_lib/demo/ir_config_parameter.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine/views/ir_model_view.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine/views/ir_view_view.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine/views/base_geoengine_view.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine/views/geo_raster_layer_view.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine/views/geo_vector_layer_view.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine/security/data.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine/static/src/js/views/geoengine/geoengine_renderer/geoengine_renderer.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine/static/src/js/views/geoengine/layers_panel/layers_panel.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine/static/src/js/views/geoengine/records_panel/records_panel.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine/static/src/js/views/geoengine/records_panel/search_bar_records/search_bar_records.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine/static/src/js/views/geoengine/geoengine_controller/geoengine_controller.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine/static/src/js/views/geoengine/geoengine_record/geoengine_record.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine/static/src/js/widgets/geoengine_edit_map/field_geoengine_edit_map.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine/static/src/js/widgets/domain_selector_geo_field/domain_selector_field_input_for_active_ids/domain_selector_field_input_for_active_ids.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine/static/src/js/widgets/domain_selector_geo_field/domain_selector_field_input/domain_selector_field_input.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine/static/src/js/widgets/domain_selector_geo_field/domain_selector_geo_field_input/domain_selector_geo_field_input.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine/static/src/js/widgets/domain_selector_geo_field/domain_selector_field_input_with_tags/domain_selector_field_input_with_tags.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine/static/src/js/widgets/domain_selector_geo_field/domain_selector_number_field/domain_selector_number_field.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine/static/src/js/widgets/domain_selector_geo_field/domain_selector_geo_field/domain_selector_geo_field.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine/static/src/js/widgets/domain_selector_geo_field/domain_selector_geo_field_dialog/domain_selector_geo_field_dialog.xml
+-> Analizando: ./oca_addons/oca-geospatial/geoengine_partner/views/partner.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine_demo/data/npa_geom.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine_demo/data/retail_machine_geom.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine_demo/views/zip.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine_demo/views/retail_machine.xml
+-> Analizando: ./oca_addons/oca-geospatial/base_geoengine_demo/views/menus.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_geoengine/views/fsm_team.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_geoengine/views/fsm_order.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_geoengine/views/fsm_location.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_geoengine/security/res_groups.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_stock_scrap/data/stock_location.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_stock_scrap/views/fsm_order.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_stock_scrap/views/stock_scrap.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_stock_scrap/wizards/scrap_stock_wizard.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_account_analytic/data/ir_rule.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_account_analytic/views/fsm_order.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_account_analytic/views/fsm_location.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_account_analytic/views/res_config_settings.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_account_analytic/report/fsm_order_report_template.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_account_analytic/demo/fsm_location.xml
+-> Analizando: ./oca_addons/field-service/base_territory/views/res_country.xml
+-> Analizando: ./oca_addons/field-service/base_territory/views/res_district.xml
+-> Analizando: ./oca_addons/field-service/base_territory/views/res_territory.xml
+-> Analizando: ./oca_addons/field-service/base_territory/views/res_region.xml
+-> Analizando: ./oca_addons/field-service/base_territory/views/res_branch.xml
+-> Analizando: ./oca_addons/field-service/base_territory/views/menu.xml
+-> Analizando: ./oca_addons/field-service/base_territory/demo/base_territory_demo.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_kanban_info/views/fsm_order.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_kanban_info/views/res_config_settings_views.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_portal/views/portal_template.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_portal/views/fsm_order_template.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_portal/views/fsm_stage.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_portal/security/portal_security.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_portal/demo/fsm_order_demo.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_portal/demo/fsm_location_demo.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_crm/views/crm_lead.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_crm/views/fsm_order.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_crm/views/fsm_location.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_sale/views/product_template.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_sale/views/sale_order.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_sale/views/fsm_order.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_sale/views/fsm_location.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_sale/security/res_groups.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_stock/data/fsm_stock_data.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_stock/views/fsm_person.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_stock/views/stock.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_stock/views/stock_picking.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_stock/views/res_territory.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_stock/views/fsm_order.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_stock/views/fsm_location.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_project/views/fsm_order_views.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_project/views/fsm_location_views.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_project/views/fsm_team.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_project/views/project_views.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_project/views/project_task_views.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_stage_validation/views/fsm_stage.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_recurring/data/recurring_cron.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_recurring/data/ir_sequence.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_recurring/views/fsm_frequency_set.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_recurring/views/fsm_team.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_recurring/views/fsm_recurring.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_recurring/views/fsm_recurring_template.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_recurring/views/fsm_frequency.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_recurring/views/fsm_order.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_recurring/security/recurring_security.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_recurring/security/res_groups.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_recurring/demo/frequency_demo.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_recurring/demo/frequency_set_demo.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_recurring/demo/recur_template_demo.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/data/ir_sequence.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/data/module_category.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/data/mail_message_subtype.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/data/fsm_team.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/data/fsm_stage.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/wizard/fsm_wizard.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/wizard/fsm_create_sublocation_wizard.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/views/res_partner.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/views/fsm_location_person.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/views/fsm_tag.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/views/fsm_equipment.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/views/fsm_team.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/views/fsm_person.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/views/fsm_template.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/views/fsm_order_type.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/views/res_territory.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/views/menu.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/views/fsm_category.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/views/fsm_order.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/views/fsm_location.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/views/res_config_settings.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/views/fsm_stage.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/report/fsm_order_report_template.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/security/ir_rule.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/security/res_groups.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/demo/fsm_equipment.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/demo/fsm_person.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/demo/fsm_demo.xml
+-> Analizando: ./oca_addons/field-service/fieldservice/demo/fsm_location.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_route_availability/views/fsm_route.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_route_availability/views/fsm_blackout_day_templates.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_current_location/views/fsm_order.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_current_location/static/src/xml/geolocate_button.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_account/views/account_move.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_account/views/fsm_order.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_account/views/fsm_stage.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_repair/data/fsm_order_type.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_repair/views/fsm_order_view.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_skill/views/fsm_person_skill.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_skill/views/hr_skill.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_skill/views/fsm_person.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_skill/views/fsm_template.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_skill/views/fsm_category.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_skill/views/fsm_order.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_size/views/fsm_size.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_size/views/menu.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_size/views/fsm_order.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_size/views/fsm_location.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_isp_flow/data/fsm_stage.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_isp_flow/views/fsm_order.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_sale_recurring/views/product_template.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_sale_recurring/views/fsm_recurring.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_sale_recurring/views/sale_order.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_equipment_stock/views/stock_lot.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_equipment_stock/views/product_template.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_equipment_stock/views/fsm_equipment.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_equipment_stock/views/stock_picking_type.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_maintenance/data/fsm_order_type.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_maintenance/views/fsm_equipment_view.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_maintenance/views/fsm_order_view.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_maintenance/views/maintenance_request_view.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_maintenance/views/maintenance_equipment_view.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_repair_order_template/views/fsm_template.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_activity/views/fsm_template.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_activity/views/fsm_order.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_stock_request/views/stock_request.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_stock_request/views/stock_request_order.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_stock_request/views/stock.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_stock_request/views/fsm_order.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_stage_server_action/data/base_automation.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_stage_server_action/data/ir_server_action.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_stage_server_action/data/fsm_stage.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_stage_server_action/views/fsm_stage.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_timeline/views/fsm_team.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_timeline/views/fsm_order.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_agreement/views/fsm_equipment_view.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_agreement/views/fsm_order_view.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_agreement/views/agreement_view.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_agreement/views/fsm_person.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_route/data/ir_sequence.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_route/data/fsm_route_day_data.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_route/data/fsm_stage_data.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_route/views/fsm_route.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_route/views/fsm_route_day.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_route/views/fsm_route_dayroute.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_route/views/menu.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_route/views/fsm_order.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_route/views/fsm_location.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_route/security/ir_rule.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_equipment_stock_return/data/fsm_order_type.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_equipment_stock_return/views/fsm_order_type_view.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_equipment_stock_return/views/fsm_order_view.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_equipment_stock_return/views/fsm_equipment.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_availability/views/fsm_delivery_time_range_templates.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_availability/views/fsm_stress_day_templates.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_availability/views/menu.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_availability/views/fsm_blackout_day_templates.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_calendar/views/fsm_team.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_calendar/views/fsm_order.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_sale_stock_from_pos/views/res_config_settings.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_vehicle/views/fsm_vehicle.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_vehicle/views/fsm_person.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_vehicle/views/menu.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_vehicle/views/fsm_order.xml
+-> Analizando: ./oca_addons/field-service/fieldservice_vehicle/security/res_groups.xml
+-> Analizando: ./oca_addons/oca-pos/pos_order_to_sale_order/views/view_res_config_settings.xml
+-> Analizando: ./oca_addons/oca-pos/pos_order_to_sale_order/static/src/xml/CreateOrderButton.xml
+-> Analizando: ./oca_addons/oca-pos/pos_order_to_sale_order/static/src/xml/CreateOrderPopup.xml
+-> Analizando: ./oca_addons/oca-pos/pos_session_sequence/views/res_config_settings_views.xml
+-> Analizando: ./oca_addons/oca-pos/pos_session_sequence/demo/pos_session_sequence.xml
+-> Analizando: ./oca_addons/oca-pos/pos_category_vertical_display/static/src/xml/category_selector.xml
+-> Analizando: ./oca_addons/oca-pos/pos_product_expiry/views/res_config_settings_views.xml
+-> Analizando: ./oca_addons/oca-pos/pos_partner_birthdate/static/src/xml/screens.xml
+-> Analizando: ./oca_addons/oca-pos/pos_partner_second_lastname/static/src/app/PartnerDetailsEdit.xml
+-> Analizando: ./oca_addons/oca-pos/pos_lot_selection/static/src/xml/LotSelectorPopup.xml
+-> Analizando: ./oca_addons/oca-pos/pos_partner_ref/static/src/xml/screens.xml
+-> Analizando: ./oca_addons/oca-pos/pos_order_copy/static/src/app/ticket_screen/ticket_screen.xml
+-> Analizando: ./oca_addons/oca-pos/pos_order_copy/static/src/app/product_screen/CopyOrderButton.xml
+-> Analizando: ./oca_addons/oca-pos/pos_user_restriction/views/point_of_sale_views.xml
+-> Analizando: ./oca_addons/oca-pos/pos_user_restriction/views/pos_config_views.xml
+-> Analizando: ./oca_addons/oca-pos/pos_user_restriction/security/pos_security.xml
+-> Analizando: ./oca_addons/oca-pos/pos_partner_firstname/static/src/app/PartnerDetailsEdit.xml
+-> Analizando: ./oca_addons/oca-pos/pos_config_phone/views/res_config_settings_views.xml
+-> Analizando: ./oca_addons/oca-pos/pos_config_phone/static/src/app/screens/receipt_screen/receipt/receipt_header/receipt_header.xml
+-> Analizando: ./oca_addons/oca-pos/pos_order_split_invoice/views/account_move.xml
+-> Analizando: ./oca_addons/oca-pos/pos_order_split_invoice/views/pos_session.xml
+-> Analizando: ./oca_addons/oca-pos/pos_order_split_invoice/views/pos_order.xml
+-> Analizando: ./oca_addons/oca-pos/pos_order_split_invoice/views/product_pricelist.xml
+-> Analizando: ./oca_addons/oca-pos/pos_order_split_invoice/static/src/generic_components/product_card.xml
+-> Analizando: ./oca_addons/oca-pos/pos_order_split_invoice/static/src/screens/product_screen/product_list.xml
+-> Analizando: ./oca_addons/oca-pos/pos_margin/views/view_pos_order.xml
+-> Analizando: ./oca_addons/oca-pos/pos_margin/views/res_config_settings_view.xml
+-> Analizando: ./oca_addons/oca-pos/pos_margin/static/src/xml/pos_margin.xml
+-> Analizando: ./oca_addons/oca-pos/pos_early_receipt_printing/views/pos_config_views.xml
+-> Analizando: ./oca_addons/oca-pos/pos_lot_barcode/static/src/xml/Popups/ErrorMultiLotBarcodePopup.xml
+-> Analizando: ./oca_addons/oca-pos/pos_product_template/views/res_config_settings_view.xml
+-> Analizando: ./oca_addons/oca-pos/pos_product_template/static/src/pos/components/product_template_card/product_template_card.xml
+-> Analizando: ./oca_addons/oca-pos/pos_product_template/static/src/pos/components/product_selector/product_selector.xml
+-> Analizando: ./oca_addons/oca-pos/pos_product_template/static/src/pos/components/product_widget/product_widget.xml
+-> Analizando: ./oca_addons/oca-pos/pos_product_template/demo/product_product.xml
+-> Analizando: ./oca_addons/oca-pos/pos_product_template/demo/product_attribute_value.xml
+-> Analizando: ./oca_addons/oca-pos/pos_cash_move_reason/wizard/wizard_pos_move_reason.xml
+-> Analizando: ./oca_addons/oca-pos/pos_cash_move_reason/views/view_pos_move_reason.xml
+-> Analizando: ./oca_addons/oca-pos/pos_cash_move_reason/views/view_pos_session.xml
+-> Analizando: ./oca_addons/oca-pos/pos_cash_move_reason/security/ir_rule.xml
+-> Analizando: ./oca_addons/oca-pos/pos_cash_move_reason/demo/pos_move_reason.xml
+-> Analizando: ./oca_addons/oca-pos/pos_cash_move_reason/demo/account_account.xml
+-> Analizando: ./oca_addons/oca-pos/pos_hide_cost_price_and_margin/views/res_config_settings_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_calendar_planning/views/hr_employee_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_calendar_planning/views/resource_calendar_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_relative/data/data_relative_relation.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_relative/views/hr_employee.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_relative/views/hr_employee_relative.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_id/data/hr_employee_sequence.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_id/views/hr_employee_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_id/views/res_config_settings_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_department_code/views/hr_department_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_job_category/views/hr_view.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_medical_examination/views/hr_employee_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_medical_examination/views/hr_employee_medical_examination_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_medical_examination/wizards/wizard_generate_medical_examination.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_medical_examination/security/hr_employee_medical_examination_security.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_partner_external/views/hr_employee.xml
+-> Analizando: ./oca_addons/oca-hr/hr_announcement/views/announcement_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_firstname/views/hr_view.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_firstname/views/base_config_view.xml
+-> Analizando: ./oca_addons/oca-hr/hr_contract_bonus/views/hr_contract_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_contract_bonus/views/hr_contract_bonus_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_work_entry_profile/views/res_users.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_age/views/hr_employee.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_ppe/data/hr_employee_ppe_cron.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_ppe/views/hr_personal_equipment.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_ppe/views/product_template.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_ppe/views/hr_personal_equipment_request.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_ppe/reports/hr_employee_ppe_report_template.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_ppe/reports/hr_employee_ppe_report.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_ssn/views/hr_employee_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_document/views/hr_employee.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_document/views/hr_employee_public.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_language/views/hr_employee_language.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_language/views/hr_employee.xml
+-> Analizando: ./oca_addons/oca-hr/hr_course/views/hr_employee_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_course/views/hr_course_category_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_course/views/hr_course_schedule_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_course/views/hr_course_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_course/security/course_security.xml
+-> Analizando: ./oca_addons/oca-hr/hr_course/demo/hr_course.xml
+-> Analizando: ./oca_addons/oca-hr/hr_personal_equipment_request/views/hr_personal_equipment_request_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_personal_equipment_request/views/hr_employee_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_personal_equipment_request/views/hr_personal_equipment_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_personal_equipment_request/views/product_template_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_personal_equipment_request/security/hr_personal_equipment_request_security.xml
+-> Analizando: ./oca_addons/oca-hr/hr_employee_second_lastname/views/hr_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_professional_category/views/hr_professional_category_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_professional_category/views/hr_contract_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_professional_category/security/security.xml
+-> Analizando: ./oca_addons/oca-hr/hr_professional_category/demo/hr_professional_category_demo.xml
+-> Analizando: ./oca_addons/oca-hr/hr_study/views/hr_employee_view.xml
+-> Analizando: ./oca_addons/oca-hr/hr_study/views/hr_study_views.xml
+-> Analizando: ./oca_addons/oca-hr/hr_study/security/security.xml
+-> Analizando: ./oca_addons/oca-hr/hr_study/demo/hr_study.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_location/views/maintenance_equipment.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_location/views/maintenance_plan.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_location/views/maintenance_request.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_location/views/maintenance_location.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_request_purchase/views/maintenance_request.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_request_purchase/views/purchase_order_views.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_request_employee/views/maintenance_request_views.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_project/views/maintenance_request_views.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_project/views/project_project_views.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_project/views/maintenance_equipment_views.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_project/report/maintenance_request_report.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_project/demo/demo_maintenance_project.xml
+-> Analizando: ./oca_addons/oca-maintenance/base_maintenance/views/maintenance_team_views.xml
+-> Analizando: ./oca_addons/oca-maintenance/base_maintenance/views/maintenance_request_views.xml
+-> Analizando: ./oca_addons/oca-maintenance/base_maintenance/views/maintenance_equipment_views.xml
+-> Analizando: ./oca_addons/oca-maintenance/base_maintenance/views/report_maintenance_request.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_product/views/product_template_view.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_product/views/maintenance_equipment_view.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_account/views/account_move_view.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_account/views/maintenance_equipment_view.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_equipment_contract/views/maintenance_equipment.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_equipment_contract/views/contract_contract.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_equipment_contract/demo/maintenance_equipment_contract_demo.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_equipment_sequence/views/maintenance_views.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_equipment_usage/data/ir_sequence_data.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_equipment_usage/views/maintenance_equipment_usage_views.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_equipment_usage/views/maintenance_equipment_view.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_equipment_usage/security/security.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_equipment_category_hierarchy/views/maintenance_equipment_category.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_equipment_hierarchy/data/demo_maintenance_equipment_hierarchy.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_equipment_hierarchy/views/maintenance_equipment_views.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_plan/data/ir_cron.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_plan/views/maintenance_plan_views.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_plan/views/maintenance_kind_views.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_plan/views/maintenance_equipment_views.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_plan/views/report_maintenance_request.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_plan/security/maintenance_security.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_plan/demo/demo_maintenance_plan.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_timesheet_time_control/views/maintenance_request_view.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_timesheet/views/maintenance_request_views.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_timesheet/views/hr_timesheet_views.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_timesheet/report/maintenance_request_report.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_timesheet/migrations/17.0.1.1.0/noupdate_changes.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_timesheet/security/maintenance_timesheet_security.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_timesheet/demo/demo_maintenance_timesheet.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_equipment_status/data/demo_maintenance_equipment_status.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_equipment_status/views/maintenance_equipment_status_views.xml
+-> Analizando: ./oca_addons/oca-maintenance/maintenance_equipment_status/views/maintenance_equipment_views.xml
+
+[0;32m--- 3. Revisión de Archivos Shell (.sh) con shellcheck ---[0m
+-> Analizando: ./c.sh
+
+In ./c.sh line 7:
+echo "════════════════════════════════════════════════════════════════" > $REPORT_FILE
+                                                                          ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" > "$REPORT_FILE"
+
+
+In ./c.sh line 8:
+echo "  AUDITORÍA ULTRA PROFUNDA - INMOSER SERVICE ORDER" >> $REPORT_FILE
+^-- SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+                                                             ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "  AUDITORÍA ULTRA PROFUNDA - INMOSER SERVICE ORDER" >> "$REPORT_FILE"
+
+
+In ./c.sh line 9:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In ./c.sh line 10:
+echo "Fecha: $(date)" >> $REPORT_FILE
+                         ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "Fecha: $(date)" >> "$REPORT_FILE"
+
+
+In ./c.sh line 11:
+echo "Ruta: $MODULE_PATH" >> $REPORT_FILE
+                             ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "Ruta: $MODULE_PATH" >> "$REPORT_FILE"
+
+
+In ./c.sh line 12:
+echo "" >> $REPORT_FILE
+           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" >> "$REPORT_FILE"
+
+
+In ./c.sh line 20:
+    echo "❌ ERROR: $1" | tee -a $REPORT_FILE
+                                ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "❌ ERROR: $1" | tee -a "$REPORT_FILE"
+
+
+In ./c.sh line 25:
+    echo "⚠️  WARNING: $1" | tee -a $REPORT_FILE
+                                    ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "⚠️  WARNING: $1" | tee -a "$REPORT_FILE"
+
+
+In ./c.sh line 30:
+    echo "✅ OK: $1" | tee -a $REPORT_FILE
+                             ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "✅ OK: $1" | tee -a "$REPORT_FILE"
+
+
+In ./c.sh line 34:
+echo "" >> $REPORT_FILE
+^---------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" >> "$REPORT_FILE"
+
+
+In ./c.sh line 35:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In ./c.sh line 36:
+echo "1. AUDITORÍA DE ARCHIVOS PYTHON" >> $REPORT_FILE
+                                          ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "1. AUDITORÍA DE ARCHIVOS PYTHON" >> "$REPORT_FILE"
+
+
+In ./c.sh line 37:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In ./c.sh line 40:
+    echo "" >> $REPORT_FILE
+               ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "" >> "$REPORT_FILE"
+
+
+In ./c.sh line 41:
+    echo "📄 Analizando: $py_file" >> $REPORT_FILE
+                                     ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "📄 Analizando: $py_file" >> "$REPORT_FILE"
+
+
+In ./c.sh line 48:
+        python3 -m py_compile "$py_file" 2>&1 >> $REPORT_FILE
+                                         ^--^ SC2069 (warning): To redirect stdout+stderr, 2>&1 must be last (or use '{ cmd > file; } 2>&1' to clarify).
+                                                 ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+        python3 -m py_compile "$py_file" 2>&1 >> "$REPORT_FILE"
+
+
+In ./c.sh line 56:
+        file "$py_file" >> $REPORT_FILE
+                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+        file "$py_file" >> "$REPORT_FILE"
+
+
+In ./c.sh line 91:
+echo "" >> $REPORT_FILE
+^---------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" >> "$REPORT_FILE"
+
+
+In ./c.sh line 92:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In ./c.sh line 93:
+echo "2. AUDITORÍA DE ARCHIVOS XML" >> $REPORT_FILE
+                                       ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "2. AUDITORÍA DE ARCHIVOS XML" >> "$REPORT_FILE"
+
+
+In ./c.sh line 94:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In ./c.sh line 97:
+    echo "" >> $REPORT_FILE
+               ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "" >> "$REPORT_FILE"
+
+
+In ./c.sh line 98:
+    echo "📄 Analizando: $xml_file" >> $REPORT_FILE
+                                      ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "📄 Analizando: $xml_file" >> "$REPORT_FILE"
+
+
+In ./c.sh line 105:
+        xmllint --noout "$xml_file" 2>&1 >> $REPORT_FILE
+                                    ^--^ SC2069 (warning): To redirect stdout+stderr, 2>&1 must be last (or use '{ cmd > file; } 2>&1' to clarify).
+                                            ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+        xmllint --noout "$xml_file" 2>&1 >> "$REPORT_FILE"
+
+
+In ./c.sh line 134:
+echo "" >> $REPORT_FILE
+^---------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" >> "$REPORT_FILE"
+
+
+In ./c.sh line 135:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In ./c.sh line 136:
+echo "3. AUDITORÍA DE ARCHIVOS CSV" >> $REPORT_FILE
+                                       ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "3. AUDITORÍA DE ARCHIVOS CSV" >> "$REPORT_FILE"
+
+
+In ./c.sh line 137:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In ./c.sh line 140:
+    echo "" >> $REPORT_FILE
+               ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "" >> "$REPORT_FILE"
+
+
+In ./c.sh line 141:
+    echo "📄 Analizando: $csv_file" >> $REPORT_FILE
+                                      ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "📄 Analizando: $csv_file" >> "$REPORT_FILE"
+
+
+In ./c.sh line 151:
+    head -1 "$csv_file" | grep -q "model_id:id" && log_success "Cabecera CSV correcta: $csv_file" || log_error "Cabecera CSV incorrecta: $csv_file"
+                                                ^-- SC2015 (info): Note that A && B || C is not if-then-else. C may run when A is true.
+
+
+In ./c.sh line 154:
+    tail -n +2 "$csv_file" | while IFS=',' read -r id name model_id group_id perm_read perm_write perm_create perm_unlink; do
+                                                   ^-- SC2034 (warning): id appears unused. Verify use (or export if used externally).
+                                                      ^--^ SC2034 (warning): name appears unused. Verify use (or export if used externally).
+                                                                    ^------^ SC2034 (warning): group_id appears unused. Verify use (or export if used externally).
+                                                                             ^-------^ SC2034 (warning): perm_read appears unused. Verify use (or export if used externally).
+                                                                                       ^--------^ SC2034 (warning): perm_write appears unused. Verify use (or export if used externally).
+                                                                                                  ^---------^ SC2034 (warning): perm_create appears unused. Verify use (or export if used externally).
+                                                                                                              ^---------^ SC2034 (warning): perm_unlink appears unused. Verify use (or export if used externally).
+
+
+In ./c.sh line 161:
+echo "" >> $REPORT_FILE
+^---------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" >> "$REPORT_FILE"
+
+
+In ./c.sh line 162:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In ./c.sh line 163:
+echo "4. VERIFICACIÓN DE COHERENCIA MODELO-VISTA" >> $REPORT_FILE
+                                                     ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "4. VERIFICACIÓN DE COHERENCIA MODELO-VISTA" >> "$REPORT_FILE"
+
+
+In ./c.sh line 164:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In ./c.sh line 182:
+echo "" >> $REPORT_FILE
+^---------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" >> "$REPORT_FILE"
+
+
+In ./c.sh line 183:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In ./c.sh line 184:
+echo "5. VERIFICACIÓN DE IMPORTS EN __init__.py" >> $REPORT_FILE
+                                                    ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "5. VERIFICACIÓN DE IMPORTS EN __init__.py" >> "$REPORT_FILE"
+
+
+In ./c.sh line 185:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In ./c.sh line 190:
+        module_name=$(echo "$import_line" | sed 's/from\.import//')
+                      ^-- SC2001 (style): See if you can use ${variable//search/replace} instead.
+
+
+In ./c.sh line 203:
+        model_file=$(echo "$import_line" | sed 's/from\.import//')
+                     ^-- SC2001 (style): See if you can use ${variable//search/replace} instead.
+
+
+In ./c.sh line 214:
+echo "" >> $REPORT_FILE
+^---------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" >> "$REPORT_FILE"
+
+
+In ./c.sh line 215:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In ./c.sh line 216:
+echo "6. VERIFICACIÓN DE DEPENDENCIAS" >> $REPORT_FILE
+                                          ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "6. VERIFICACIÓN DE DEPENDENCIAS" >> "$REPORT_FILE"
+
+
+In ./c.sh line 217:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In ./c.sh line 235:
+echo "" >> $REPORT_FILE
+^---------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" >> "$REPORT_FILE"
+
+
+In ./c.sh line 236:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In ./c.sh line 237:
+echo "7. VERIFICACIÓN DE REFERENCIAS CRUZADAS" >> $REPORT_FILE
+                                                  ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "7. VERIFICACIÓN DE REFERENCIAS CRUZADAS" >> "$REPORT_FILE"
+
+
+In ./c.sh line 238:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In ./c.sh line 251:
+echo "" >> $REPORT_FILE
+^---------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" >> "$REPORT_FILE"
+
+
+In ./c.sh line 252:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In ./c.sh line 253:
+echo "8. VERIFICACIÓN DE XMLIDS" >> $REPORT_FILE
+                                    ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "8. VERIFICACIÓN DE XMLIDS" >> "$REPORT_FILE"
+
+
+In ./c.sh line 254:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In ./c.sh line 262:
+echo "" >> $REPORT_FILE
+^---------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" >> "$REPORT_FILE"
+
+
+In ./c.sh line 263:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In ./c.sh line 264:
+echo "9. VERIFICACIÓN DE HERENCIA PYTHON" >> $REPORT_FILE
+                                             ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "9. VERIFICACIÓN DE HERENCIA PYTHON" >> "$REPORT_FILE"
+
+
+In ./c.sh line 265:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In ./c.sh line 267:
+for py_file in $(find $MODULE_PATH/models -name "*.py" -type f); do
+               ^-- SC2044 (warning): For loops over find output are fragile. Use find -exec or a while read loop.
+
+
+In ./c.sh line 280:
+echo "" >> $REPORT_FILE
+^---------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" >> "$REPORT_FILE"
+
+
+In ./c.sh line 281:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In ./c.sh line 282:
+echo "10. RESUMEN FINAL" >> $REPORT_FILE
+                            ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "10. RESUMEN FINAL" >> "$REPORT_FILE"
+
+
+In ./c.sh line 283:
+echo "════════════════════════════════════════════════════════════════" >> $REPORT_FILE
+                                                                           ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "════════════════════════════════════════════════════════════════" >> "$REPORT_FILE"
+
+
+In ./c.sh line 285:
+echo "" | tee -a $REPORT_FILE
+                 ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" | tee -a "$REPORT_FILE"
+
+
+In ./c.sh line 286:
+echo "📊 ESTADÍSTICAS:" | tee -a $REPORT_FILE
+                                ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "📊 ESTADÍSTICAS:" | tee -a "$REPORT_FILE"
+
+
+In ./c.sh line 287:
+echo "   Errores encontrados: $ERRORS" | tee -a $REPORT_FILE
+                                                ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "   Errores encontrados: $ERRORS" | tee -a "$REPORT_FILE"
+
+
+In ./c.sh line 288:
+echo "   Warnings encontrados: $WARNINGS" | tee -a $REPORT_FILE
+                                                   ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "   Warnings encontrados: $WARNINGS" | tee -a "$REPORT_FILE"
+
+
+In ./c.sh line 289:
+echo "" | tee -a $REPORT_FILE
+                 ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+echo "" | tee -a "$REPORT_FILE"
+
+
+In ./c.sh line 291:
+if [ $ERRORS -eq 0 ]; then
+     ^-----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+if [ "$ERRORS" -eq 0 ]; then
+
+
+In ./c.sh line 292:
+    echo "🎉 ¡AUDITORÍA COMPLETADA SIN ERRORES CRÍTICOS!" | tee -a $REPORT_FILE
+                                                                  ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "🎉 ¡AUDITORÍA COMPLETADA SIN ERRORES CRÍTICOS!" | tee -a "$REPORT_FILE"
+
+
+In ./c.sh line 295:
+    echo "❌ SE ENCONTRARON ERRORES CRÍTICOS" | tee -a $REPORT_FILE
+                                                      ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "❌ SE ENCONTRARON ERRORES CRÍTICOS" | tee -a "$REPORT_FILE"
+
+
+In ./c.sh line 296:
+    echo "📄 Reporte completo guardado en: $REPORT_FILE" | tee -a $REPORT_FILE
+                                                                 ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "📄 Reporte completo guardado en: $REPORT_FILE" | tee -a "$REPORT_FILE"
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2034 -- group_id appears unused. Verify u...
+  https://www.shellcheck.net/wiki/SC2044 -- For loops over find output are fr...
+  https://www.shellcheck.net/wiki/SC2069 -- To redirect stdout+stderr, 2>&1 m...
+-> Analizando: ./audit_odoo.sh
+
+In ./audit_odoo.sh line 30:
+    du -sh */ 2>/dev/null | sort -hr
+           ^-- SC2035 (info): Use ./*glob* or -- *glob* so names with dashes won't become options.
+
+
+In ./audit_odoo.sh line 44:
+    for manifest in $(find custom_addons -name "__manifest__.py" -o -name "__openerp__.py"); do
+                    ^-- SC2044 (warning): For loops over find output are fragile. Use find -exec or a while read loop.
+
+
+In ./audit_odoo.sh line 51:
+    find custom_addons -name "*.py" -type f | xargs wc -l | sort -nr
+    ^-- SC2038 (warning): Use -print0/-0 or -exec + to allow for non-alphanumeric filenames.
+
+
+In ./audit_odoo.sh line 247:
+            echo "$(basename $repo): $count módulos"
+                             ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+            echo "$(basename "$repo"): $count módulos"
+
+
+In ./audit_odoo.sh line 303:
+    echo "Repositorios OCA: $(ls -d oca_addons/*/ 2>/dev/null | wc -l)"
+                              ^-----------------------------^ SC2012 (info): Use find instead of ls to better handle non-alphanumeric filenames.
+
+
+In ./audit_odoo.sh line 333:
+ls -lh "$REPORT_DIR"/*$TIMESTAMP.txt
+                      ^--------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+ls -lh "$REPORT_DIR"/*"$TIMESTAMP".txt
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2038 -- Use -print0/-0 or -exec + to allo...
+  https://www.shellcheck.net/wiki/SC2044 -- For loops over find output are fr...
+  https://www.shellcheck.net/wiki/SC2012 -- Use find instead of ls to better ...
+-> Analizando: ./deploy_odoo.sh
+-> Analizando: ./fix_odoo_error.sh
+-> Analizando: ./b.sh
+
+In ./b.sh line 77:
+    local cache_count=$(find . -type d -name "__pycache__" | wc -l)
+          ^---------^ SC2155 (warning): Declare and assign separately to avoid masking return values.
+
+
+In ./b.sh line 83:
+    local pyc_count=$(find . -name "*.pyc" | wc -l)
+          ^-------^ SC2155 (warning): Declare and assign separately to avoid masking return values.
+
+
+In ./b.sh line 101:
+    local uid_gid=$(stat -c "%u:%g" "${CUSTOM_ADDONS_PATH}")
+          ^-----^ SC2155 (warning): Declare and assign separately to avoid masking return values.
+
+
+In ./b.sh line 152:
+        if [ "$(module_exists $module)" == "$module" ]; then
+                              ^-----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+        if [ "$(module_exists "$module")" == "$module" ]; then
+
+
+In ./b.sh line 180:
+    local errors=$(docker logs "$CONTAINER_NAME" --since 5m 2>&1 | grep -c "ERROR\|Traceback" || true)
+          ^----^ SC2155 (warning): Declare and assign separately to avoid masking return values.
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2155 -- Declare and assign separately to ...
+  https://www.shellcheck.net/wiki/SC2086 -- Double quote to prevent globbing ...
+-> Analizando: ./a.sh
+
+In ./a.sh line 53:
+for py_file in $(find "$MODULE_PATH" -name "*.py" -type f); do
+               ^-- SC2044 (warning): For loops over find output are fragile. Use find -exec or a while read loop.
+
+
+In ./a.sh line 74:
+for xml_file in $(find "$MODULE_PATH" -name "*.xml" -type f); do
+                ^-- SC2044 (warning): For loops over find output are fragile. Use find -exec or a while read loop.
+
+
+In ./a.sh line 98:
+cat "$MANIFEST" | tee -a "$REPORT_FILE"
+    ^---------^ SC2002 (style): Useless cat. Consider 'cmd < file | ..' or 'cmd file | ..' instead.
+
+
+In ./a.sh line 102:
+python3 -c "import ast; ast.parse(open('$MANIFEST').read())" 2>&1 | tee -a "$REPORT_FILE" && log "   ✅ Sintaxis válida" || log "   ❌ SINTAXIS INVÁLIDA"
+                                                                                          ^-- SC2015 (info): Note that A && B || C is not if-then-else. C may run when A is true.
+
+
+In ./a.sh line 146:
+cat "${MODULE_PATH}/__init__.py" | tee -a "$REPORT_FILE"
+    ^--------------------------^ SC2002 (style): Useless cat. Consider 'cmd < file | ..' or 'cmd file | ..' instead.
+
+
+In ./a.sh line 150:
+cat "${MODULE_PATH}/models/__init__.py" | tee -a "$REPORT_FILE"
+    ^-- SC2002 (style): Useless cat. Consider 'cmd < file | ..' or 'cmd file | ..' instead.
+
+
+In ./a.sh line 173:
+for py_file in $(find "$MODULE_PATH/models" -name "*.py" -type f ! -name "__init__.py"); do
+               ^-- SC2044 (warning): For loops over find output are fragile. Use find -exec or a while read loop.
+
+
+In ./a.sh line 175:
+    log "📄 Analizando: $(basename $py_file)"
+                                  ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    log "📄 Analizando: $(basename "$py_file")"
+
+
+In ./a.sh line 204:
+    if [ $FIELD_COUNT -gt 0 ]; then
+         ^----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    if [ "$FIELD_COUNT" -gt 0 ]; then
+
+
+In ./a.sh line 220:
+for py_file in $(find "$MODULE_PATH/models" -name "*.py" -type f ! -name "__init__.py"); do
+               ^-- SC2044 (warning): For loops over find output are fragile. Use find -exec or a while read loop.
+
+
+In ./a.sh line 225:
+            log "   $(basename $py_file): Many2one('$referenced_model')"
+                               ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+            log "   $(basename "$py_file"): Many2one('$referenced_model')"
+
+
+In ./a.sh line 232:
+for py_file in $(find "$MODULE_PATH/models" -name "*.py" -type f ! -name "__init__.py"); do
+               ^-- SC2044 (warning): For loops over find output are fragile. Use find -exec or a while read loop.
+
+
+In ./a.sh line 236:
+            log "   $(basename $py_file): One2many('$referenced_model')"
+                               ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+            log "   $(basename "$py_file"): One2many('$referenced_model')"
+
+
+In ./a.sh line 252:
+cat "$CSV_FILE" | tee -a "$REPORT_FILE"
+    ^---------^ SC2002 (style): Useless cat. Consider 'cmd < file | ..' or 'cmd file | ..' instead.
+
+
+In ./a.sh line 256:
+tail -n +2 "$CSV_FILE" | while IFS=',' read -r id name model_id group_id perm_read perm_write perm_create perm_unlink; do
+                                               ^-- SC2034 (warning): id appears unused. Verify use (or export if used externally).
+                                                                         ^-------^ SC2034 (warning): perm_read appears unused. Verify use (or export if used externally).
+                                                                                   ^--------^ SC2034 (warning): perm_write appears unused. Verify use (or export if used externally).
+                                                                                              ^---------^ SC2034 (warning): perm_create appears unused. Verify use (or export if used externally).
+                                                                                                          ^---------^ SC2034 (warning): perm_unlink appears unused. Verify use (or export if used externally).
+
+
+In ./a.sh line 275:
+for xml_file in $(find "$MODULE_PATH/data" -name "*.xml" -type f 2>/dev/null); do
+                ^-- SC2044 (warning): For loops over find output are fragile. Use find -exec or a while read loop.
+
+
+In ./a.sh line 277:
+    log "📄 Analizando: $(basename $xml_file)"
+                                  ^-------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    log "📄 Analizando: $(basename "$xml_file")"
+
+
+In ./a.sh line 279:
+    cat "$xml_file" | tee -a "$REPORT_FILE"
+        ^---------^ SC2002 (style): Useless cat. Consider 'cmd < file | ..' or 'cmd file | ..' instead.
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2034 -- id appears unused. Verify use (or...
+  https://www.shellcheck.net/wiki/SC2044 -- For loops over find output are fr...
+  https://www.shellcheck.net/wiki/SC2015 -- Note that A && B || C is not if-t...
+-> Analizando: ./d.sh
+
+In ./d.sh line 104:
+    if [ $? -ne 0 ]; then
+         ^-- SC2181 (style): Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2181 -- Check exit code directly with e.g...
+-> Analizando: ./update_inmoser.sh
+
+In ./update_inmoser.sh line 23:
+    docker exec -it odoo_project-odoo-1 odoo -d $DB -u $MODULE --stop-after-init
+                                                       ^-----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    docker exec -it odoo_project-odoo-1 odoo -d $DB -u "$MODULE" --stop-after-init
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2086 -- Double quote to prevent globbing ...
+-> Analizando: ./deep_analysis.sh
+
+In ./deep_analysis.sh line 24:
+        if [ $module_count -gt 0 ]; then
+             ^-----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+        if [ "$module_count" -gt 0 ]; then
+
+
+In ./deep_analysis.sh line 49:
+    echo "=== $(dirname $manifest) ==="
+                        ^-------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "=== $(dirname "$manifest") ==="
+
+
+In ./deep_analysis.sh line 130:
+        echo "=== $(basename $xml) ==="
+                             ^--^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+        echo "=== $(basename "$xml") ==="
+
+
+In ./deep_analysis.sh line 163:
+    echo "=== $(dirname $manifest) ==="
+                        ^-------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "=== $(dirname "$manifest") ==="
+
+
+In ./deep_analysis.sh line 194:
+        echo "⚠️  $(basename $module) - Sin README"
+                             ^-----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+        echo "⚠️  $(basename "$module") - Sin README"
+
+
+In ./deep_analysis.sh line 202:
+        echo "⚠️  $(basename $module) - Sin carpeta tests/"
+                             ^-----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+        echo "⚠️  $(basename "$module") - Sin carpeta tests/"
+
+
+In ./deep_analysis.sh line 228:
+for py_file in $(find custom_addons -name "*.py" -type f); do
+               ^-- SC2044 (warning): For loops over find output are fragile. Use find -exec or a while read loop.
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2044 -- For loops over find output are fr...
+  https://www.shellcheck.net/wiki/SC2086 -- Double quote to prevent globbing ...
+-> Analizando: ./analyze_dependencies.sh
+-> Analizando: ./cleanup_project.sh
+
+In ./cleanup_project.sh line 198:
+find custom_addons -maxdepth 2 -name "__manifest__.py" -exec dirname {} \; | while read module; do
+                                                                                   ^--^ SC2162 (info): read without -r will mangle backslashes.
+
+
+In ./cleanup_project.sh line 199:
+    echo "   📦 $(basename $module)"
+                          ^-----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+    echo "   📦 $(basename "$module")"
+
+
+In ./cleanup_project.sh line 220:
+du -sh */ 2>/dev/null | sort -hr | head -10
+       ^-- SC2035 (info): Use ./*glob* or -- *glob* so names with dashes won't become options.
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2035 -- Use ./*glob* or -- *glob* so name...
+  https://www.shellcheck.net/wiki/SC2086 -- Double quote to prevent globbing ...
+  https://www.shellcheck.net/wiki/SC2162 -- read without -r will mangle backs...
+-> Analizando: ./custom_addons/inmoser_service_order/fix_inmoser_files.sh
+
+[0;32m--- 4. Revisión de Archivos de Manifiesto (__manifest__.py) ---[0m
+Sintaxis OK: ./custom_addons/inmoser_service_order/__manifest__.py
+Sintaxis OK: ./custom_addons/inmoser_field_service/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-contract/contract/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-contract/contract_update_last_date_invoiced/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-contract/product_contract/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-contract/subscription_oca/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-contract/contract_sale_invoicing/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-contract/contract_variable_qty_timesheet/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-contract/contract_sale/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-contract/contract_price_revision/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-contract/contract_invoice_start_end_dates/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-contract/contract_analytic_tag/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-contract/contract_queue_job/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-contract/contract_variable_quantity/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-contract/contract_mandate/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-contract/contract_invoice_auto_validate/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-contract/contract_payment_mode/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-agreement/agreement_account/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-agreement/agreement_legal/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-agreement/agreement_repair/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-agreement/agreement/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-agreement/agreement_sale/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-repair/repair_stock/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-repair/repair_refurbish/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-repair/repair_restrict_lot/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-repair/repair_order_template/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-repair/repair_quality_control/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-repair/repair_quotation_manual_sync/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-repair/repair_type/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-repair/repair_substate/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-repair/repair_service/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-repair/repair_order_line_sequence/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-repair/base_repair_config/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-repair/repair_type_product_destination/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-repair/repair_picking_after_done/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-repair/repair_picking/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-repair/repair_timesheet/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-geospatial/geoengine_base_geolocalize/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-geospatial/web_leaflet_lib/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-geospatial/base_geoengine/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-geospatial/geoengine_partner/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-geospatial/base_geoengine_demo/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_geoengine/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_stock_scrap/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_account_analytic/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/base_territory/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_kanban_info/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_portal/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_crm/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_sale_agreement/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_sale/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_stock/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_project/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_sale_agreement_equipment_stock/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_stage_validation/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_recurring/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_route_availability/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_current_location/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_sale_stock/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_account/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_repair/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_skill/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_size/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_isp_flow/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_sale_recurring/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_equipment_stock/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_maintenance/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_repair_order_template/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_activity/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_stock_request/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_stage_server_action/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_timeline/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_agreement/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_route/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_address_no_change/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_equipment_stock_return/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_availability/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_calendar/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_sale_stock_from_pos/__manifest__.py
+Sintaxis OK: ./oca_addons/field-service/fieldservice_vehicle/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_order_to_sale_order/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_session_sequence/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_category_vertical_display/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_partner_vat_required/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_open_cashbox_after_payment/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_product_expiry/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_partner_sale_warning/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_partner_birthdate/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_partner_second_lastname/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_lot_selection/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_cash_control_extension/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_partner_ref/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_order_copy/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_user_restriction/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_partner_firstname_required/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_partner_firstname/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_partner_vat_valid/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_config_phone/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_order_split_invoice/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_margin/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_early_receipt_printing/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_lot_barcode/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_product_template/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_cash_move_reason/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_hide_cost_price_and_margin/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-pos/pos_partner_address_required/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-hr/hr_employee_calendar_planning/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-hr/hr_employee_relative/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-hr/hr_employee_id/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-hr/hr_department_code/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-hr/hr_job_category/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-hr/hr_employee_medical_examination/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-hr/hr_employee_partner_external/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-hr/hr_announcement/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-hr/hr_employee_firstname/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-hr/hr_contract_bonus/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-hr/hr_work_entry_profile/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-hr/hr_employee_age/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-hr/hr_employee_ppe/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-hr/hr_employee_ssn/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-hr/hr_employee_document/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-hr/hr_employee_language/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-hr/hr_course/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-hr/hr_personal_equipment_request/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-hr/hr_employee_second_lastname/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-hr/hr_professional_category/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-hr/hr_study/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-maintenance/maintenance_location/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-maintenance/maintenance_request_purchase/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-maintenance/maintenance_request_employee/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-maintenance/maintenance_project/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-maintenance/base_maintenance/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-maintenance/maintenance_product/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-maintenance/maintenance_account/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-maintenance/maintenance_equipment_contract/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-maintenance/maintenance_equipment_sequence/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-maintenance/maintenance_equipment_usage/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-maintenance/maintenance_equipment_category_hierarchy/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-maintenance/maintenance_equipment_hierarchy/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-maintenance/maintenance_plan/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-maintenance/maintenance_timesheet_time_control/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-maintenance/maintenance_timesheet/__manifest__.py
+Sintaxis OK: ./oca_addons/oca-maintenance/maintenance_equipment_status/__manifest__.py
+========================================================================
+[0;32mANÁLISIS COMPLETADO.[0m
+El reporte detallado se guardó en: ./code_review_report_20251115_175942.txt
+========================================================================

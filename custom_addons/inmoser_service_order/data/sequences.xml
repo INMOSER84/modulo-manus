@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="sequence_inmoser_service_order" model="ir.sequence">
+        <field name="name">Secuencia Orden de Servicio</field>
+        <field name="code">inmoser.service.order</field>
+        <field name="prefix">OS</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="sequence_inmoser_service_equipment" model="ir.sequence">
+        <field name="name">Secuencia Equipo</field>
+        <field name="code">inmoser.service.equipment</field>
+        <field name="prefix">E</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>
